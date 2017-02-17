@@ -12,6 +12,7 @@ class CreateMediaTable extends Migration
             $table->string('title', 500);
             $table->string('type', 250);
             $table->string('source', 500);
+            $table->string('thumb_source', 500)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

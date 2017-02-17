@@ -34,6 +34,9 @@ use Storage;
 use Teepluss\Theme\Facades\Theme;
 use Validator;
 use App\Event;
+use FFMpeg\FFMpeg;
+use FFMpeg\Coordinate\Dimension;
+use FFMpeg\Coordinate\TimeCode;
 
 class TimelineController extends AppBaseController
 {
@@ -322,6 +325,36 @@ class TimelineController extends AppBaseController
        ->render();
     }
 
+    public function checkType($path){
+        $mime = mime_content_type($path);
+        if(strpos($mime, 'video') !== false){
+            return "video";
+        }else{
+            return "image";
+        }
+    }
+
+    public function thumbVideo($videoPath, $path){
+        $arrayPath = explode("/",$videoPath);
+        $filename = explode(".",$arrayPath[count($arrayPath)-1])[0].".jpg";
+        $ffmpeg = FFMpeg::create();
+        $condition = true;
+        while ($condition){
+            if(file_exists($videoPath)){
+                $condition = false;
+                $video = $ffmpeg->open($videoPath);
+            } else {
+                sleep(15);
+            }
+        };
+        $video->filters()
+            ->resize(new Dimension(250, 250))
+            ->synchronize();
+        $video->frame(TimeCode::fromSeconds(1))
+            ->save($path.$filename);
+        return $filename;
+    }
+
     public function changeAvatar(Request $request)
     {
         if (Config::get('app.env') == 'demo' && Auth::user()->username == 'bootstrapguru') {
@@ -339,32 +372,47 @@ class TimelineController extends AppBaseController
 
                 $change_avatar = $request->file('change_avatar');
                 $strippedName = str_replace(' ', '', $change_avatar->getClientOriginalName());
-                $photoName = date('Y-m-d-H-i-s').$strippedName;
+                $photoName = date('Y-m-d-H-i-s').'-'.$strippedName;
 
                 // Lets resize the image to the square with dimensions of either width or height , which ever is smaller.
-                list($width, $height) = getimagesize($change_avatar->getRealPath());
+                $mime = $this->checkType($change_avatar->getRealPath());
+                $path = storage_path().'/uploads/'.$timeline_type.'s/avatars/';
+                if($mime === 'image'){
+                    list($width, $height) = getimagesize($change_avatar->getRealPath());
 
 
-                $avatar = Image::make($change_avatar->getRealPath());
+                    $avatar = Image::make($change_avatar->getRealPath());
 
-                if ($width > $height) {
-                    $avatar->crop($height, $height);
+                    if ($width > $height) {
+                        $avatar->crop($height, $height);
+                    } else {
+                        $avatar->crop($width, $width);
+                    }
+                    $path.='photos/';
+                    $avatar->save($path.$photoName, 60);
+                    $media = [
+                        'title'  => $photoName,
+                        'type'   => $mime,
+                        'source' => $photoName,
+                    ];
                 } else {
-                    $avatar->crop($width, $width);
+                    $change_avatar->move($path.'videos', $photoName);
+                    $thumbPath = $this->thumbVideo($path.'videos/'.$photoName, $path.'thumbnails/');
+                    $media = [
+                        'title'  => $photoName,
+                        'type'   => $mime,
+                        'source' => $photoName,
+                        'thumb_source' => $thumbPath
+                    ];
+                    $photoName = $thumbPath;
                 }
 
-                $avatar->save(storage_path().'/uploads/'.$timeline_type.'s/avatars/'.$photoName, 60);
-
-                $media = Media::create([
-                      'title'  => $photoName,
-                      'type'   => 'image',
-                      'source' => $photoName,
-                    ]);
+                $media = Media::create($media);
 
                 $timeline->avatar_id = $media->id;
 
                 if ($timeline->save()) {
-                    return response()->json(['status' => '200', 'avatar_url' => url($timeline_type.'/avatar/'.$photoName), 'message' => 'You have successfully updated your avatar']);
+                    return response()->json(['status' => '200', 'avatar_url' => url($timeline_type.'/avatar/'.$photoName.'/'.$mime), 'message' => 'You have successfully updated your avatar']);
                 }
             } else {
                 return response()->json(['status' => '201', 'message' => 'Updating your avatar failed']);

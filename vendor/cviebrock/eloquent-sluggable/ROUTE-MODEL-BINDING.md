@@ -51,7 +51,7 @@ In this example, since the Eloquent type-hinted `$post` variable defined on the 
 matches the {post} segment in the route's URI, Laravel will automatically inject the 
 model instance that has a slug matching the corresponding value from the request URI.
 
-Further, if you are using the [`SluggableScopeHelpers`](SCOPE-HELPERS.md) trait, you can bind
+Further, if you are using the [SluggableScopeHelpers](SCOPE-HELPERS.md) trait, you can bind
 the default slug to the route parameter with:
  
 ```php
@@ -64,10 +64,17 @@ public function getRouteKeyName()
 
 ## Explicit Binding
 
-You can also use the `RootServiceProvider::boot` method as described in the 
+You can also use the `RouteServiceProvider::boot` method as described in the 
 [Laravel Documentation](https://laravel.com/docs/5.2/routing#route-model-binding) to 
 handle explicit route model binding.
 
+
+## Laravel 5.3 Note
+
+If you are using Laravel 5.3, please take note of the instructions in the
+[upgrade guide](https://laravel.com/docs/5.3/upgrade#upgrade-5.3.0)
+under _Middleware_ > _Binding Substitution Middleware_ for adding the correct middleware
+and classes to your project to enable slug-based route model binding.
  
  
 - - -

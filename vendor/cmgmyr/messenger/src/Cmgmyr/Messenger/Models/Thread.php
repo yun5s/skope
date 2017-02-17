@@ -111,13 +111,15 @@ class Thread extends Eloquent
      */
     public function participantsUserIds($userId = null)
     {
-        $users = $this->participants()->withTrashed()->pluck('user_id');
+        $users = $this->participants()->withTrashed()->select('user_id')->get()->map(function ($participant) {
+            return $participant->user_id;
+        });
 
         if ($userId) {
-            $users[] = $userId;
+            $users->push($userId);
         }
 
-        return $users;
+        return $users->toArray();
     }
 
     /**
@@ -235,7 +237,8 @@ class Thread extends Eloquent
     {
         try {
             $participant = $this->getParticipantFromUser($userId);
-            if ($this->updated_at > $participant->last_read) {
+
+            if ($participant->last_read === null || $this->updated_at->gt($participant->last_read)) {
                 return true;
             }
         } catch (ModelNotFoundException $e) {
@@ -252,7 +255,7 @@ class Thread extends Eloquent
      *
      * @return mixed
      *
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ModelNotFoundException
      */
     public function getParticipantFromUser($userId)
     {
@@ -294,9 +297,7 @@ class Thread extends Eloquent
             $participantNames->where($usersTable . '.id', '!=', $userId);
         }
 
-        $userNames = $participantNames->pluck($usersTable . '.name');
-
-        return implode(', ', $userNames);
+        return $participantNames->implode('name', ', ');
     }
 
     /**
@@ -356,25 +357,20 @@ class Thread extends Eloquent
     public function userUnreadMessages($userId)
     {
         $messages = $this->messages()->get();
-        $participant = $this->getParticipantFromUser($userId);
-        if (!$participant) {
+
+        try {
+            $participant = $this->getParticipantFromUser($userId);
+        } catch (ModelNotFoundException $e) {
             return collect();
         }
+
         if (!$participant->last_read) {
-            return collect($messages);
-        }
-        $unread = [];
-        $i = count($messages) - 1;
-        while ($i) {
-            if ($messages[$i]->updated_at->gt($participant->last_read)) {
-                array_push($unread, $messages[$i]);
-            } else {
-                break;
-            }
-            --$i;
+            return $messages;
         }
 
-        return collect($unread);
+        return $messages->filter(function ($message) use ($participant) {
+            return $message->updated_at->gt($participant->last_read);
+        });
     }
 
     /**

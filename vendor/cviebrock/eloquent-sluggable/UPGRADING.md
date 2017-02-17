@@ -81,7 +81,7 @@ Route Model Binding has been removed from the package.  You are encouraged to ha
 in the model's `getRouteKeyName` method, or in a `RootServiceProvider::boot` method as described in 
 the [Laravel Documentation](https://laravel.com/docs/5.2/routing#route-model-binding).  
 
-See [ROUTE-MODEL-BINDING.md] for details.
+See [ROUTE-MODEL-BINDING.md](ROUTE-MODEL-BINDING.md) for details.
 
 #### Query Scopes
 
@@ -101,8 +101,8 @@ $post = Post::findBySlugOrIdOrFail($input);
 $posts = Post::where('slug',$input)->get();
 $post = Post::where('slug', $input)->first();
 $post = Post::where('slug', $input)->firstOrFail();
-$post = Post::where('slug', $input)->get() ?: Post::findOrFail((int)$input);
+$post = Post::where('slug', $input)->first() ?: Post::findOrFail((int)$input);
 ```
 
 Alternatively, your model can use the `SluggableScopeHelpers` trait.  
-See [SCOPE-HELPERS.md] for details.
+See [SCOPE-HELPERS.md](SCOPE-HELPERS.md) for details.

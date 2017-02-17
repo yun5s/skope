@@ -7,13 +7,15 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
-    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+    'Neutron' => array($vendorDir . '/neutron/temporary-filesystem/src'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
     'Laracasts\\Flash' => array($vendorDir . '/laracasts/flash/src'),
     'Jlapp\\Swaggervel' => array($vendorDir . '/jlapp/swaggervel/src'),
     'JakubOnderka\\PhpConsoleHighlighter' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
     'JakubOnderka\\PhpConsoleColor' => array($vendorDir . '/jakub-onderka/php-console-color/src'),
+    'FFMpeg' => array($vendorDir . '/php-ffmpeg/php-ffmpeg/src'),
+    'Evenement' => array($vendorDir . '/evenement/evenement/src'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
@@ -21,5 +23,6 @@ return array(
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Cron' => array($vendorDir . '/mtdowling/cron-expression/src'),
     'Cmgmyr\\Messenger\\' => array($vendorDir . '/cmgmyr/messenger/src'),
+    'Alchemy' => array($vendorDir . '/alchemy/binary-driver/src'),
     'Alaouy\\Youtube\\' => array($vendorDir . '/alaouy/youtube/src'),
 );

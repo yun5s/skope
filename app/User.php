@@ -91,7 +91,15 @@ class User extends Authenticatable
      */
     public function getAvatarAttribute($value)
     {
-        return $this->timeline->avatar ? url('user/avatar/'.$this->timeline->avatar->source) : url('user/avatar/default-'.$this->gender.'-avatar.png');
+        if($this->timeline->avatar){
+            if($this->timeline->avatar->type === 'image'){
+                return url('user/avatar/'.$this->timeline->avatar->source.'/'.$this->timeline->avatar->type);
+            } else {
+                return url('user/avatar/'.$this->timeline->avatar->thumb_source.'/'.$this->timeline->avatar->type);
+            }
+        } else {
+            return url('user/avatar/default-'.$this->gender.'-avatar.png'.'/default');
+        }
     }
 
     /**

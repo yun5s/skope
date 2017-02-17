@@ -18,5 +18,5 @@ class Media extends Model
     
     protected $table = 'media';
 
-    protected $fillable = ['title', 'type', 'source'];
+    protected $fillable = ['title', 'type', 'source', 'thumb_source'];
 }

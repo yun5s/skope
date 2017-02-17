@@ -187,7 +187,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role:admin']], fun
 |--------------------------------------------------------------------------
 */
 
-    Route::get('messages/{username?}', 'MessageController@index');
+Route::get('messages/{username?}', 'MessageController@index');
 
 
 
@@ -292,7 +292,7 @@ Route::group(['prefix' => '/{username}/group-settings', 'middleware' => ['auth',
 
 Route::group(['prefix' => '/{username}/event-settings', 'middleware' => ['auth','editevent']], function ($username) {
     Route::get('/general', 'TimelineController@generalEventSettings');
-    Route::post('/general', 'TimelineController@updateUserEventSettings');    
+    Route::post('/general', 'TimelineController@updateUserEventSettings');
 });
 
 /*
@@ -365,7 +365,7 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
     Route::post('add-event-members', 'UserController@addingEventMembers');
     Route::post('join-event', 'TimelineController@joiningEvent');
     Route::post('event-delete', 'TimelineController@deleteEvent');
-    Route::post('notification-delete', 'TimelineController@deleteNotification');    
+    Route::post('notification-delete', 'TimelineController@deleteNotification');
 });
 
 
@@ -377,8 +377,17 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('user/avatar/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/users/avatars/'.$filename)->response();
+Route::get('user/avatar/{filename}/{type}', function ($filename,$type) {
+    $path = '/uploads/users/avatars/';
+    switch ($type){
+        case "image" :
+            $path.='photos/';
+            break;
+        case "video" :
+            $path.='thumbnails/';
+            break;
+    }
+    return Image::make(storage_path().$path.$filename)->response();
 });
 
 Route::get('user/cover/{filename}', function ($filename) {
