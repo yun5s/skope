@@ -379,15 +379,26 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
 
 Route::get('user/avatar/{filename}/{type}', function ($filename,$type) {
     $path = '/uploads/users/avatars/';
+    $result = '';
     switch ($type){
         case "image" :
             $path.='photos/';
+            $result = Image::make(storage_path().$path.$filename)->response();
+            break;
+        case "thumbnail" :
+            $path.='thumbnails/';
+            $result = Image::make(storage_path().$path.$filename)->response();
             break;
         case "video" :
-            $path.='thumbnails/';
+            $path.='videos/';
+            $fileContents = File::get(storage_path().$path.$filename);
+
+            $result = Response::make($fileContents, 200);
+
+            $result->header('Content-Type', "video/mp4");
             break;
     }
-    return Image::make(storage_path().$path.$filename)->response();
+    return $result;
 });
 
 Route::get('user/cover/{filename}', function ($filename) {

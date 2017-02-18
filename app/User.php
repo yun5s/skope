@@ -95,11 +95,22 @@ class User extends Authenticatable
             if($this->timeline->avatar->type === 'image'){
                 return url('user/avatar/'.$this->timeline->avatar->source.'/'.$this->timeline->avatar->type);
             } else {
-                return url('user/avatar/'.$this->timeline->avatar->thumb_source.'/'.$this->timeline->avatar->type);
+                return url('user/avatar/'.$this->timeline->avatar->thumb_source.'/thumbnail');
             }
         } else {
             return url('user/avatar/default-'.$this->gender.'-avatar.png'.'/default');
         }
+    }
+
+    public function getAvatarVideoAttribute($value)
+    {
+        $result = '';
+        if($this->timeline->avatar){
+            if($this->timeline->avatar->type === 'video'){
+                $result = url('user/avatar/'.$this->timeline->avatar->source.'/'.$this->timeline->avatar->type);
+            }
+        }
+        return $result;
     }
 
     /**

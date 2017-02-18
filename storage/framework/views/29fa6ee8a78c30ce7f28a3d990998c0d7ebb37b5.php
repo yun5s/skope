@@ -25,6 +25,7 @@
         <?php echo Theme::asset()->styles(); ?>
 
 
+        <link href="<?php echo e(asset('themes/default/assets/css/img-modal.css')); ?>">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -74,6 +75,6 @@
 
         <?php echo Theme::asset()->container('footer')->scripts(); ?>
 
-        
+        <script type="text/javascript" src="<?php echo e(asset('themes/default/assets/js/img-modal.js')); ?>"></script>
     </body>
 </html>
