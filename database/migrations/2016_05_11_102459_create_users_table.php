@@ -20,6 +20,14 @@ class CreateUsersTable extends Migration
             $table->string('city', 100);
             $table->string('country', 100);
             $table->enum('gender', ['male', 'female', 'other']);
+            $table->integer('age', 4)->nullable();
+            $table->string('location')->nullable();
+            $table->string('occupation', 100)->nullable();
+            $table->string('aspiration')->nullable();
+            $table->string('role_model')->nullable();
+            $table->string('my_network')->nullable();
+            $table->string('add_to_work')->nullable();
+            $table->string('supported_charity');
             $table->boolean('active')->default(1);
             $table->timestamp('last_logged');
             $table->string('timezone');
