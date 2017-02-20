@@ -26,6 +26,7 @@ use Flavy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -37,6 +38,8 @@ use App\Event;
 use FFMpeg\FFMpeg;
 use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Coordinate\TimeCode;
+use FFMpeg\Format\Video\X264;
+use FFMpeg\Format\Video\WebM;
 
 class TimelineController extends AppBaseController
 {
@@ -340,6 +343,9 @@ class TimelineController extends AppBaseController
     public function thumbVideo($videoPath, $path){
         $arrayPath = explode("/",$videoPath);
         $filename = explode(".",$arrayPath[count($arrayPath)-1])[0].".jpg";
+        $videoFileName = explode(".",$arrayPath[count($arrayPath)-1])[0].".webm";
+        array_splice($arrayPath, -1,1,$videoFileName);
+        $newVideoPath = implode("/", $arrayPath);
         $ffmpeg = FFMpeg::create();
         $condition = true;
         while ($condition){
@@ -355,7 +361,13 @@ class TimelineController extends AppBaseController
             ->synchronize();
         $video->frame(TimeCode::fromSeconds(1))
             ->save($path.$filename);
-        return $filename;
+
+        $video->filters()
+            ->clip(TimeCode::fromSeconds(0), TimeCode::fromSeconds(10));
+
+        $video->save(new WebM(), $newVideoPath);
+        File::delete($videoPath);
+        return ['thumbnail' => $filename, 'video' => $videoFileName];
     }
 
     public function changeAvatar(Request $request)
@@ -400,11 +412,13 @@ class TimelineController extends AppBaseController
                     ];
                 } else {
                     $change_avatar->move($path.'videos', $photoName);
-                    $thumbPath = $this->thumbVideo($path.'videos/'.$photoName, $path.'thumbnails/');
+                    $arrayName = $this->thumbVideo($path.'videos/'.$photoName, $path.'thumbnails/');
+                    $thumbPath = $arrayName['thumbnail'];
+                    $videoName = $arrayName['video'];
                     $media = [
-                        'title'  => $photoName,
+                        'title'  => $videoName,
                         'type'   => $mime,
-                        'source' => $photoName,
+                        'source' => $videoName,
                         'thumb_source' => $thumbPath
                     ];
                     $photoName = $thumbPath;
@@ -415,7 +429,7 @@ class TimelineController extends AppBaseController
                 $timeline->avatar_id = $media->id;
 
                 if ($timeline->save()) {
-                    return response()->json(['status' => '200', 'avatar_url' => url($timeline_type.'/avatar/'.$photoName.'/'.$mime), 'message' => 'You have successfully updated your avatar']);
+                    return response()->json(['status' => '200', 'avatar_url' => url($timeline_type.'/avatar/'.$photoName.'/thumbnail'), 'message' => 'You have successfully updated your avatar']);
                 }
             } else {
                 return response()->json(['status' => '201', 'message' => 'Updating your avatar failed']);

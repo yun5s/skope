@@ -30,7 +30,7 @@ var VImg = $('#modal-image-2');
 var modalVideo = $('#single-video');
 var VCaptionText = $('#caption');
 var videoUrl = VImg.data('video');
-var sourceHtml = '<source src="' + videoUrl +'" type="video/mp4"><source src="'+ videoUrl +'" type="video/mkv">Your browser does not support the video tag.';
+var sourceHtml = '<source src="' + videoUrl +'" type="video/webm"><source src="'+ videoUrl +'" type="video/mkv">Your browser does not support the video tag.';
 VImg.on('click', function () {
     VModal.css('display', 'block');
     modalVideo.html(sourceHtml);

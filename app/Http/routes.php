@@ -395,7 +395,7 @@ Route::get('user/avatar/{filename}/{type}', function ($filename,$type) {
 
             $result = Response::make($fileContents, 200);
 
-            $result->header('Content-Type', "video/mp4");
+            $result->header('Content-Type', "video/webm");
             break;
     }
     return $result;
