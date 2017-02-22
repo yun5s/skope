@@ -18,7 +18,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\MessagePublished' => [
-            'App\Listeners\EventListener',
+            'App\Listeners\EventListener'
         ],
         'App\Events\NotificationPublished' => [
             'App\Listeners\NotificationEventListener',
@@ -38,6 +38,6 @@ class EventServiceProvider extends ServiceProvider
         parent::boot($events);
 
         Notification::observe(new NotificationObserver());
-        // Message::observe(new MessageObserver());
+//         Message::observe(new MessageObserver());
     }
 }

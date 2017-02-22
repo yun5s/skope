@@ -25673,6 +25673,19 @@ html {
   left: 20px;
   display: none;
 }
+
+.btn-camera-video {
+  width: 198px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 0px;
+  text-align: left;
+  position: absolute;
+  top: 8px;
+  left: 20px;
+  display: none;
+}
+
 @media (max-width: 560px) {
   .timeline-cover-section .timeline-cover .btn-camera-cover {
     width: 148px;
@@ -28122,7 +28135,6 @@ a:focus {
   background: transparent none repeat scroll 0 0;
   border: medium none;
   display: inline-block;
-  position: relative;
   min-height: 331px;
   width: 100%;
 }
@@ -28183,7 +28195,6 @@ a:focus {
   background: transparent none repeat scroll 0 0;
   border: medium none;
   display: inline-block;
-  position: relative;
   min-height: 360px;
   width: 100%;
 }
@@ -28241,9 +28252,203 @@ a:focus {
 }
 .no-padding{padding: 0;}
 
+/* TIMELINE PROFILE */
+.timeline-profile{
+  background-color: #fff;
+  position: relative;
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 100%;
+}
+.timeline-profile div[class*="col-"]{
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+  cursor: pointer;
+}
+.timeline-profile div[class*="col-"].first{padding-left: 0;}
+.timeline-profile div[class*="col-"].last{padding-right: 0;float: right;}
+.timeline-profile div[class*="col-"].first:hover .chang-user-avatar,
+.timeline-profile div[class*="col-"].video:hover .btn-camera-video,
+.timeline-profile div[class*="col-"].last:hover .chng-avatar{display: block;}
+.timeline-profile img{width: 100%;}
+.profile-name {
+  bottom: 0;
+  display: block;
+  left: 0;
+  padding: 5px;
+  position: absolute;
+  width: 100%;
+}
+.profile-name > a {
+  color: #fff;
+  font-size: 20px;
+  line-height: normal;
+  text-decoration: none;
+}
+.timeline-btn {
+  background-color: #fff;
+  height: 50px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.timeline-btn > ul {
+  margin-left: 0;
+  text-align: left;
+  font-size: 0px;
+}
+.timeline-btn > ul > li {
+  border-right: 1px solid #E6EAEE;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.timeline-btn > ul > li:hover > a {
+  color: #FFFFFF;
+  background: linear-gradient(1deg, #333 2%, #515050 98%);
+}
+.timeline-btn > ul > li:last-child {
+  border-right-width: 0px;
+}
+.timeline-btn > ul > li > a {
+  display: block;
+  padding: 16px 17px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #354052;
+  text-decoration: none;
+  text-transform: capitalize;
+  background: #fff;
+}
+.timeline-btn > ul > li > a i {
+  font-size: 15px;
+  vertical-align: bottom;
+}
+.timeline-btn > ul > li .dropdown-menu {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-width: 1px solid #E6EAEE;
+  border-top: 2px solid #333333;
+  border-radius: 0px 0px 4px 4px;
+}
+.timeline-btn > ul > li .dropdown-menu li a {
+  text-align: center;
+  color: #354052;
+}
+.timeline-btn > ul > li .dropdown-menu li a i {
+  margin-right: 10px;
+}
+.timeline-btn > ul > li .dropdown-menu li:hover a {
+  color: #fff;
+  background-color: #333;
+}
+.timeline-btn > ul .dropdown.open:hover > a {
+  background: #fff;
+  color: #354052;
+}
+.timeline-btn > ul li.active a {
+  color: #FFFFFF;
+  background: linear-gradient(1deg, #333 2%, #515050 98%);
+}
+.timeline-btn > ul li.largescreen-report {
+  border-right: 1px solid transparent;
+}
+@media (max-width: 1200px) {
+  .timeline-btn > ul li.largescreen-report {
+    display: none;
+  }
+}
+.timeline-btn > ul li.smallscreen-report {
+  margin-bottom: -60px;
+  display: none;
+}
+@media (max-width: 1200px) {
+  .timeline-btn > ul li.smallscreen-report {
+    display: block;
+  }
+  .timeline-btn > ul li.smallscreen-report a {
+    text-align: center;
+  }
+}
+@media (max-width: 1200px) {
+  .timeline-btn {
+    height: auto;
+    background-color: #EFF3F6;
+  }
+  .timeline-btn > ul {
+    margin-left: 0px;
+    display: none;
+  }
+  .timeline-btn > ul li {
+    border-radius: 4px;
+    display: block;
+    border-right: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .timeline-btn > ul li:first-child {
+    margin-top: 0px;
+    padding-top: 60px;
+  }
+  .timeline-btn > ul li:last-child {
+    margin-bottom: -60px;
+  }
+  .timeline-btn > ul li > a {
+    border-radius: 4px;
+    padding: 12px 16px;
+  }
+  .timeline-btn > ul li > a .top-list {
+    text-align: center;
+    display: block;
+    margin: 0px auto;
+  }
+  .timeline-btn .report-dropdown li {
+    margin-top: 1px;
+    margin-bottom: 0px;
+  }
+  .timeline-btn .report-dropdown li:first-child {
+    padding-top: 0px;
+  }
+  .timeline-btn .report-dropdown li a {
+    padding: 8px 16px;
+    border-radius: 0px 0px 4px 4px;
+  }
+}
+.timeline-btn.event > ul {
+  margin-left: 0px;
+}
+@media (max-width: 767px) {
+  .timeline-profile div.first[class*="col-"],
+  .timeline-profile div.video[class*="col-"],
+  .timeline-profile div.last[class*="col-"]{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .login-head .header-circle.logo {
   background-image: linear-gradient(-180deg, transparent 0%, transparent 100%);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+#chatters .chat-box {
+  z-index : 1000
+}
+
+.btn-camera-video:hover {
+ color: #fff;
+}
+
+.btn-camera-video .fa {
+  font-size: 16px;
+  margin-top: -3px;
+  margin-right: 17px;
+  vertical-align: middle;
+}
+
+.btn-camera-video .change-cover-text {
+  display: inline-block;
+  margin-top: 7px;
 }

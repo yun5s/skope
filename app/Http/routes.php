@@ -397,6 +397,8 @@ Route::get('user/avatar/{filename}/{type}', function ($filename,$type) {
 
             $result->header('Content-Type', "video/webm");
             break;
+        default:
+            $result = Image::make(storage_path().$path.$filename)->response();
     }
     return $result;
 });

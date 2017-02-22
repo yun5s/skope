@@ -281,14 +281,14 @@
 <form class="change-avatar-form hidden" action="{{ url('ajax/change-avatar') }}" method="post" enctype="multipart/form-data">
 	<input name="timeline_id" value="{{ $timeline->id }}" type="hidden">
 	<input name="timeline_type" value="{{ $timeline->type }}" type="hidden">
-	<input class="change-avatar-input hidden" accept="image/jpeg,image/png,video/*" type="file" name="change_avatar" >
+	<input class="change-avatar-input hidden" accept="image/jpeg,image/png" type="file" name="change_avatar" >
 </form>
 
 <!-- Change cover form -->
 <form class="change-cover-form hidden" action="{{ url('ajax/change-cover') }}" method="post" enctype="multipart/form-data">
 	<input name="timeline_id" value="{{ $timeline->id }}" type="hidden">
 	<input name="timeline_type" value="{{ $timeline->type }}" type="hidden">
-	<input class="change-cover-input hidden" accept="image/jpeg,image/png" type="file" name="change_cover" >
+	<input class="change-cover-input hidden" accept="video/*" type="file" name="change_cover" >
 </form>
 
 	<!-- my-pages -->

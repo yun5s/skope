@@ -73,7 +73,6 @@ var chatBoxes = new Vue({
 
             this.MessageChannel = this.pusher.subscribe(receiverUsername + '-message-created');
             this.MessageChannel.bind('App\\Events\\MessagePublished', function(data) {
-                
                 indexes = $.map(vm.chatBoxes, function(thread, key) {
                     if(thread.id == data.message.thread_id) {
                         return key;

@@ -99,7 +99,8 @@ class User extends Authenticatable
                 return url('user/avatar/'.$this->timeline->avatar->thumb_source.'/thumbnail');
             }
         } else {
-            return url('user/avatar/default-'.$this->gender.'-avatar.png'.'/default');
+//            return url('user/avatar/default-'.$this->gender.'-avatar.png'.'/default');
+            return url('user/avatar/profile1.png/default');
         }
     }
 
