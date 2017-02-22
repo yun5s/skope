@@ -61,6 +61,7 @@ var vue = new Vue({
             // pusher configuration
             this.pusher = new Pusher(pusherConfig.PUSHER_KEY, {
                 encrypted: true,
+                cluster: 'ap1',
                 auth: {
                     headers: {
                         'X-CSRF-Token': pusherConfig.token
