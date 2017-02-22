@@ -647,7 +647,7 @@ class AdminController extends Controller
         foreach ($themes as $key => $value) {
             $themeInfo = json_decode(file_get_contents($value.'/theme.json'));
             $themeInfo->thumbnail = str_replace(base_path('public'), '', $value).'/'.$themeInfo->thumbnail;
-            $themeInfo->directory = str_replace(base_path('public/themes/'), '', $value);
+            $themeInfo->directory = str_replace(base_path('public/themes\\'), '', $value);
             $themesInfo[] = $themeInfo;
         }
 

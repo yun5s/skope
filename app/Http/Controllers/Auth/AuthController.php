@@ -85,6 +85,7 @@ class AuthController extends Controller
         }        
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('guest');
+        $theme->asset()->container('footer')->add('login-script', 'themes/streetskope/assets/js/pages/login.js');
         $theme->setTitle(trans('auth.login').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
 
         return $theme->scope('users.login')->render();

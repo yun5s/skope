@@ -1,0 +1,8 @@
+{
+	"name": "Streetskope",
+    "description": "This theme extend from theme socialite",
+    "version": "1.0",
+    "author" : "Streetskope",
+    "thumbnail" : "assets/images/theme1.png",
+    "email" : "achmad@gmail.com"
+}

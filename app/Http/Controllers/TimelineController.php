@@ -193,8 +193,6 @@ class TimelineController extends AppBaseController
 
          $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
          $theme->setTitle($timeline->name.' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
-         $theme->asset()->add('core', 'themes/default/assets/css/style-c4ce5c2905.css');
-         $theme->asset()->add('img-modal', 'themes/default/assets/css/img-modal.css');
          $styles = $theme->asset()->styles();
 
          return $theme->scope('users/timeline', compact('user', 'styles', 'timeline', 'posts', 'liked_pages', 'timeline_type', 'page', 'group', 'next_page_url', 'joined_groups', 'follow_user_status', 'followRequests', 'following_count', 'followers_count', 'timeline_post', 'user_post', 'follow_confirm', 'joined_groups_count', 'own_pages', 'own_groups', 'group_members', 'page_members','event','user_events','guest_events','username','group_events','ongoing_events','upcoming_events'))->render();

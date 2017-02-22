@@ -24,7 +24,6 @@
 
         {!! Theme::asset()->styles() !!}
 
-        <link href="{{asset('themes/default/assets/css/img-modal.css')}}">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -67,6 +66,6 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.min.js"></script>
 
         {!! Theme::asset()->container('footer')->scripts() !!}
-        <script type="text/javascript" src="{{asset('themes/default/assets/js/img-modal.js')}}"></script>
+        
     </body>
 </html>
