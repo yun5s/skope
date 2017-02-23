@@ -28265,11 +28265,17 @@ a:focus {
   padding-right: 7.5px;
   cursor: pointer;
 }
-.timeline-profile div[class*="col-"].first{padding-left: 0;}
-.timeline-profile div[class*="col-"].last{padding-right: 0;float: right;}
+.timeline-profile div[class*="col-"].first{
+  padding-left: 0;
+}
+.timeline-profile div[class*="col-"].last{
+  padding-right: 0;float: right;
+}
 .timeline-profile div[class*="col-"].first:hover .chang-user-avatar,
 .timeline-profile div[class*="col-"].video:hover .btn-camera-video,
-.timeline-profile div[class*="col-"].last:hover .chng-avatar{display: block;}
+.timeline-profile div[class*="col-"].last:hover .chang-user-avatar{
+  display: block;
+}
 .timeline-profile img{width: 100%;}
 .profile-name {
   bottom: 0;
@@ -28452,3 +28458,11 @@ a:focus {
   display: inline-block;
   margin-top: 7px;
 }
+
+.user-avatar img, .video img {
+  cursor: default;
+}
+
+/*.user-avatar img:hover ~ .chang-user-avatar  {*/
+  /*display:block;*/
+/*}*/

@@ -90,30 +90,35 @@ class User extends Authenticatable
      *
      * @return string
      */
+//    public function getAvatarAttribute($value)
+//    {
+//        if($this->timeline->avatar){
+//            if($this->timeline->avatar->type === 'image'){
+//                return url('user/avatar/'.$this->timeline->avatar->source.'/'.$this->timeline->avatar->type);
+//            } else {
+//                return url('user/avatar/'.$this->timeline->avatar->thumb_source.'/thumbnail');
+//            }
+//        } else {
+////            return url('user/avatar/default-'.$this->gender.'-avatar.png'.'/default');
+//            return url('user/avatar/profile1.png/default');
+//        }
+//    }
+
     public function getAvatarAttribute($value)
     {
-        if($this->timeline->avatar){
-            if($this->timeline->avatar->type === 'image'){
-                return url('user/avatar/'.$this->timeline->avatar->source.'/'.$this->timeline->avatar->type);
-            } else {
-                return url('user/avatar/'.$this->timeline->avatar->thumb_source.'/thumbnail');
-            }
-        } else {
-//            return url('user/avatar/default-'.$this->gender.'-avatar.png'.'/default');
-            return url('user/avatar/profile1.png/default');
-        }
+        return $this->timeline->avatar ? url('user/avatar/'.$this->timeline->avatar->source) : url('user/avatar/profile1.png');
     }
 
-    public function getAvatarVideoAttribute($value)
-    {
-        $result = '';
-        if($this->timeline->avatar){
-            if($this->timeline->avatar->type === 'video'){
-                $result = url('user/avatar/'.$this->timeline->avatar->source.'/'.$this->timeline->avatar->type);
-            }
-        }
-        return $result;
-    }
+//    public function getAvatarVideoAttribute($value)
+//    {
+//        $result = '';
+//        if($this->timeline->avatar){
+//            if($this->timeline->avatar->type === 'video'){
+//                $result = url('user/avatar/'.$this->timeline->avatar->source.'/'.$this->timeline->avatar->type);
+//            }
+//        }
+//        return $result;
+//    }
 
     /**
      * Get the user's  cover.

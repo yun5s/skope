@@ -1046,12 +1046,13 @@ $(function () {
          success: function(responseText) {
 
              if (responseText.status == 200) {
-                 $('.timeline-user-avtar').find('img')
+                 $('.user-avatar').find('img')
                      .attr('src', responseText.avatar_url)
                      .load(function() {
                          $('.user-avatar-progress').fadeOut('fast').addClass('hidden').html('');
                          $('.change-avatar-input').val();
                      });
+                 $('.user-image').find('img').attr('src', responseText.avatar_url)
              }
              else {
                  $('.user-avatar-progress').fadeOut('fast').addClass('hidden').html('');
@@ -1149,10 +1150,11 @@ $(function () {
              }
          },
          success: function(responseText) {
-
+             var sourceHtml = '<video width="100%" height="305px" controls><source src="'+responseText.cover_url+'" type="video/mp4"> <source src="'+responseText.cover_url+'" type="video/webm">Your browser does not support the video tag. </video>'
              if (responseText.status == 200) {
-                 $('.timeline-cover').find('img')
-                     .attr('src', responseText.cover_url)
+                 // $('.video').find('img')
+                 //     .attr('src', responseText.cover_url)
+                 $('.video').html(sourceHtml)
                      .load(function() {
                          $('.user-cover-progress').fadeOut('fast').addClass('hidden').html('');
                          $('.change-cover-input').val();

@@ -316,6 +316,7 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
     Route::post('post-comment', 'TimelineController@postComment');
     Route::post('page-like', 'TimelineController@pageLike');
     Route::post('change-avatar', 'TimelineController@changeAvatar');
+    Route::post('change-video', 'TimelineController@changeAvatar');
     Route::post('change-cover', 'TimelineController@changeCover');
     Route::post('comment-like', 'TimelineController@likeComment');
     Route::post('comment-delete', 'TimelineController@deleteComment');
@@ -377,34 +378,48 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('user/avatar/{filename}/{type}', function ($filename,$type) {
-    $path = '/uploads/users/avatars/';
-    $result = '';
-    switch ($type){
-        case "image" :
-            $path.='photos/';
-            $result = Image::make(storage_path().$path.$filename)->response();
-            break;
-        case "thumbnail" :
-            $path.='thumbnails/';
-            $result = Image::make(storage_path().$path.$filename)->response();
-            break;
-        case "video" :
-            $path.='videos/';
-            $fileContents = File::get(storage_path().$path.$filename);
+//Route::get('user/avatar/{filename}/{type}', function ($filename,$type) {
+//    $path = '/uploads/users/avatars/';
+//    $result = '';
+//    switch ($type){
+//        case "image" :
+//            $path.='photos/';
+//            $result = Image::make(storage_path().$path.$filename)->response();
+//            break;
+//        case "thumbnail" :
+//            $path.='thumbnails/';
+//            $result = Image::make(storage_path().$path.$filename)->response();
+//            break;
+//        case "video" :
+//            $path.='videos/';
+//            $fileContents = File::get(storage_path().$path.$filename);
+//
+//            $result = Response::make($fileContents, 200);
+//
+//            $result->header('Content-Type', "video/webm");
+//            break;
+//        default:
+//            $result = Image::make(storage_path().$path.$filename)->response();
+//    }
+//    return $result;
+//});
 
-            $result = Response::make($fileContents, 200);
-
-            $result->header('Content-Type', "video/webm");
-            break;
-        default:
-            $result = Image::make(storage_path().$path.$filename)->response();
-    }
-    return $result;
+Route::get('user/avatar/{filename}', function ($filename) {
+    return Image::make(storage_path().'/uploads/users/avatars/'.$filename)->response();
 });
 
-Route::get('user/cover/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/users/covers/'.$filename)->response();
+Route::get('user/cover/{type}/{filename}', function ($type, $filename) {
+    if($type == 'image'){
+        return Image::make(storage_path().'/uploads/users/covers/'.$filename)->response();
+    } else {
+        $fileContents = Storage::disk('uploads')->get("users/covers/{$filename}");
+        $response = Response::make($fileContents, 200);
+        $response->header('Content-Type', 'video/webm');
+
+        return $response;
+    }
+
+//    return Image::make(storage_path().'/uploads/users/covers/'.$filename)->response();
 });
 
 Route::get('user/gallery/video/{filename}', function ($filename) {

@@ -117,8 +117,8 @@
 	<div class="profile-name">
 		<a href="#">Muhammad Syukri Khafidh</a>
 	</div>
-	<div class="col-xs-6 col-sm-3 col-md-3 first">
-		<img id="modal-image-1" src="<?php echo e($timeline->user->avatar); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
+	<div class="col-xs-6 col-sm-3 col-md-3 first user-avatar">
+		<img src="<?php echo e($timeline->user->avatar); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
 		<?php if($timeline->id == Auth::user()->timeline_id): ?>
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-avatar">
@@ -128,8 +128,8 @@
 			</div>
 		<?php endif; ?>
 	</div>
-	<div class="col-xs-6 col-sm-3 col-md-3 last">
-		<img id="modal-image-1" src="<?php echo e($timeline->user->avatar); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
+	<div class="col-xs-6 col-sm-3 col-md-3 last user-avatar">
+		<img src="<?php echo e($timeline->user->avatar); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
 		<?php if($timeline->id == Auth::user()->timeline_id): ?>
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-avatar">
@@ -140,7 +140,15 @@
 		<?php endif; ?>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6 video">
-		<img src="<?php if($timeline->cover_id): ?> <?php echo e(url('user/cover/'.$timeline->cover->source)); ?> <?php else: ?> <?php echo e(url('user/cover/default-cover-user.png')); ?> <?php endif; ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
+		<?php if($timeline->cover_id): ?>
+			<video width="100%" height="305px" controls>
+				<source src="<?php echo e(url('user/cover/video/'.$timeline->cover->source)); ?>" type="video/mp4">
+				<source src="<?php echo e(url('user/cover/video/'.$timeline->cover->source)); ?>" type="video/webm">
+				Your browser does not support the video tag.
+			</video>
+		<?php else: ?>
+			<img src="<?php echo e(url('user/cover/image/default-cover-user.png')); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
+		<?php endif; ?>
 		<a class="btn btn-camera-video change-cover" href="#">
 			<i class="fa fa-play"></i><span class="change-cover-text">Change video</span>
 		</a>

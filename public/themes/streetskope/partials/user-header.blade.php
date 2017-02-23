@@ -117,8 +117,8 @@
 	<div class="profile-name">
 		<a href="#">Muhammad Syukri Khafidh</a>
 	</div>
-	<div class="col-xs-6 col-sm-3 col-md-3 first">
-		<img id="modal-image-1" src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+	<div class="col-xs-6 col-sm-3 col-md-3 first user-avatar">
+		<img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 		@if($timeline->id == Auth::user()->timeline_id)
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-avatar">
@@ -128,8 +128,8 @@
 			</div>
 		@endif
 	</div>
-	<div class="col-xs-6 col-sm-3 col-md-3 last">
-		<img id="modal-image-1" src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+	<div class="col-xs-6 col-sm-3 col-md-3 last user-avatar">
+		<img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 		@if($timeline->id == Auth::user()->timeline_id)
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-avatar">
@@ -140,7 +140,15 @@
 		@endif
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6 video">
-		<img src="@if($timeline->cover_id) {{ url('user/cover/'.$timeline->cover->source) }} @else {{ url('user/cover/default-cover-user.png') }} @endif" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+		@if($timeline->cover_id)
+			<video width="100%" height="305px" controls>
+				<source src="{{ url('user/cover/video/'.$timeline->cover->source) }}" type="video/mp4">
+				<source src="{{ url('user/cover/video/'.$timeline->cover->source) }}" type="video/webm">
+				Your browser does not support the video tag.
+			</video>
+		@else
+			<img src="{{ url('user/cover/image/default-cover-user.png') }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+		@endif
 		<a class="btn btn-camera-video change-cover" href="#">
 			<i class="fa fa-play"></i><span class="change-cover-text">Change video</span>
 		</a>

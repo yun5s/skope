@@ -173,8 +173,6 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Vijaytupakula\Transvel\TransvelServiceProvider::class,
         RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
-        Vinkla\Pusher\PusherServiceProvider::class
-
     ],
 
     /*
@@ -230,7 +228,6 @@ return [
         // 'LaravelPusher' => Vinkla\Pusher\Facades\Pusher::class,
         // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
          'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-        'Pusher' => Vinkla\Pusher\Facades\Pusher::class,
 
     ],
 
