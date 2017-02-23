@@ -1,10 +1,39 @@
-/node_modules
 /public/storage
 /public/hot
-/storage/*.key
+/storage
+/vendor
+Homestead.json
+Homestead.yaml
+/node_modules
+/storage
+/public/uploads/*
 /vendor
 /.idea
 Homestead.json
 Homestead.yaml
 .env
-/storage/uploads
+nbproject
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+# composer itself is not needed
+composer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+# phpunit itself is not needed
+phpunit.phar
+# local phpunit config
+/phpunit.xml
+auth.json
+composer.lock
+
+*.swp
+*.bak
+*.log
+*.data
+*~
