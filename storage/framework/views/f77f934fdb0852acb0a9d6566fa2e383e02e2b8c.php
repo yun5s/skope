@@ -118,6 +118,7 @@
 		<a href="#">Muhammad Syukri Khafidh</a>
 	</div>
 	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
+		<img class="loading hidden" src="<?php echo e(asset('themes/streetskope/assets/images/loading1.gif')); ?>">
 		<img src="<?php echo e($timeline->user->profile_pict); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
 		<?php if($timeline->id == Auth::user()->timeline_id): ?>
 			<div class="chang-user-avatar">
@@ -129,6 +130,7 @@
 		<?php endif; ?>
 	</div>
 	<div class="col-xs-6 col-sm-3 col-md-3 last user-avatar">
+		<img class="loading hidden" src="<?php echo e(asset('themes/streetskope/assets/images/loading1.gif')); ?>">
 		<img src="<?php echo e($timeline->user->avatar); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
 		<?php if($timeline->id == Auth::user()->timeline_id): ?>
 			<div class="chang-user-avatar">
@@ -140,15 +142,24 @@
 		<?php endif; ?>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6 video">
-		<?php if($timeline->cover_id): ?>
+		<img class="loading hidden" src="<?php echo e(asset('themes/streetskope/assets/images/loading1.gif')); ?>">
+		<video width="100%" height="305px" controls>
+			<source src="<?php if($timeline->cover_id): ?> <?php echo e(url('user/cover/video/'.$timeline->cover->source)); ?> <?php else: ?> <?php echo e(url('user/cover/video/default-video.mp4')); ?> <?php endif; ?>" type="video/mp4">
+			<source src="<?php if($timeline->cover_id): ?> <?php echo e(url('user/cover/video/'.$timeline->cover->source)); ?> <?php else: ?> <?php echo e(url('user/cover/video/default-video.mp4')); ?> <?php endif; ?>" type="video/webm">
+			Your browser does not support the video tag.
+		</video>
+		<?php /*<?php if($timeline->cover_id): ?>
+			<video width="100%" height="305px" controls>
+				<source src="<?php if($timeline->cover_id): ?> <?php echo e(url('user/cover/video/'.$timeline->cover->source)); ?> <?php else: ?> <?php echo e(url('user/cover/video/default-video.mp4')); ?> <?php endif; ?>" type="video/mp4">
+				<source src="<?php if($timeline->cover_id): ?> <?php echo e(url('user/cover/video/'.$timeline->cover->source)); ?> <?php else: ?> <?php echo e(url('user/cover/video/default-video.mp4')); ?> <?php endif; ?>" type="video/webm">
+				Your browser does not support the video tag.
+			</video>
+		<?php else: ?>
 			<video width="100%" height="305px" controls>
 				<source src="<?php echo e(url('user/cover/video/'.$timeline->cover->source)); ?>" type="video/mp4">
 				<source src="<?php echo e(url('user/cover/video/'.$timeline->cover->source)); ?>" type="video/webm">
 				Your browser does not support the video tag.
-			</video>
-		<?php else: ?>
-			<img src="<?php echo e(url('user/cover/image/default-cover-user.png')); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
-		<?php endif; ?>
+			</video>		<?php endif; ?>*/ ?>
 		<a class="btn btn-camera-video change-cover" href="#">
 			<i class="fa fa-play"></i><span class="change-cover-text">Change video</span>
 		</a>

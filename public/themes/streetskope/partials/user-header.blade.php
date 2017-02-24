@@ -118,6 +118,7 @@
 		<a href="#">Muhammad Syukri Khafidh</a>
 	</div>
 	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
+		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
 		<img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 		@if($timeline->id == Auth::user()->timeline_id)
 			<div class="chang-user-avatar">
@@ -129,6 +130,7 @@
 		@endif
 	</div>
 	<div class="col-xs-6 col-sm-3 col-md-3 last user-avatar">
+		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
 		<img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 		@if($timeline->id == Auth::user()->timeline_id)
 			<div class="chang-user-avatar">
@@ -140,15 +142,24 @@
 		@endif
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6 video">
-		@if($timeline->cover_id)
+		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
+		<video width="100%" height="305px" controls>
+			<source src="@if($timeline->cover_id) {{ url('user/cover/video/'.$timeline->cover->source) }} @else {{ url('user/cover/video/default-video.mp4') }} @endif" type="video/mp4">
+			<source src="@if($timeline->cover_id) {{ url('user/cover/video/'.$timeline->cover->source) }} @else {{ url('user/cover/video/default-video.mp4') }} @endif" type="video/webm">
+			Your browser does not support the video tag.
+		</video>
+		{{--@if($timeline->cover_id)
+			<video width="100%" height="305px" controls>
+				<source src="@if($timeline->cover_id) {{ url('user/cover/video/'.$timeline->cover->source) }} @else {{ url('user/cover/video/default-video.mp4') }} @endif" type="video/mp4">
+				<source src="@if($timeline->cover_id) {{ url('user/cover/video/'.$timeline->cover->source) }} @else {{ url('user/cover/video/default-video.mp4') }} @endif" type="video/webm">
+				Your browser does not support the video tag.
+			</video>
+		@else
 			<video width="100%" height="305px" controls>
 				<source src="{{ url('user/cover/video/'.$timeline->cover->source) }}" type="video/mp4">
 				<source src="{{ url('user/cover/video/'.$timeline->cover->source) }}" type="video/webm">
 				Your browser does not support the video tag.
-			</video>
-		@else
-			<img src="{{ url('user/cover/image/default-cover-user.png') }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
-		@endif
+			</video>		@endif--}}
 		<a class="btn btn-camera-video change-cover" href="#">
 			<i class="fa fa-play"></i><span class="change-cover-text">Change video</span>
 		</a>

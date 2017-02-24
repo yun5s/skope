@@ -1022,36 +1022,41 @@ $(function () {
 
     $('form.change-profile-form').ajaxForm({
         url: SP_source() + 'ajax/change-profile',
-
-        uploadProgress: function(event, position, total, percentComplete) {
-            var percentVal = percentComplete+'%';
-
-
-            $('.user-avatar-progress').html(percentVal+'<br>Uploaded');
-
-            if (percentComplete == 100) {
-
-                setTimeout(function () {
-                    $('.user-avatar-progress').html('Processing');
-                    setTimeout(function () {
-                        $('.user-avatar-progress').html('Please wait');
-                    }, 2000);
-                }, 500);
-            }
+        beforeSend: function() {
+            $('.user-profile').find('img').not($('.user-profile img.loading')).css('opacity', '0.5');
+            $('.user-profile').find('img.loading').fadeIn('fast').removeClass('hidden');
         },
+
+        // uploadProgress: function(event, position, total, percentComplete) {
+        //     var percentVal = percentComplete+'%';
+        //
+        //
+        //     $('.user-avatar-progress').html(percentVal+'<br>Uploaded');
+        //
+        //     if (percentComplete == 100) {
+        //
+        //         setTimeout(function () {
+        //             $('.user-avatar-progress').html('Processing');
+        //             setTimeout(function () {
+        //                 $('.user-avatar-progress').html('Please wait');
+        //             }, 2000);
+        //         }, 500);
+        //     }
+        // },
         success: function(responseText) {
 
             if (responseText.status == 200) {
-                $('.user-profile').find('img')
+                $('.user-profile').find('img').not($('.user-profile img.loading'))
                     .attr('src', responseText.profile_url)
                     .load(function() {
-                        $('.user-profile-progress').fadeOut('fast').addClass('hidden').html('');
+                        $('.user-profile').find('img.loading').fadeOut('fast').addClass('hidden');
+                        $('.user-profile').find('img').not($('.user-profile img.loading')).css('opacity', '1');
                         $('.change-profile-input').val();
                     });
                 // $('.user-image').find('img').attr('src', responseText.profile_url)
             }
             else {
-                $('.user-profile-progress').fadeOut('fast').addClass('hidden').html('');
+                $('.user-profile').find('img.loading').fadeOut('fast').addClass('hidden');
                 $('.change-profile-input').val();
                 notify(responseText.message,'warning');
             }
@@ -1071,40 +1076,41 @@ $(function () {
 
     $('form.change-avatar-form').ajaxForm({
         url: SP_source() + '/ajax/change-avatar',
-
         beforeSend: function() {
-            $('.user-avatar-progress').html('0%<br>Uploaded').fadeIn('fast').removeClass('hidden');
+            $('.user-avatar-progress').find('img').not($('.user-profile img.loading')).css('opacity', '0.5');
+            $('.user-avatar-progress').find('img.loading').fadeIn('fast').removeClass('hidden');
         },
 
-        uploadProgress: function(event, position, total, percentComplete) {
-            var percentVal = percentComplete+'%';
-
-
-            $('.user-avatar-progress').html(percentVal+'<br>Uploaded');
-
-            if (percentComplete == 100) {
-
-                setTimeout(function () {
-                    $('.user-avatar-progress').html('Processing');
-                    setTimeout(function () {
-                        $('.user-avatar-progress').html('Please wait');
-                    }, 2000);
-                }, 500);
-            }
-        },
+        // uploadProgress: function(event, position, total, percentComplete) {
+        //     var percentVal = percentComplete+'%';
+        //
+        //
+        //     $('.user-avatar-progress').html(percentVal+'<br>Uploaded');
+        //
+        //     if (percentComplete == 100) {
+        //
+        //         setTimeout(function () {
+        //             $('.user-avatar-progress').html('Processing');
+        //             setTimeout(function () {
+        //                 $('.user-avatar-progress').html('Please wait');
+        //             }, 2000);
+        //         }, 500);
+        //     }
+        // },
         success: function(responseText) {
 
             if (responseText.status == 200) {
                 $('.user-avatar').find('img')
                     .attr('src', responseText.avatar_url)
                     .load(function() {
-                        $('.user-avatar-progress').fadeOut('fast').addClass('hidden').html('');
+                        $('.user-avatar-progress').find('img.loading').fadeOut('fast').addClass('hidden');
+                        $('.user-avatar-progress').find('img').not($('.user-profile img.loading')).css('opacity', '1');
                         $('.change-avatar-input').val();
                     });
                 $('.user-image').find('img').attr('src', responseText.avatar_url)
             }
             else {
-                $('.user-avatar-progress').fadeOut('fast').addClass('hidden').html('');
+                $('.user-avatar-progress').find('img.loading').fadeOut('fast').addClass('hidden');
                 $('.change-avatar-input').val();
                 notify(responseText.message,'warning');
             }
@@ -1179,25 +1185,28 @@ $(function () {
         url: SP_source() + 'ajax/change-cover',
 
         beforeSend: function() {
-            $('.user-cover-progress').html('0%<br>Uploaded').fadeIn('fast').removeClass('hidden');
+            $('.video').find('video').removeAttr('controls');
+            $('.video').find('video')[0].pause();
+            $('.video').find('video').css('opacity', '0.5');
+            $('.video').find('img.loading').fadeIn('fast').removeClass('hidden');
         },
 
-        uploadProgress: function(event, position, total, percentComplete) {
-            var percentVal = percentComplete+'%';
-
-
-            $('.user-cover-progress').html(percentVal+'<br>Uploaded');
-
-            if (percentComplete == 100) {
-
-                setTimeout(function () {
-                    $('.user-cover-progress').html('Processing');
-                    setTimeout(function () {
-                        $('.user-cover-progress').html('Please wait');
-                    }, 2000);
-                }, 500);
-            }
-        },
+        // uploadProgress: function(event, position, total, percentComplete) {
+        //     var percentVal = percentComplete+'%';
+        //
+        //
+        //     $('.user-cover-progress').html(percentVal+'<br>Uploaded');
+        //
+        //     if (percentComplete == 100) {
+        //
+        //         setTimeout(function () {
+        //             $('.user-cover-progress').html('Processing');
+        //             setTimeout(function () {
+        //                 $('.user-cover-progress').html('Please wait');
+        //             }, 2000);
+        //         }, 500);
+        //     }
+        // },
         success: function(responseText) {
             var sourceHtml = '<video width="100%" height="305px" controls><source src="'+responseText.cover_url+'" type="video/mp4"> <source src="'+responseText.cover_url+'" type="video/webm">Your browser does not support the video tag. </video>'
             if (responseText.status == 200) {
@@ -1205,12 +1214,12 @@ $(function () {
                 //     .attr('src', responseText.cover_url)
                 $('.video').html(sourceHtml)
                     .load(function() {
-                        $('.user-cover-progress').fadeOut('fast').addClass('hidden').html('');
+                        $('.video').find('img.loading').fadeOut('fast').addClass('hidden');
                         $('.change-cover-input').val();
                     });
             }
             else {
-                $('.user-cover-progress').fadeOut('fast').addClass('hidden').html('');
+                $('.video').find('img.loading').fadeOut('fast').addClass('hidden');
                 $('.change-cover-input').val();
                 notify(responseText.message,'warning');
 
