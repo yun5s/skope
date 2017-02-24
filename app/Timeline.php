@@ -73,6 +73,7 @@ class Timeline extends Model
         'about',
         'avatar_id',
         'cover_id',
+        'profile_id',
         'cover_position',
         'type',
         'deleted_at',
@@ -90,6 +91,7 @@ class Timeline extends Model
         'about'          => 'string',
         'avatar_id'      => 'integer',
         'cover_id'       => 'integer',
+        'profile_id'     => 'integer',
         'cover_position' => 'string',
         'type'           => 'string',
         'deleted_at'     => 'datetime',
@@ -135,6 +137,11 @@ class Timeline extends Model
     public function avatar()
     {
         return $this->belongsTo('App\Media', 'avatar_id');
+    }
+
+    public function profile()
+    {
+        return $this->belongsTo('App\Media', 'profile_id');
     }
 
     public function cover()

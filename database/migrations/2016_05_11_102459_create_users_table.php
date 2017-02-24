@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('city', 100);
             $table->string('country', 100);
             $table->enum('gender', ['male', 'female', 'other']);
-            $table->integer('age', 4)->nullable();
+            $table->integer('age')->nullable();
             $table->string('location')->nullable();
             $table->string('occupation', 100)->nullable();
             $table->string('aspiration')->nullable();

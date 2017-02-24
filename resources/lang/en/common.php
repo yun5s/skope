@@ -161,6 +161,7 @@ return [
     'requests_follow'                   => 'Follow requests',
     'join_requests'                     => 'Join Requests',
     'update_profile'                    => 'update profile',
+    'update_avatar'                     => 'update avatar',
     'picture'                           => 'picture',
     'requested'                         => 'requested',
     'lives_in'                          => 'Lives in',

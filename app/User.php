@@ -109,6 +109,11 @@ class User extends Authenticatable
         return $this->timeline->avatar ? url('user/avatar/'.$this->timeline->avatar->source) : url('user/avatar/profile1.png');
     }
 
+    public function getProfilePictAttribute($value)
+    {
+        return $this->timeline->profile ? url('user/profile/'.$this->timeline->profile->source) : url('user/avatar/profile1.png');
+    }
+
 //    public function getAvatarVideoAttribute($value)
 //    {
 //        $result = '';

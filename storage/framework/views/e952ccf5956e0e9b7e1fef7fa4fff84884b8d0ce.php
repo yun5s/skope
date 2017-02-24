@@ -299,6 +299,13 @@
 	</ul>
 </div>
 
+<!-- Change profile form -->
+<form class="change-profile-form hidden" action="<?php echo e(url('ajax/change-profile')); ?>" method="post" enctype="multipart/form-data">
+	<input name="timeline_id" value="<?php echo e($timeline->id); ?>" type="hidden">
+	<input name="timeline_type" value="<?php echo e($timeline->type); ?>" type="hidden">
+	<input class="change-profile-input hidden" accept="image/jpeg,image/png" type="file" name="change_avatar" >
+</form>
+
 <!-- Change avatar form -->
 <form class="change-avatar-form hidden" action="<?php echo e(url('ajax/change-avatar')); ?>" method="post" enctype="multipart/form-data">
 	<input name="timeline_id" value="<?php echo e($timeline->id); ?>" type="hidden">

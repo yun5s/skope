@@ -117,13 +117,13 @@
 	<div class="profile-name">
 		<a href="#">Muhammad Syukri Khafidh</a>
 	</div>
-	<div class="col-xs-6 col-sm-3 col-md-3 first user-avatar">
-		<img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
+		<img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 		@if($timeline->id == Auth::user()->timeline_id)
 			<div class="chang-user-avatar">
-				<a href="#" class="btn btn-camera change-avatar">
+				<a href="#" class="btn btn-camera change-profile">
 					<i class="fa fa-camera" aria-hidden="true"></i>
-					<span class="avatar-text">{{ trans('common.update_profile') }}<span>{{ trans('common.picture') }}</span></span>
+					<span class="profile-text">{{ trans('common.update_profile') }}<span>{{ trans('common.picture') }}</span></span>
 				</a>
 			</div>
 		@endif
@@ -134,7 +134,7 @@
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-avatar">
 					<i class="fa fa-camera" aria-hidden="true"></i>
-					<span class="avatar-text">{{ trans('common.update_profile') }}<span>{{ trans('common.picture') }}</span></span>
+					<span class="avatar-text">{{ trans('common.update_avatar') }}<span>{{ trans('common.picture') }}</span></span>
 				</a>
 			</div>
 		@endif

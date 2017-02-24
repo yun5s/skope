@@ -316,7 +316,7 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
     Route::post('post-comment', 'TimelineController@postComment');
     Route::post('page-like', 'TimelineController@pageLike');
     Route::post('change-avatar', 'TimelineController@changeAvatar');
-    Route::post('change-video', 'TimelineController@changeAvatar');
+    Route::post('change-profile', 'TimelineController@changeProfile');
     Route::post('change-cover', 'TimelineController@changeCover');
     Route::post('comment-like', 'TimelineController@likeComment');
     Route::post('comment-delete', 'TimelineController@deleteComment');
@@ -406,6 +406,10 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
 
 Route::get('user/avatar/{filename}', function ($filename) {
     return Image::make(storage_path().'/uploads/users/avatars/'.$filename)->response();
+});
+
+Route::get('user/profile/{filename}', function ($filename) {
+    return Image::make(storage_path().'/uploads/users/profiles/'.$filename)->response();
 });
 
 Route::get('user/cover/{type}/{filename}', function ($type, $filename) {

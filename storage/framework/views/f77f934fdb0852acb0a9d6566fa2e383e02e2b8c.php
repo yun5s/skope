@@ -117,13 +117,13 @@
 	<div class="profile-name">
 		<a href="#">Muhammad Syukri Khafidh</a>
 	</div>
-	<div class="col-xs-6 col-sm-3 col-md-3 first user-avatar">
-		<img src="<?php echo e($timeline->user->avatar); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
+	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
+		<img src="<?php echo e($timeline->user->profile_pict); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
 		<?php if($timeline->id == Auth::user()->timeline_id): ?>
 			<div class="chang-user-avatar">
-				<a href="#" class="btn btn-camera change-avatar">
+				<a href="#" class="btn btn-camera change-profile">
 					<i class="fa fa-camera" aria-hidden="true"></i>
-					<span class="avatar-text"><?php echo e(trans('common.update_profile')); ?><span><?php echo e(trans('common.picture')); ?></span></span>
+					<span class="profile-text"><?php echo e(trans('common.update_profile')); ?><span><?php echo e(trans('common.picture')); ?></span></span>
 				</a>
 			</div>
 		<?php endif; ?>
@@ -134,7 +134,7 @@
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-avatar">
 					<i class="fa fa-camera" aria-hidden="true"></i>
-					<span class="avatar-text"><?php echo e(trans('common.update_profile')); ?><span><?php echo e(trans('common.picture')); ?></span></span>
+					<span class="avatar-text"><?php echo e(trans('common.update_avatar')); ?><span><?php echo e(trans('common.picture')); ?></span></span>
 				</a>
 			</div>
 		<?php endif; ?>

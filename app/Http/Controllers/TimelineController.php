@@ -487,6 +487,57 @@ class TimelineController extends AppBaseController
         }
     }
 
+    public function changeProfile(Request $request)
+    {
+        if (Config::get('app.env') == 'demo' && Auth::user()->username == 'bootstrapguru') {
+            return response()->json(['status' => '201', 'message' => trans('common.disabled_on_demo')]);
+        }
+        $timeline = Timeline::where('id', $request->timeline_id)->first();
+
+        if (
+            ($request->timeline_type == 'user' && $request->timeline_id == Auth::user()->timeline_id) ||
+            ($request->timeline_type == 'page' && $timeline->page->is_admin(Auth::user()->id) == true) ||
+            ($request->timeline_type == 'group' && $timeline->groups->is_admin(Auth::user()->id) == true)
+        ) {
+            if ($request->hasFile('change_avatar')) {
+                $timeline_type = $request->timeline_type;
+
+                $change_avatar = $request->file('change_avatar');
+                $strippedName = str_replace(' ', '', $change_avatar->getClientOriginalName());
+                $photoName = date('Y-m-d-H-i-s').$strippedName;
+
+                // Lets resize the image to the square with dimensions of either width or height , which ever is smaller.
+                list($width, $height) = getimagesize($change_avatar->getRealPath());
+
+
+                $avatar = Image::make($change_avatar->getRealPath());
+
+//                if ($width > $height) {
+//                    $avatar->crop($height, $height);
+//                } else {
+//                    $avatar->crop($width, $width);
+//                }
+                $avatar->resize('230','305');
+
+                $avatar->save(storage_path().'/uploads/'.$timeline_type.'s/profiles/'.$photoName, 60);
+
+                $media = Media::create([
+                    'title'  => $photoName,
+                    'type'   => 'image',
+                    'source' => $photoName,
+                ]);
+
+                $timeline->profile_id = $media->id;
+
+                if ($timeline->save()) {
+                    return response()->json(['status' => '200', 'profile_url' => url($timeline_type.'/profile/'.$photoName), 'message' => 'You have successfully updated your avatar']);
+                }
+            } else {
+                return response()->json(['status' => '201', 'message' => 'Updating your avatar failed']);
+            }
+        }
+    }
+
     public function convertVideo($videoPath, $format = 'mp4'){
         $arrayPath = explode("/",$videoPath);
         $videoFileName = explode(".",$arrayPath[count($arrayPath)-1])[0].".webm";
