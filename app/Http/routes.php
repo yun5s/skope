@@ -311,6 +311,7 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
 
     Route::post('get-youtube-video', 'TimelineController@getYoutubeVideo');
     Route::post('like-post', 'TimelineController@likePost');
+    Route::post('unlike-post', 'TimelineController@unlikePost');
     Route::post('follow-post', 'TimelineController@follow');
     Route::post('notify-user', 'TimelineController@getNotifications');
     Route::post('post-comment', 'TimelineController@postComment');

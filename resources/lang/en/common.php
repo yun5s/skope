@@ -55,6 +55,7 @@ return [
     'reposition_cover'   => 'Reposition cover',
     'posts'              => 'Posts',
     'likes'              => 'Likes',
+    'unlikes'              => 'Unlikes',
     'groups'             => 'Groups',
     'group'              => 'Group',
     'pages'              => 'Pages',
