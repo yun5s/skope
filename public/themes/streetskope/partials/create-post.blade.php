@@ -8,11 +8,11 @@
     @endif
     <div class="panel panel-default panel-create {{isset($timeline_post)? 'panel-bubble-rtl':'panel-bubble'}}"> <!-- panel-create -->
         <div class="bubble"><img src="{{asset('themes/streetskope/assets/images/bubble.png')}}"></div>
-        <div class="panel-heading">
+       <!--  <div class="panel-heading">
             <div class="heading-text">
                 {{ trans('messages.whats-going-on') }}
             </div>
-        </div>
+        </div> -->
         <div class="panel-body">
             <textarea name="description" class="form-control createpost-form comment" cols="30" rows="3" id="createPost" cols="30" rows="2" placeholder="{{ trans('messages.post-placeholder') }}"></textarea>
 
