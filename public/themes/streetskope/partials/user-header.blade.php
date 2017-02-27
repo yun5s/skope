@@ -115,11 +115,12 @@
 
 <div class="timeline-profile">
 	<div class="profile-name">
-		<a href="#">Muhammad Syukri Khafidh</a>
+		<a href="#">{{ $timeline->name }}</a>
 	</div>
 	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
 		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
 		<img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+
 		@if($timeline->id == Auth::user()->timeline_id)
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-profile">

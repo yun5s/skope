@@ -1388,7 +1388,7 @@ ol ol {
 .list-inline {
   padding-left: 0;
   list-style: none;
-  margin-left: -5px;
+  margin-left: 0;
 }
 .list-inline > li {
   display: inline-block;
@@ -4327,7 +4327,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #777;
+  color: #fff;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -4335,10 +4335,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #777;
+  color: #fff;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #777;
+  color: #fff;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -13328,7 +13328,7 @@ body.lb-disable-scrolling {
   padding-bottom: 30px;
 }
 .wrapper .left-sidebar .left-sidebar-brand {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   height: 70px;
   width: 100%;
   text-decoration: none;
@@ -13623,8 +13623,8 @@ textarea.form-control {
   margin-right: 4px;
 }
 .btn-success {
-  background-color: #34AA44;
-  background-image: linear-gradient(-1deg, #39B54A 2%, #34AA44 98%);
+  background-color: #35d1cc;
+  background-image: linear-gradient(-1deg, #32bab5 2%, #35d1cc 98%);
   border: 1px solid #33a242;
 }
 .btn-success span {
@@ -13634,7 +13634,7 @@ textarea.form-control {
 .btn-success:hover,
 .btn-success:active,
 .btn-success:focus {
-  background-image: linear-gradient(-1deg, #2d8e3a 2%, #288334 98%);
+  background-image: linear-gradient(-1deg, #35d1cc 2%, #32bab5 98%);
   border-color: #309a3f;
 }
 .btn-default {
@@ -13662,8 +13662,8 @@ textarea.form-control {
   color: #bbc3ce;
 }
 .btn-primary {
-  background-color: #2DA1F8;
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-color: #32B5B0;
+  background-image: linear-gradient(-1deg, #0889ea 2%, #1175c0 98%);
   border: 1px solid #1383d8;
   border-color: #0089bc;
 }
@@ -13732,7 +13732,7 @@ textarea.form-control {
   color: #FFFFFF;
 }
 .badge.badge-primary {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
 }
 .badge.badge-danger {
   background-image: linear-gradient(-1deg, #C8270C 2%, #F45438 98%);
@@ -14804,7 +14804,7 @@ input.cmn-toggle-yes-no:checked + label:after {
   text-transform: none;
 }
 .achievement-modal .modal-body .achievements-table .achievements-list .share-progress .btn-share {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border: 1px solid #1585D8;
   border-radius: 4px;
   color: #FFFFFF;
@@ -14892,7 +14892,7 @@ input.cmn-toggle-yes-no:checked + label:after {
 }
 .onboarding-modal .modal-body .app-process li.active .steps {
   color: #FFFFFF;
-  background-color: #1991EB;
+  background-color: #35D1CC;
   border: 0px solid transparent;
   border-top: 1px solid transparent !important;
   border-left: 1px solid transparent !important;
@@ -15303,7 +15303,7 @@ input.cmn-toggle-yes-no:checked + label:after {
   font-weight: 400;
 }
 .darkmessage-modal .dark-footer .btn-send {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   color: #FFFFFF;
   border-radius: 4px;
   margin-top: 4px;
@@ -15416,7 +15416,7 @@ input.cmn-toggle-yes-no:checked + label:after {
   padding: 18px 30px;
 }
 .createnew-modal .create-footer .btn-finish {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
   font-size: 14px;
   color: #FFFFFF;
@@ -15608,7 +15608,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   font-family: 'Source Sans Pro', sans-serif;
 }
 .darksharing-modal .share-footer .btn-share {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
   height: 36px;
 }
@@ -15660,7 +15660,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   font-family: 'Source Sans Pro', sans-serif;
 }
 .darkfilter-modal .filter-footer .btn-filter {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
 }
 .filterdata-modal .filter-data {
@@ -15788,7 +15788,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   color: #FFFFFF;
 }
 .darknewimage-modal .dark-image .add-to .btn-grp.active {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border: 1px solid #1A91EB;
   border-radius: 4px 0px 0px 4px;
 }
@@ -15823,7 +15823,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   text-decoration: none;
 }
 .darknewimage-modal .image-footer .btn-publish {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
 }
 .darkflightform-modal .darkflight {
@@ -15904,7 +15904,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
 .darkflightform-modal .darkflight .flights-available .input-group .submit {
   width: 90px;
   height: 36px;
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
   float: right;
   outline: none !important;
@@ -16006,7 +16006,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   padding: 17px 30px;
 }
 .darkflightform-modal .flight-footer .btn-search {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
   width: 100%;
   color: #FFFFFF;
@@ -16023,7 +16023,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
 .paymentwindow-modal .modal-body .rate-tag {
   position: absolute;
   bottom: 30px;
-  border: 18px solid #1991EB;
+  border: 18px solid #35D1CC;
   height: 36px;
   line-height: 2px;
   font-size: 14px;
@@ -16160,7 +16160,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   margin-top: 21px;
 }
 .paymentwindow-modal .modal-body .payment-section .alternate-payment .pay-alter {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border: 1px solid #1585D8;
   border-radius: 4px;
   padding: 7px 12px;
@@ -16305,7 +16305,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   display: table;
 }
 .darksignup-modal .modal-body .create-account .welcome-section {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   padding: 30px 30px 23px 30px;
   height: 100%;
   float: none;
@@ -16427,7 +16427,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   margin-bottom: 20px;
 }
 .darksignup-modal .modal-body .create-account .account-section .btn-continue {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
   color: #FFFFFF;
   font-size: 14px;
@@ -16512,7 +16512,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   font-weight: 400;
 }
 .darkphonemanager-modal .modal-content .dark-phone-footer .phone-manager-list .app {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px 0px 0px 4px;
   text-align: center;
   height: 20px;
@@ -17368,7 +17368,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
 .list-group-navigation .list-group-item .list-icon {
   width: 40px;
   height: 40px;
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
   font-size: 16px;
   color: white;
@@ -17624,7 +17624,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   background: #E2E7EE;
 }
 .revenue-block .budget_progress .budget-bar {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px 0px 0px 4px;
 }
 .last-month-income {
@@ -17679,7 +17679,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   background-image: linear-gradient(-1deg, #445C83 2%, #5684AF 98%);
 }
 .previous-month-details .last-month-progress .previous-month-bar {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px 0px 0px 4px;
 }
 .previous-month-details .last-month-budget-progress {
@@ -17690,7 +17690,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   margin-top: -4px;
 }
 .previous-month-details .last-month-budget-progress .previous-month-bar {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px 0px 0px 4px;
 }
 .product-sales-panel {
@@ -17773,7 +17773,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   margin-top: 3px;
 }
 .product-sales-panel .product-sales .product-sales-list .progress .progress-primary {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 10px;
 }
 .product-sales-panel .product-sales .product-sales-list .progress .progress-purple {
@@ -17907,7 +17907,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   margin-top: 8px;
 }
 .customer-referrals .progress .progress-primary {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 10px;
 }
 .customer-referrals .progress .progress-yellow {
@@ -18218,7 +18218,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   border-radius: 7px;
 }
 .list-group-item.skill .right-side .blue {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
 }
 .list-group-item.skill .right-side .purple {
   background-image: linear-gradient(-180deg, #9D90E4 2%, #8261E6 98%);
@@ -18854,7 +18854,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   color: #fff;
   text-align: center;
   line-height: 24px;
@@ -19206,7 +19206,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   margin-top: -6px;
 }
 .navbar-tabs .left-list li .nstSlider .leftGrip {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   height: 10px;
   width: 10px;
   bottom: -4px;
@@ -19896,10 +19896,10 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
 }
 .teamlead-info .user-img .status-list li .status-circle.light-blue {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
 }
 .teamlead-info .user-img .status-list li .status-circle.yellow {
   background-image: linear-gradient(-180deg, #F8CD51 0%, #FDBC0E 98%);
@@ -20851,7 +20851,7 @@ html {
   position: absolute;
 }
 .friends-list li .btn-more-users {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -22025,7 +22025,7 @@ html {
   color: #7C8CA5;
 }
 .panel-default.panel-blue {
-  background-color: #1991EB;
+  background-color: #35D1CC;
 }
 .panel-default.panel-red {
   background-color: #D65B4A;
@@ -22252,7 +22252,7 @@ html {
   padding-bottom: 3px;
 }
 .widget-left-panel .menu-list li.active .menu-btn {
-  background-color: #1991EB;
+  background-color: #35D1CC;
   color: #FFFFFF;
 }
 .widget-left-panel .menu-list li .menu-btn {
@@ -22270,7 +22270,7 @@ html {
   width: 100%;
 }
 .widget-left-panel .menu-list li .menu-btn:hover {
-  background-color: #1991EB;
+  background-color: #35D1CC;
   color: #FFFFFF;
 }
 .widget-left-panel .menu-list li .menu-btn:hover i {
@@ -22283,7 +22283,7 @@ html {
   line-height: 33px;
 }
 .widget-left-panel .categotry-list li .hash-icon {
-  background-color: #1991EB;
+  background-color: #35D1CC;
   height: 20px;
   width: 20px;
   border-radius: 50%;
@@ -22340,7 +22340,7 @@ html {
   text-overflow: ellipsis;
 }
 .widget-left-panel .categotry-list li a:hover {
-  color: #1991EB;
+  color: #35D1CC;
 }
 .widget-left-panel .categotry-list li:last-child {
   /*padding-top: 8px;*/
@@ -22657,7 +22657,7 @@ html {
   left: 0px;
 }
 .widget-post-block .post-images .row .post-img-holder:hover .overlay-container .overlay {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   width: 100%;
   height: 100%;
   opacity: 0.5;
@@ -23410,7 +23410,7 @@ html {
   padding-bottom: 25px;
 }
 .left-sidebar-menu .badge {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 31px;
 }
 .sidebar-form {
@@ -23618,7 +23618,7 @@ html {
 }
 .chat-box .chat-box-header {
   height: 28px;
-  background-color: #1991EB;
+  background-color: #35D1CC;
   border-bottom: 1px solid #E6EAEE;
   border-radius: 4px 4px 0px 0px;
 }
@@ -23816,7 +23816,7 @@ html {
   margin-top: 9px;
 }
 .list-group.socialite-group .list-group-item:hover .socialite-icon {
-  background: #269BF3;
+  background: #35D1CC;
 }
 .list-group.socialite-group .list-group-item:hover .socialite-icon i {
   color: #FFFFFF;
@@ -23828,13 +23828,13 @@ html {
   color: #8D909F;
 }
 .list-group.socialite-group .list-icon.socialite-icon:hover {
-  background: #269BF3;
+  background: #35D1CC;
 }
 .list-group.socialite-group .list-icon.socialite-icon:hover i {
   color: #ffffff;
 }
 .list-group.socialite-group .list-icon.active {
-  background: #269BF3;
+  background: #35D1CC;
 }
 .list-group.socialite-group .list-icon.active i {
   color: #ffffff;
@@ -24138,24 +24138,27 @@ html {
   text-align: center;
 }
 .footer-description {
-  padding-top: 100px;
+  background-color: #333;
+  color: #777;
+  margin-top: 100px;
+  padding-top: 0;
 }
 .footer-description .socialite-terms a {
-  color: #354052;
+  color: #ccc;
   text-decoration: none;
 }
 .footer-description .socialite-terms a:hover {
-  color: #1991EB;
+  color: #35D1CC;
 }
 .footer-description .socialite-languages span {
-  color: #354052;
+  color: #ccc;
 }
 .footer-description .socialite-languages a {
-  color: #354052;
+  color: #ccc;
   text-decoration: none;
 }
 .footer-description .socialite-languages a:hover {
-  color: #1991EB;
+  color: #35D1CC;
 }
 .socialite-form .radio label input {
   margin-top: 0px;
@@ -24405,7 +24408,7 @@ html {
   font-size: 20px;
 }
 .pencil-icon {
-  background: #1991EB;
+  background: #35D1CC;
   width: 25px;
   height: 25px;
   display: inline-block;
@@ -24559,7 +24562,7 @@ html {
 .logo {
   width: 151px;
   height: 44px;
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border-radius: 4px;
   display: block;
   text-transform: capitalize;
@@ -24577,6 +24580,9 @@ html {
 }
 .no-bg {
   background-color: #fff;
+}
+.bg-turqoise{
+  background-color: #35D1CC;
 }
 .form-left {
   margin-top: 15px;
@@ -24696,10 +24702,14 @@ html {
   padding-right: 26px;
 }
 .notification-list > li > a {
-  padding-top: 19px;
-  padding-bottom: 19px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   display: block;
   text-decoration: none;
+  color: #fff;
+}
+.notification-list > li > a:hover {
+  color: #000;
 }
 @media (max-width: 1010px) {
   .notification-list > li > a {
@@ -24709,7 +24719,6 @@ html {
 }
 .notification-list > li > a i {
   font-size: 20px;
-  color: #859AB5;
   letter-spacing: 0.46px;
   position: relative;
 }
@@ -24956,12 +24965,12 @@ html {
   font-size: 10px;
 }
 .user-image.dropdown.socialite {
-  padding-bottom: 16px;
-  padding-top: 14px;
+  padding-bottom: 15px;
+  padding-top: 15px;
   min-width: 189px;
 }
 .user-image.dropdown.socialite > a {
-  margin-left: 26px;
+  margin-left: 10px;
 }
 @media (max-width: 1010px) {
   .user-image.dropdown.socialite > a {
@@ -24972,12 +24981,12 @@ html {
   margin-left: 7px;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
-  color: #354052;
+  color: #fff;
   letter-spacing: 0.26px;
   text-transform: capitalize;
 }
 .user-image.dropdown.socialite > a i {
-  color: #354052;
+  color: #fff;
   font-size: 16px;
   border-radius: 83px;
   margin-left: 10px;
@@ -24989,7 +24998,7 @@ html {
   background-color: #fff;
   width: 100%;
   border: 1px solid #E6EAEE;
-  border-top: 2px solid #1585D8;
+  border-top: 2px solid #35D1CC;
   padding-top: 0px;
   padding-bottom: 0px;
   box-shadow: none;
@@ -25002,7 +25011,7 @@ html {
 }
 .user-image.dropdown.socialite .dropdown-menu li:hover a,
 .user-image.dropdown.socialite .dropdown-menu li.active a {
-  background-color: #1991EB !important;
+  background-color: #35D1CC !important;
   color: #FFFFFF;
 }
 .user-image.dropdown.socialite .dropdown-menu li:hover i,
@@ -25889,7 +25898,7 @@ html {
   }
 }
 .status-button .btn-status {
-  background-color: #1991EB;
+  background-color: #35D1CC;
   color: #fff;
   margin-top: 8px;
   margin-right: 15px;
@@ -25933,7 +25942,7 @@ html {
 }
 .timeline-list > ul > li:hover > a {
   color: #FFFFFF;
-  background: linear-gradient(1deg, #1991EB 2%, #2DA1F8 98%);
+  background: linear-gradient(1deg, #35D1CC 2%, #32B5B0 98%);
 }
 .timeline-list > ul > li:last-child {
   border-right-width: 0px;
@@ -25969,7 +25978,7 @@ html {
 }
 .timeline-list > ul > li .dropdown-menu li:hover a {
   color: #fff;
-  background-color: #1991EB;
+  background-color: #35D1CC;
 }
 .timeline-list > ul .dropdown.open:hover > a {
   background: #fff;
@@ -25977,7 +25986,7 @@ html {
 }
 .timeline-list > ul li.active a {
   color: #FFFFFF;
-  background: linear-gradient(1deg, #1991EB 2%, #2DA1F8 98%);
+  background: linear-gradient(1deg, #35D1CC 2%, #32B5B0 98%);
 }
 .timeline-list > ul li.largescreen-report {
   border-right: 1px solid transparent;
@@ -27548,7 +27557,7 @@ body.direction-rtl .manage-table table tbody td ul {
   margin-top: 10px;
 }
 .make-announcements .add .btn-add {
-  background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+  background-image: linear-gradient(-1deg, #35D1CC 2%, #32B5B0 98%);
   border: 1px solid #1B92EC;
   border-radius: 4px;
   padding: 5px 16px;
@@ -27822,7 +27831,7 @@ body.direction-rtl .manage-table table tbody td ul {
 .independent-themes .independent-block:hover .theme-rate,
 .independent-themes .independent-block.active .theme-rate {
   background: rgba(25, 145, 235, 0.4);
-  border: 1px solid #1991EB;
+  border: 1px solid #35D1CC;
   border-radius: 4px;
   color: #FFFFFF;
 }
@@ -28165,9 +28174,9 @@ a:focus {
 }
 .panel-bubble .panel-body {
   display: block;
-  margin: 1px 60px 0 31px;
+  margin: 1px 34px 0 55px;
   position: relative;
-  top: 98px;
+  top: 147px;
   z-index: 10;
 }
 .panel-bubble .panel-body textarea {
@@ -28185,7 +28194,7 @@ a:focus {
   background-color: transparent;
   border-radius: 0;
   border-top: medium none;
-  bottom: -113px;
+  bottom: -152px;
   margin: 1px 60px 0 58px;
   position: relative;
   z-index: 20;
@@ -28225,9 +28234,9 @@ a:focus {
 }
 .panel-bubble-rtl .panel-body {
   display: block;
-  margin: 1px 60px 0 31px;
+  margin: 1px 41px 0 53px;
   position: relative;
-  top: 119px;
+  top: 168px;
   z-index: 10;
 }
 .panel-bubble-rtl .panel-body textarea {
@@ -28245,12 +28254,11 @@ a:focus {
   background-color: transparent;
   border-radius: 0;
   border-top: medium none;
-  bottom: -141px;
-  margin: 1px 71px 0 43px;
+  bottom: -187px;
+  margin: 1px 55px 0 52px;
   position: relative;
   z-index: 20;
 }
-.no-padding{padding: 0;}
 
 /* TIMELINE PROFILE */
 .timeline-profile{
@@ -28278,18 +28286,20 @@ a:focus {
 }
 .timeline-profile img{width: 100%;}
 .profile-name {
-  bottom: 0;
+  bottom: 60px;
   display: block;
   left: 0;
   padding: 5px;
   position: absolute;
   width: 100%;
+  z-index: 9;
 }
 .profile-name > a {
   color: #fff;
   font-size: 20px;
   line-height: normal;
   text-decoration: none;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.49);
 }
 .timeline-btn {
   background-color: #fff;

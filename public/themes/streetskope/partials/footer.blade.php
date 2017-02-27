@@ -6,7 +6,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-12">
+<div class="col-md-12 no-padding">
 	<div class="footer-description">
 		<div class="socialite-terms text-center">
 			@if(Auth::check())
