@@ -9,12 +9,12 @@
     <?php endif; ?>
     <div class="panel panel-default panel-create <?php echo e(isset($timeline_post)? 'panel-bubble-rtl':'panel-bubble'); ?>"> <!-- panel-create -->
         <div class="bubble"><img src="<?php echo e(asset('themes/streetskope/assets/images/bubble.png')); ?>"></div>
-        <div class="panel-heading">
+       <!--  <div class="panel-heading">
             <div class="heading-text">
                 <?php echo e(trans('messages.whats-going-on')); ?>
 
             </div>
-        </div>
+        </div> -->
         <div class="panel-body">
             <textarea name="description" class="form-control createpost-form comment" cols="30" rows="3" id="createPost" cols="30" rows="2" placeholder="<?php echo e(trans('messages.post-placeholder')); ?>"></textarea>
 

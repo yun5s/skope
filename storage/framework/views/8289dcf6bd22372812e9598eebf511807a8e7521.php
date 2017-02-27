@@ -1,4 +1,4 @@
-<nav class="navbar socialite navbar-default no-bg">
+<nav class="navbar socialite navbar-default bg-turqoise">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -13,7 +13,11 @@
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-4">
-			<form class="navbar-form navbar-left form-left" role="search">
+			<ul class="nav navbar-nav navbar-left">
+				<li><a href="<?php echo e(url('/mainpage')); ?>" title="Main Page"><i class="fa fa-building"></i> Main</a></li>
+				<li><a href="<?php echo e(url('/')); ?>" title="Home Page"><i class="fa fa-home"></i> Home</a></li>
+			</ul>
+			<form class="navbar-form navbar-right form-left" role="search">
 				<div class="input-group no-margin">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
@@ -22,11 +26,10 @@
 				</div><!-- /input-group -->
 			</form>
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			
 			<?php if(Auth::guest()): ?>
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-left">
 				<li class="logout">
-					<a href="<?php echo e(url('/login')); ?>"><i class="fa fa-sign-in" aria-hidden="true"></i> <?php echo e(trans('common.join')); ?></a>
+					<a href="<?php echo e(url('/login')); ?>"><i class="fa fa-sign-in"></i> <?php echo e(trans('common.join')); ?></a>
 				</li>
 				<?php if(Config::get('app.env') == 'demo'): ?>
 					<li class="logout">
@@ -35,12 +38,12 @@
 				<?php endif; ?>
 			</ul>
 			<?php else: ?>
-			<ul class="nav navbar-nav navbar-right" id="navbar-right" v-cloak>
+			<ul class="nav navbar-nav navbar-left" id="navbar-right" v-cloak>
 				<li>
 					<ul class="list-inline notification-list">
 						<li class="dropdown message notification">
 							<a href="#" data-toggle="dropdown" @click.prevent="showNotifications" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-bell" aria-hidden="true">
+								<i class="fa fa-bell">
 									<?php if(Auth::user()->notifications()->where('seen',0)->count() > 0): ?>
 									<span class="count hidden"><?php echo e(Auth::user()->notifications()->where('seen',0)->count()); ?></span>
 									<span class="count" v-if="unreadNotifications > 0" >{{ unreadNotifications }}</span>
@@ -66,7 +69,7 @@
 													<h4 class="media-heading">
 														<span class="notification-text"> {{ notification.description }} </span>
 														<span class="message-time">
-															<span class="notification-type"><i class="fa fa-user" aria-hidden="true"></i></span>
+															<span class="notification-type"><i class="fa fa-user"></i></span>
 															<time class="timeago" datetime="{{ notification.created_at }}+00:00" title="{{ notification.created_at }}+00:00">
 																{{ notification.created_at }}+00:00
 															</time>
@@ -82,7 +85,7 @@
 								</ul>
 								<?php else: ?>
 								<div class="no-messages">
-									<i class="fa fa-bell-slash-o" aria-hidden="true"></i>
+									<i class="fa fa-bell-slash-o"></i>
 									<p><?php echo e(trans('messages.no_notifications')); ?></p>
 								</div>
 								<?php endif; ?>
@@ -93,7 +96,7 @@
 						</li>
 						<li class="dropdown message largescreen-message">
 							<a href="#" data-toggle="dropdown" @click="showConversations" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-comments" aria-hidden="true">
+								<i class="fa fa-comments">
 									<span class="count" v-if="unreadConversations" >{{ unreadConversations }}</span>
 								</i>
 								<span class="small-screen"><?php echo e(trans('common.messages')); ?></span>
@@ -104,7 +107,7 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="no-messages hidden">
-									<i class="fa fa-commenting-o" aria-hidden="true"></i>
+									<i class="fa fa-commenting-o"></i>
 									<p><?php echo e(trans('messages.no_messages')); ?></p>
 								</div>
 								<ul class="list-unstyled dropdown-messages-list scrollable" data-type="messages">
@@ -139,39 +142,39 @@
 							</li>
 							<li class="smallscreen-message">
 								<a href="<?php echo e(url('messages')); ?>">
-									<i class="fa fa-comments" aria-hidden="true">
+									<i class="fa fa-comments">
 										<span class="count" v-if="unreadConversations" >{{ unreadConversations }}</span>
 									</i>
 									<span class="small-screen"><?php echo e(trans('common.messages')); ?></span>
 								</a>
 							</li>
 							<li class="chat-list-toggle">
-								<a href="#"><i class="fa fa-users" aria-hidden="true"></i><span class="small-screen">chat-list</span></a>
+								<a href="#"><i class="fa fa-users"></i><span class="small-screen">chat-list</span></a>
 							</li>
 						</ul>
 					</li>
 					<li class="dropdown user-image socialite">
 						<a href="<?php echo e(url(Auth::user()->username)); ?>" class="dropdown-toggle no-padding" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 							<img src="<?php echo e(Auth::user()->avatar); ?>" alt="<?php echo e(Auth::user()->name); ?>" class="img-radius img-30" title="<?php echo e(Auth::user()->name); ?>">
-
-							<span class="user-name"><?php echo e(Auth::user()->name); ?></span><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+							
+							<span class="user-name"><?php echo e(Auth::user()->name); ?></span><i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-menu">
 								<?php if(Auth::user()->hasRole('admin')): ?>
-								<li class="<?php echo e(Request::segment(1) == 'admin' ? 'active' : ''); ?>"><a href="<?php echo e(url('admin')); ?>"><i class="fa fa-user-secret" aria-hidden="true"></i><?php echo e(trans('common.admin')); ?></a></li>
+								<li class="<?php echo e(Request::segment(1) == 'admin' ? 'active' : ''); ?>"><a href="<?php echo e(url('admin')); ?>"><i class="fa fa-user-secret"></i><?php echo e(trans('common.admin')); ?></a></li>
 								<?php endif; ?>
-								<li class="<?php echo e((Request::segment(1) == Auth::user()->username && Request::segment(2) == '') ? 'active' : ''); ?>"><a href="<?php echo e(url(Auth::user()->username)); ?>"><i class="fa fa-user" aria-hidden="true"></i><?php echo e(trans('common.my_profile')); ?></a></li>
+								<li class="<?php echo e((Request::segment(1) == Auth::user()->username && Request::segment(2) == '') ? 'active' : ''); ?>"><a href="<?php echo e(url(Auth::user()->username)); ?>"><i class="fa fa-user"></i><?php echo e(trans('common.my_profile')); ?></a></li>
 
-								<li class="<?php echo e(Request::segment(2) == 'pages-groups' ? 'active' : ''); ?>"><a href="<?php echo e(url(Auth::user()->username.'/pages-groups')); ?>"><i class="fa fa-bars" aria-hidden="true"></i><?php echo e(trans('common.my_pages_groups')); ?></a></li>
+								<li class="<?php echo e(Request::segment(2) == 'pages-groups' ? 'active' : ''); ?>"><a href="<?php echo e(url(Auth::user()->username.'/pages-groups')); ?>"><i class="fa fa-bars"></i><?php echo e(trans('common.my_pages_groups')); ?></a></li>
 
-								<li class="<?php echo e(Request::segment(3) == 'events' ? 'active' : ''); ?>"><a href="<?php echo e(url(Auth::user()->username.'/events')); ?>"><i class="fa fa-calendar" aria-hidden="true"></i><?php echo e(trans('common.events')); ?></a></li>
+								<li class="<?php echo e(Request::segment(3) == 'events' ? 'active' : ''); ?>"><a href="<?php echo e(url(Auth::user()->username.'/events')); ?>"><i class="fa fa-calendar"></i><?php echo e(trans('common.events')); ?></a></li>
 
-								<li class="<?php echo e(Request::segment(3) == 'general' ? 'active' : ''); ?>"><a href="<?php echo e(url('/'.Auth::user()->username.'/settings/general')); ?>"><i class="fa fa-cog" aria-hidden="true"></i><?php echo e(trans('common.settings')); ?></a></li>
+								<li class="<?php echo e(Request::segment(3) == 'general' ? 'active' : ''); ?>"><a href="<?php echo e(url('/'.Auth::user()->username.'/settings/general')); ?>"><i class="fa fa-cog"></i><?php echo e(trans('common.settings')); ?></a></li>
 
-								<li><a href="<?php echo e(url('/logout')); ?>"><i class="fa fa-unlock" aria-hidden="true"></i><?php echo e(trans('common.logout')); ?></a></li>
+								<li><a href="<?php echo e(url('/logout')); ?>"><i class="fa fa-unlock"></i><?php echo e(trans('common.logout')); ?></a></li>
 							</ul>
 						</li>
 	               <!--  <li class="logout">
-	                    <a href="<?php echo e(url('/logout')); ?>"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+	                    <a href="<?php echo e(url('/logout')); ?>"><i class="fa fa-sign-out"></i></a>
 	                </li> -->
 	            </ul>
 	            <?php endif; ?>

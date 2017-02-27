@@ -115,11 +115,12 @@
 
 <div class="timeline-profile">
 	<div class="profile-name">
-		<a href="#">Muhammad Syukri Khafidh</a>
+		<a href="#"><?php echo e($timeline->name); ?></a>
 	</div>
 	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
 		<img class="loading hidden" src="<?php echo e(asset('themes/streetskope/assets/images/loading1.gif')); ?>">
 		<img src="<?php echo e($timeline->user->profile_pict); ?>" alt="<?php echo e($timeline->name); ?>" title="<?php echo e($timeline->name); ?>">
+
 		<?php if($timeline->id == Auth::user()->timeline_id): ?>
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-profile">

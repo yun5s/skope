@@ -166,9 +166,9 @@
 							<div class="row">
 								<div class="col-md-6">
 									<fieldset class="form-group">
-										<?php echo e(Form::label('add_to_network', trans('common.add_to_network'))); ?>
+										<?php echo e(Form::label('add_to_work', trans('common.add_to_work'))); ?>
 
-										<?php echo e(Form::text('add_to_network', Auth::user()->add_to_network, ['class' => 'form-control', 'placeholder' => trans('common.add_to_network')])); ?>
+										<?php echo e(Form::text('add_to_work', Auth::user()->add_to_network, ['class' => 'form-control', 'placeholder' => trans('common.add_to_work')])); ?>
 
 									</fieldset>
 								</div>

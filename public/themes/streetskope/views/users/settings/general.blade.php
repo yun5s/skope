@@ -136,8 +136,8 @@
 							<div class="row">
 								<div class="col-md-6">
 									<fieldset class="form-group">
-										{{ Form::label('add_to_network', trans('common.add_to_network')) }}
-										{{ Form::text('add_to_network', Auth::user()->add_to_network, ['class' => 'form-control', 'placeholder' => trans('common.add_to_network')]) }}
+										{{ Form::label('add_to_work', trans('common.add_to_work')) }}
+										{{ Form::text('add_to_work', Auth::user()->add_to_network, ['class' => 'form-control', 'placeholder' => trans('common.add_to_work')]) }}
 									</fieldset>
 								</div>
 								<div class="col-md-6">
