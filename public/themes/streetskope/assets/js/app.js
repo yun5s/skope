@@ -309,26 +309,69 @@ $(function () {
         e.preventDefault();
         like_btn = $(this).closest('.panel-post');
         postId = $(this).data('post-id');
+        var likeIcon1 = 'fa-thumbs-up';
+        var likeIcon2 = 'fa-thumbs-o-up';
+        var likeIcon3 = 'fa-thumbs-down';
+        var likeIcon4 = 'fa-thumbs-o-down';
         $.post(SP_source() + 'ajax/like-post', {post_id: $(this).data('post-id')}, function(data) {
             if (data.status == 200) {
                 if (data.liked == true) {
-                    like_btn.find('.like-'+postId).parent().addClass('hidden');
-                    like_btn.find('.unlike-'+postId).parent().removeClass('hidden');
-                    like_btn.find('.notify').parent().addClass('hidden');
-                    like_btn.find('.unnotify').parent().removeClass('hidden');
-                    $('.footer-list').find('.like1-'+postId).parent().remove();
-                    $('.like2-'+postId).empty();
-                    $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
+                    like_btn.find('.unlike-'+postId + ' i.'+likeIcon3).removeClass(likeIcon3);
+                    like_btn.find('.unlike-'+postId + ' i').addClass(likeIcon4);
+                    like_btn.find('.like-'+postId + ' i').removeClass(likeIcon2);
+                    like_btn.find('.like-'+postId + ' i').addClass(likeIcon1);
+                    // like_btn.find('.unlike-'+postId).parent().removeClass('hidden');
+                    // like_btn.find('.notify').parent().addClass('hidden');
+                    // like_btn.find('.unnotify').parent().removeClass('hidden');
+                    // $('.footer-list').find('.like1-'+postId).parent().remove();
+                    // $('.like2-'+postId).empty();
+                    // $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
 
                 }else{
-                    like_btn.find('.like-'+postId).parent().removeClass('hidden');
-                    like_btn.find('.unlike-'+postId).parent().addClass('hidden');
-                    like_btn.find('.notify').parent().removeClass('hidden');
-                    like_btn.find('.unnotify').parent().addClass('hidden');
-                    $('.footer-list').find('.like1-'+postId).parent().remove();
-                    $('.like2-'+postId).empty();
-                    $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
+                    like_btn.find('.like-'+postId + ' i').removeClass(likeIcon1);
+                    like_btn.find('.like-'+postId + ' i').addClass(likeIcon2);                    // like_btn.find('.like-'+postId).parent().removeClass('hidden');
+                    // like_btn.find('.unlike-'+postId).parent().addClass('hidden');
+                    // like_btn.find('.notify').parent().removeClass('hidden');
+                    // like_btn.find('.unnotify').parent().addClass('hidden');
+                    // $('.footer-list').find('.like1-'+postId).parent().remove();
+                    // $('.like2-'+postId).empty();
+                    // $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
                 }
+            }
+        });
+    });
+
+    // Like/Unlike the post by user
+    $(document).on('click','.unlike-post',function(e){
+        e.preventDefault();
+        like_btn = $(this).closest('.panel-post');
+        postId = $(this).data('post-id');
+        var likeIcon1 = 'fa-thumbs-down';
+        var likeIcon2 = 'fa-thumbs-o-down';
+        var likeIcon3 = 'fa-thumbs-up';
+        var likeIcon4 = 'fa-thumbs-o-up';
+        $.post(SP_source() + 'ajax/unlike-post', {post_id: $(this).data('post-id')}, function(data) {
+            if (data.liked == false) {
+                like_btn.find('.like-'+postId + ' i.'+likeIcon3).removeClass(likeIcon3);
+                like_btn.find('.like-'+postId + ' i').addClass(likeIcon4);
+                like_btn.find('.unlike-'+postId + ' i').removeClass(likeIcon2);
+                like_btn.find('.unlike-'+postId + ' i').addClass(likeIcon1);
+                // like_btn.find('.unlike-'+postId).parent().removeClass('hidden');
+                // like_btn.find('.notify').parent().addClass('hidden');
+                // like_btn.find('.unnotify').parent().removeClass('hidden');
+                // $('.footer-list').find('.like1-'+postId).parent().remove();
+                // $('.like2-'+postId).empty();
+                $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
+
+            }else{
+                like_btn.find('.unlike-'+postId + ' i').removeClass(likeIcon1);
+                like_btn.find('.unlike-'+postId + ' i').addClass(likeIcon2);                    // like_btn.find('.like-'+postId).parent().removeClass('hidden');
+                // like_btn.find('.unlike-'+postId).parent().addClass('hidden');
+                // like_btn.find('.notify').parent().removeClass('hidden');
+                // like_btn.find('.unnotify').parent().addClass('hidden');
+                // $('.footer-list').find('.like1-'+postId).parent().remove();
+                // $('.like2-'+postId).empty();
+                $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
             }
         });
     });

@@ -831,19 +831,84 @@ class TimelineController extends AppBaseController
         }
         //Unlike the post
         else {
-            $post->users_liked()->detach([Auth::user()->id]);
-            $post->notifications_user()->detach([Auth::user()->id]);
+            if($post->users_liked()->wherePivot('user_id', Auth::user()->id)->wherePivot('liked', 1)->first()){
+                $post->users_liked()->detach([Auth::user()->id]);
+                $post->notifications_user()->detach([Auth::user()->id]);
+                //Notify the user for post unlike
+                $notify_message = 'unliked your post';
+                $notify_type = 'unlike_post';
+                $status_message = 'successfully unliked';
+                $liked = false;
+            } else {
+                $post->users_liked()->updateExistingPivot(Auth::user()->id, ['liked' => 1]);
+                //Notify the user for post unlike
+                $notify_message = 'liked your post';
+                $notify_type = 'like_post';
+                $status_message = 'successfully liked';
+                $liked = true;
+            }
+
+            if ($post->user->id != Auth::user()->id) {
+                Notification::create(['user_id' => $post->user->id, 'post_id' => $post->id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name.' '.$notify_message, 'type' => $notify_type]);
+            }
+
+            return response()->json(['status' => '200', 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count]);
+        }
+
+        if ($post) {
+            $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('ajax');
+            $postHtml = $theme->scope('timeline/post', compact('post'))->render();
+        }
+
+        return response()->json(['status' => '200', 'data' => $postHtml]);
+    }
+
+    public function unlikePost(Request $request)
+    {
+        $post = Post::findOrFail($request->post_id);
+        $posted_user = $post->user;
+        $like_count = $post->users_liked()->count();
+
+        //Like the post
+        if (!$post->users_liked->contains(Auth::user()->id)) {
+            $post->users_liked()->attach(Auth::user()->id, ['created_at' => Carbon::now(), 'updated_at' => Carbon::now(), 'liked' => 0]);
+
+            $user = User::find(Auth::user()->id);
+            $user_settings = $user->getUserSettings($posted_user->id);
+            if ($user_settings && $user_settings->email_like_post == 'yes') {
+                Mail::send('emails.postlikemail', ['user' => $user, 'posted_user' => $posted_user], function ($m) use ($posted_user, $user) {
+                    $m->from(Setting::get('noreply_email'), Setting::get('site_name'));
+                    $m->to($posted_user->email, $posted_user->name)->subject($user->name.' '.'unliked your post');
+                });
+            }
 
             //Notify the user for post unlike
             $notify_message = 'unliked your post';
             $notify_type = 'unlike_post';
             $status_message = 'successfully unliked';
 
-            if ($post->user->id != Auth::user()->id) {
-                Notification::create(['user_id' => $post->user->id, 'post_id' => $post->id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name . ' ' . $notify_message, 'type' => $notify_type]);
+            return response()->json(['status' => '200', 'liked' => false, 'message' => $status_message, 'likecount' => $like_count]);
+        }
+        //Unlike the post
+        else {
+            if($post->users_liked()->wherePivot('user_id', Auth::user()->id)->wherePivot('liked', 0)->first()){
+                $post->users_liked()->detach([Auth::user()->id]);
+                $post->notifications_user()->detach([Auth::user()->id]);
+                //Notify the user for post unlike
+                $notify_message = 'liked your post';
+                $notify_type = 'liked_post';
+                $status_message = 'successfully liked';
+                $liked = true;
+            } else {
+                $post->users_liked()->updateExistingPivot(Auth::user()->id, ['liked' => 0]);
+                //Notify the user for post unlike
+                $notify_message = 'unlikede your post';
+                $notify_type = 'unlike_post';
+                $status_message = 'successfully unliked';
+                $liked = false;
             }
 
-            return response()->json(['status' => '200', 'liked' => false, 'message' => $status_message, 'likecount' => $like_count]);
+            return response()->json(['status' => '200', 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count]);
         }
 
         if ($post) {

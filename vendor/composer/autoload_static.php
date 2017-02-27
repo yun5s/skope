@@ -1095,6 +1095,7 @@ class ComposerStaticInitd96e3fdf8db2141772738d50e0027bbd
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'TimelinesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TimelinesTableSeeder.php',
+        'UpdateStreetskopePostLikesTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_27_035402_update_streetskope_post_likes_table.php',
         'UpdateStreetskopeTimelinesTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_24_023729_update_streetskope_timelines_table.php',
         'UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersTableSeeder.php',
         'Zizaco\\Entrust\\MigrationCommand' => __DIR__ . '/..' . '/zizaco/entrust/src/commands/MigrationCommand.php',

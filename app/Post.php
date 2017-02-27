@@ -33,7 +33,7 @@ class Post extends Model
 
     public function users_liked()
     {
-        return $this->belongsToMany('App\User', 'post_likes', 'post_id', 'user_id');
+        return $this->belongsToMany('App\User', 'post_likes', 'post_id', 'user_id')->withPivot('liked');
     }
 
     public function shares()

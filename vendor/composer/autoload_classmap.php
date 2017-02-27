@@ -579,6 +579,7 @@ return array(
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'TimelinesTableSeeder' => $baseDir . '/database/seeds/TimelinesTableSeeder.php',
+    'UpdateStreetskopePostLikesTable' => $baseDir . '/database/migrations/2017_02_27_035402_update_streetskope_post_likes_table.php',
     'UpdateStreetskopeTimelinesTable' => $baseDir . '/database/migrations/2017_02_24_023729_update_streetskope_timelines_table.php',
     'UsersTableSeeder' => $baseDir . '/database/seeds/UsersTableSeeder.php',
     'Zizaco\\Entrust\\MigrationCommand' => $vendorDir . '/zizaco/entrust/src/commands/MigrationCommand.php',
