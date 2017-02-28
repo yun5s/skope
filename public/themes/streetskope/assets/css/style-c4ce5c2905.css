@@ -13440,7 +13440,7 @@ body.lb-disable-scrolling {
   }
 }
 body {
-  background: #EFF3F6;
+  background: #ddfffc none repeat scroll 0 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   color: #354052;
@@ -13809,12 +13809,11 @@ textarea.form-control {
   text-decoration: none;
   background-color: transparent;
   border-color: transparent;
-  color: transparent;
+  color: #fff;
   margin-left: 10px;
   padding-left: 10px;
 }
 .dropdown.user-image .dropdown-toggle i {
-  color: #86CAFF;
   border-radius: 83px;
   margin-left: 8px;
   padding-right: 5px;
@@ -24593,7 +24592,7 @@ html {
   border-left-width: 0px;
   border-right-width: 1px !important;
   height: 30px !important;
-  min-width: 360px;
+  min-width: 160px;
 }
 .form-left .form-control:focus {
   outline: none !important;
@@ -24688,9 +24687,9 @@ html {
   padding-top: 4px;
   padding-right: 6px;
 }
-.notification-list {
+/*.notification-list {
   border-right: 1px solid #E6EAEE;
-}
+}*/
 .notification-list > li {
   padding-left: 12px;
   padding-right: 12px;
@@ -24702,12 +24701,14 @@ html {
   padding-right: 26px;
 }
 .notification-list > li > a {
-  padding-top: 15px;
+  padding-top: 13px;
   padding-bottom: 15px;
   display: block;
   text-decoration: none;
   color: #fff;
 }
+.user-image.dropdown.socialite a:hover .small-screen, 
+.notification-list > li a:hover .small-screen,
 .notification-list > li > a:hover {
   color: #000;
 }
@@ -24718,7 +24719,7 @@ html {
   }
 }
 .notification-list > li > a i {
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 0.46px;
   position: relative;
 }
@@ -24738,15 +24739,17 @@ html {
   color: #FFFFFF;
   letter-spacing: 0.17px;
 }
+.user-image.dropdown.socialite .small-screen,
 .notification-list > li .small-screen {
   display: none;
   margin-left: 10px;
   text-transform: capitalize;
-  color: #354052;
+  color: #fff;
   font-size: 16px;
   font-family: 'Source Sans Pro', sans-serif;
 }
 @media (max-width: 1010px) {
+  .user-image.dropdown.socialite .small-screen,
   .notification-list > li .small-screen {
     display: inline-block;
   }
@@ -24757,9 +24760,9 @@ html {
   }
 }
 @media (max-width: 1325px) {
-  .dropdown.message {
+/*  .dropdown.message {
     padding-right: 26px;
-  }
+  }*/
 }
 .dropdown.message .dropdown-menu {
   width: 370px;
@@ -24969,9 +24972,9 @@ html {
   padding-top: 15px;
   min-width: 189px;
 }
-.user-image.dropdown.socialite > a {
+/*.user-image.dropdown.socialite > a {
   margin-left: 10px;
-}
+}*/
 @media (max-width: 1010px) {
   .user-image.dropdown.socialite > a {
     margin-left: 31px;
@@ -24986,7 +24989,6 @@ html {
   text-transform: capitalize;
 }
 .user-image.dropdown.socialite > a i {
-  color: #fff;
   font-size: 16px;
   border-radius: 83px;
   margin-left: 10px;
@@ -25051,7 +25053,7 @@ html {
     border-top: 1px solid transparent;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
     margin-top: 9px;
-    background-color: #fff;
+    background-color: #35D1CC;
     border-bottom: 1px solid #E6EAEE;
     margin-left: -15px !important;
     margin-right: -15px !important;
@@ -28049,9 +28051,9 @@ body.direction-rtl .manage-table table tbody td ul {
   margin-top: 10px;
   overflow: hidden;
 }
-.selectize-input {
+/*.selectize-input {
   min-width: 260px;
-}
+}*/
 .big-search-dropdown {
   margin-top: 0px;
   margin-bottom: 10px;
