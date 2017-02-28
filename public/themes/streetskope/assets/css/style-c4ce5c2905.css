@@ -4022,7 +4022,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   -webkit-overflow-scrolling: touch;
 }
 .navbar-collapse.in {
-  overflow-y: auto;
+  overflow-y: visible;
 }
 @media (min-width: 768px) {
   .navbar-collapse {
@@ -4256,12 +4256,19 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     top: 0;
   }
 }
+
+.navbar-form.navbar-right.form-left {
+    width: 429px;
+}
 @media (max-width: 767px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
   .navbar-form .form-group:last-child {
     margin-bottom: 0;
+  }
+  .navbar-form.navbar-right.form-left {
+    width: 100%;
   }
 }
 @media (min-width: 768px) {
@@ -4316,7 +4323,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
-    margin-right: -15px;
+    margin-right: 0;
   }
   .navbar-right ~ .navbar-right {
     margin-right: 0;
@@ -21409,7 +21416,7 @@ html {
 .mini-profile .background .avatar-img {
   position: absolute;
   left: 8px;
-  bottom: -45px;
+  bottom: -61px;
   border-radius: 50%;
   text-align: -webkit-center;
   line-height: 82px;
@@ -22267,6 +22274,7 @@ html {
   text-align: left;
   display: inline-block;
   width: 100%;
+  position: relative;
 }
 .widget-left-panel .menu-list li .menu-btn:hover {
   background-color: #35D1CC;
@@ -22362,7 +22370,9 @@ html {
   color: #FFFFFF;
   font-weight: 400;
   margin-left: 8px;
-  float: right;
+  /*float: right;*/
+  position: absolute;
+  right: 0;
 }
 .widget-mountain .mountain-bg img {
   width: 100%;
@@ -24592,7 +24602,7 @@ html {
   border-left-width: 0px;
   border-right-width: 1px !important;
   height: 30px !important;
-  min-width: 160px;
+  min-width: 360px;
 }
 .form-left .form-control:focus {
   outline: none !important;
@@ -27496,6 +27506,7 @@ body.direction-rtl .manage-table table tbody td ul {
 }
 .user-bio-block .bio-list li {
   margin-bottom: 7px;
+  display: table;
 }
 .user-bio-block .bio-list li:last-child {
   margin-bottom: 0px;
@@ -27505,10 +27516,13 @@ body.direction-rtl .manage-table table tbody td ul {
   color: #BBC5D5;
   width: 20px;
   margin-right: 5px;
+  display: table-cell;
 }
 .user-bio-block .bio-list li span {
   color: #354052;
   font-weight: 600;
+  display: table-cell;
+  font-size: 12px;
 }
 .widget-best-pictures {
   background: #FFFFFF;
@@ -28052,9 +28066,9 @@ body.direction-rtl .manage-table table tbody td ul {
   margin-top: 10px;
   overflow: hidden;
 }
-/*.selectize-input {
+.selectize-input {
   min-width: 260px;
-}*/
+}
 .big-search-dropdown {
   margin-top: 0px;
   margin-bottom: 10px;
@@ -28138,7 +28152,6 @@ a:focus {
 .media-heading a {
   color: #354052;
 }
-
 /*# sourceMappingURL=style.css.map */
 
 /* Baru 212 */
@@ -28149,6 +28162,7 @@ a:focus {
   display: inline-block;
   min-height: 331px;
   width: 100%;
+  position: relative;
 }
 .bubble {
   position: absolute;
@@ -28209,6 +28223,7 @@ a:focus {
   display: inline-block;
   min-height: 360px;
   width: 100%;
+  position: relative;
 }
 .bubble-rtl {
   position: absolute;
@@ -28237,9 +28252,9 @@ a:focus {
 }
 .panel-bubble-rtl .panel-body {
   display: block;
-  margin: 1px 41px 0 53px;
+  margin: 1px 64px 0 50px;
   position: relative;
-  top: 168px;
+  top: 155px;
   z-index: 10;
 }
 .panel-bubble-rtl .panel-body textarea {
@@ -28257,8 +28272,8 @@ a:focus {
   background-color: transparent;
   border-radius: 0;
   border-top: medium none;
-  bottom: -187px;
-  margin: 1px 55px 0 52px;
+  bottom: -153px;
+  margin: 1px 63px 0 52px;
   position: relative;
   z-index: 20;
 }

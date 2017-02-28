@@ -158,7 +158,7 @@
             <p>{{ $post->description }}</p>
             @if(count($post->images()->get()) == 1)
             <div class="post-image-holder single-image">
-                @else ̰
+                @else
             <div class="post-image-holder">
 
                 @endif
@@ -174,7 +174,7 @@
                     @if($postImage->type=='video')
                         <video width="100%" preload="none" height="auto" poster="{{ url('user/gallery/video/'.$postImage->title) }}.jpg" controls class="video-video-playe">
                             <source src="{{ url('user/gallery/video/'.$postImage->source) }}" type="video/mp4">
-                            <! Captions are optional >
+                            <!-- Captions are optional -->
                         </video>
                     @endif
                 @endforeach
@@ -206,7 +206,7 @@
                 $unliked_names = $post->users_unliked->pluck('name')->toArray();
                 ?>
                 <li>
-                    <a href="#" class="show-users-modal" data-html="true" data-heading="{{ trans('common.unlikes') }}"  data-users="{{ implode(',', $unliked_ids) }}" data-original-title="{{ implode('<br />', $unliked_names) }}"><span class="count-circle"><i class="fa fa-thumbs-down"></i></span> {{ $post->users_unliked()->count() }} {{ trans('common.unlikes') }}</a>
+                    <a href="#" class="show-users-modal" data-html="true" data-heading="{{ trans('common.unlikes') }}"  data-users="{{ implode(',', $unliked_ids) }}" data-original-title="{{ implode('<br />', $unliked_names) }}"><span class="count-circle"><i class="fa fa-thumbs-down"></i></span> {{ $post->users_unliked()->count() }} <!-- {{ trans('common.unlike') }} --> Dislike</a>
                 </li>
             @endif
 
@@ -257,16 +257,16 @@
                 @if($post->users_liked()->wherePivot('user_id', Auth::user()->id)->wherePivot('liked', 1)->first())
                     <li><a href="#" class="like-post like-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-up"></i>{{ trans('common.like') }}</a></li>
 
-                    <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i>{{ trans('common.unlike') }}</a></li>
+                    <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
 
                 @else
                     <li><a href="#" class="like-post like-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-up"></i>{{ trans('common.like') }}</a></li>
 
-                    <li><a href="#" class="unlike-post unlike-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-down"></i></i>{{ trans('common.unlike') }}</a></li>
+                    <li><a href="#" class="unlike-post unlike-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
                 @endif
             @else
                 <li><a href="#" class="like-post like-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-up"></i>{{ trans('common.like') }}</a></li>
-                <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i>{{ trans('common.unlike') }}</a></li>
+                <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
             @endif
             <li><a href="#" class="show-comments"><i class="fa fa-comment-o"></i>{{ trans('common.comment') }}</a></li>
 

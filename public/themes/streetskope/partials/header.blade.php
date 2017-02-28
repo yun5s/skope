@@ -17,15 +17,6 @@
 				<li><a href="{{ url('/mainpage') }}" title="Main Page">Main</a></li>
 				<li><a href="{{ url('/') }}" title="Home Page">Home</a></li>
 			</ul>
-			<form class="navbar-form navbar-right form-left" role="search">
-				<div class="input-group no-margin">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-					</span>
-					<input type="text" id="navbar-search" data-url="{{ URL::to('api/v1/timelines') }}" class="form-control" placeholder="Search">
-				</div><!-- /input-group -->
-			</form>
-			<!-- Collect the nav links, forms, and other content for toggling -->
 			@if (Auth::guest())
 			<ul class="nav navbar-nav navbar-left">
 				<li class="logout">
@@ -180,6 +171,16 @@
 	                </li> -->
         </ul>
         @endif
+        
+			<form class="navbar-form navbar-right form-left" role="search">
+				<div class="input-group no-margin">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+					</span>
+					<input type="text" id="navbar-search" data-url="{{ URL::to('api/v1/timelines') }}" class="form-control" placeholder="Search">
+				</div><!-- /input-group -->
+			</form>
+			<!-- Collect the nav links, forms, and other content for toggling -->
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>	

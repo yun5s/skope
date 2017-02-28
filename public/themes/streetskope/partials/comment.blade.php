@@ -40,10 +40,10 @@
 
               @if(!$comment->comments_liked->contains(Auth::user()->id))
               <li><a href="#" class="text-capitalize like-comment like" data-comment-id="{{ $comment->id }}">{{ trans('common.like') }}</a></li>
-              <li class="hidden"><a href="#" class="text-capitalize like-comment unlike" data-comment-id="{{ $comment->id }}">{{ trans('common.unlike') }}</a></li>
+              <li class="hidden"><a href="#" class="text-capitalize like-comment unlike" data-comment-id="{{ $comment->id }}"><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
               @else
               <li class="hidden"><a href="#" class="text-capitalize like-comment like" data-comment-id="{{ $comment->id }}">{{ trans('common.like') }}</a></li>
-              <li><a href="#" class="text-capitalize like-comment unlike" data-comment-id="{{ $comment->id }}">{{ trans('common.unlike') }}</a></li>
+              <li><a href="#" class="text-capitalize like-comment unlike" data-comment-id="{{ $comment->id }}"><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
               @endif
               <li>.</li>
               <li><a href="#" class="show-comment-reply">{{ trans('common.reply') }}</a></li>    

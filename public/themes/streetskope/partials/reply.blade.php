@@ -14,10 +14,10 @@
       <ul class="list-inline comment-options">
         @if(!$reply->comments_liked->contains(Auth::user()->id))
         <li><a href="#" class="text-capitalize like-comment like" data-comment-id="{{ $reply->id }}">{{ trans('common.like') }}</a></li>
-        <li class="hidden"><a href="#" class="text-capitalize like-comment unlike" data-comment-id="{{ $reply->id }}">{{ trans('common.unlike') }}</a></li>
+        <li class="hidden"><a href="#" class="text-capitalize like-comment unlike" data-comment-id="{{ $reply->id }}"><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
         @else
         <li class="hidden"><a href="#" class="text-capitalize like-comment like" data-comment-id="{{ $reply->id }}">{{ trans('common.like') }}</a></li>
-        <li><a href="#" class="text-capitalize like-comment unlike" data-comment-id="{{ $reply->id }}">{{ trans('common.unlike') }}</a></li>
+        <li><a href="#" class="text-capitalize like-comment unlike" data-comment-id="{{ $reply->id }}"><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
         @endif
         <li>.</li>
         @if($reply->comments_liked->count() != null)
