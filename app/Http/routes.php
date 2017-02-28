@@ -469,3 +469,4 @@ Route::get('event/avatar/{filename}', function ($filename) {
 });
 
 Route::get('/page/{pagename}', 'PageController@page');
+Route::get('/p/construction', 'PageController@construction');

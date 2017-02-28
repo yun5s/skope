@@ -45,7 +45,7 @@
     <div class="panel-body">
       <div class="text-wrapper">
         <p>{{ $post->description }}</p>
-        <div class="post-image-holder  @if(count($post->images()->get()) == 1) single-image @endif">
+        <div class="post-image-holder{{(count($post->images()->get()) == 1) ? 'single-image' : ''}}">
           @foreach($post->images()->get() as $postImage)
           <a target="_blank" href="{{ url('/post/'.$post->id) }}"><img src="{{ url('user/gallery/'.$postImage->source) }}"  title="{{ $post->user->name }}" alt="{{ $post->user->name }}"></a>
           @endforeach

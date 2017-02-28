@@ -84,4 +84,10 @@ class PageController extends Controller
 
         return $theme->scope('share-post', compact('post'))->render();
     }
+    
+    public function construction()
+    {
+        $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('ajax');
+        return $theme->scope('pages/under-construction')->render();
+    }
 }
