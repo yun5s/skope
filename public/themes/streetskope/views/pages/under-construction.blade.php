@@ -55,7 +55,7 @@
 
     <body>
         <div class="wrapper">
-            <div class="const"><img src="{!! url('setting/'.Setting::get('logo')) !!}"></div>
+            <div class="const"><img src="{{asset('themes/streetskope/assets/images/icons/cropped-ssnow2.png')}}"></div>
             <div class="constext">
                 <h2>Page</h2>
                 <h3>Under Construction</h3>
