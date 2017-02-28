@@ -33,5 +33,6 @@
 				
 			@endif
 		</ul>
-	</div> -->
+	</div> 
+        -->
 </div><!-- /widget-events -->
