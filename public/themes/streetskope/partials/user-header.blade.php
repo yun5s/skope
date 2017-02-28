@@ -115,12 +115,6 @@
 
 <div class="timeline-profile">
 	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
-	<div class="profile-name">
-		<a href="#">{{ $timeline->name }}</a>
-	</div>
-		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
-		<img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
-
 		@if($timeline->id == Auth::user()->timeline_id)
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-profile">
@@ -129,10 +123,13 @@
 				</a>
 			</div>
 		@endif
+		<div class="profile-name">
+			<a href="#">{{ $timeline->name }}</a>
+		</div>
+		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
+		<img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 	</div>
 	<div class="col-xs-6 col-sm-3 col-md-3 last user-avatar">
-		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
-		<img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 		@if($timeline->id == Auth::user()->timeline_id)
 			<div class="chang-user-avatar">
 				<a href="#" class="btn btn-camera change-avatar">
@@ -141,6 +138,8 @@
 				</a>
 			</div>
 		@endif
+		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
+		<img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6 video">
 		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">

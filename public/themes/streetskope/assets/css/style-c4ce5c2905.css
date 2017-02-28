@@ -25798,7 +25798,7 @@ html {
   border-radius: 0px;
   position: absolute;
   left: 0px;
-  bottom: 0px;
+  top: 0px;
   color: #fff;
 }
 @media (max-width: 560px) {
