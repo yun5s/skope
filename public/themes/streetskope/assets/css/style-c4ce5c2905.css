@@ -25789,6 +25789,7 @@ html {
 .chang-user-avatar {
   position: relative;
   display: none;
+  z-index: 9;
 }
 .chang-user-avatar .btn-camera {
   background-color: rgba(0, 0, 0, 0.67);
@@ -28288,13 +28289,13 @@ a:focus {
 }
 .timeline-profile img{width: 100%;}
 .profile-name {
-  bottom: 60px;
+  bottom: 0;
   display: block;
   left: 0;
   padding: 5px;
   position: absolute;
-  width: 100%;
-  z-index: 9;
+  /*width: 100%;*/
+  z-index: 2;
 }
 .profile-name > a {
   color: #fff;

@@ -114,10 +114,10 @@
 {{--</div><!-- timeline-cover-section -->--}}
 
 <div class="timeline-profile">
+	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
 	<div class="profile-name">
 		<a href="#">{{ $timeline->name }}</a>
 	</div>
-	<div class="col-xs-6 col-sm-3 col-md-3 first user-profile">
 		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
 		<img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 
