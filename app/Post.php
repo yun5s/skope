@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+
     use SoftDeletes;
 
     /**
@@ -18,13 +19,12 @@ class Post extends Model
      */
     protected $dates = ['deleted_at'];
 
-
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-  protected $fillable = ['timeline_id', 'description', 'user_id', 'youtube_title', 'youtube_video_id', 'location', 'soundcloud_id', 'soundcloud_title', 'shared_post_id'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['timeline_id', 'description', 'user_id', 'youtube_title', 'youtube_video_id', 'location', 'soundcloud_id', 'soundcloud_title', 'shared_post_id'];
 
     public function user()
     {
@@ -33,7 +33,12 @@ class Post extends Model
 
     public function users_liked()
     {
-        return $this->belongsToMany('App\User', 'post_likes', 'post_id', 'user_id')->withPivot('liked');
+        return $this->belongsToMany('App\User', 'post_likes', 'post_id', 'user_id')->wherePivot('liked', 1);
+    }
+
+    public function users_unliked()
+    {
+        return $this->belongsToMany('App\User', 'post_likes', 'post_id', 'user_id')->wherePivot('liked', 0);
     }
 
     public function shares()
@@ -188,4 +193,5 @@ class Post extends Model
 
         return $result;
     }
+
 }

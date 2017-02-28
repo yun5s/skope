@@ -114,8 +114,6 @@
 
                         @if($post->users_tagged->count() > 0)
                             {{ trans('common.with') }}
-                            {{--*/ $post_tags = $post->users_tagged->pluck('name')->toArray() /*--}}
-                            {{--*/ $post_tags_ids = $post->users_tagged->pluck('id')->toArray() /*--}}
                             @foreach($post->users_tagged as $key => $user)
                                 @if($key==1)
                                     {{ trans('common.and') }}
@@ -158,7 +156,12 @@
     <div class="panel-body">
         <div class="text-wrapper">
             <p>{{ $post->description }}</p>
-            <div class="post-image-holder  @if(count($post->images()->get()) == 1) single-image @endif">
+            @if(count($post->images()->get()) == 1)
+            <div class="post-image-holder single-image">
+                @else ̰
+            <div class="post-image-holder">
+
+                @endif
                 @foreach($post->images()->get() as $postImage)
                     @if($postImage->type=='image')
                         <a href="{{ url('user/gallery/'.$postImage->source) }}" data-lightbox="imageGallery.{{ $post->id }}" ><img src="{{ url('user/gallery/'.$postImage->source) }}"  title="{{ $post->user->name }}" alt="{{ $post->user->name }}"></a>
@@ -171,7 +174,7 @@
                     @if($postImage->type=='video')
                         <video width="100%" preload="none" height="auto" poster="{{ url('user/gallery/video/'.$postImage->title) }}.jpg" controls class="video-video-playe">
                             <source src="{{ url('user/gallery/video/'.$postImage->source) }}" type="video/mp4">
-                            <!-- Captions are optional -->
+                            <! Captions are optional >
                         </video>
                     @endif
                 @endforeach
@@ -187,25 +190,25 @@
         @endif
         <ul class="actions-count list-inline">
 
-            {{--@if($post->users_liked()->wherePivot('liked', 1)->count() > 0)--}}
+            @if($post->users_liked()->count() > 0)
                 <?php
                 $liked_ids = $post->users_liked->pluck('id')->toArray();
                 $liked_names = $post->users_liked->pluck('name')->toArray();
                 ?>
-                {{--<li>--}}
-                    {{--<a href="#" class="show-users-modal" data-html="true" data-heading="{{ trans('common.likes') }}"  data-users="{{ implode(',', $liked_ids) }}" data-original-title="{{ implode('<br />', $liked_names) }}"><span class="count-circle"><i class="fa fa-thumbs-up"></i></span> {{ $post->users_liked()->wherePivot('liked', 1)->count() }} {{ trans('common.likes') }}</a>--}}
-                {{--</li>--}}
-            {{--@endif--}}
+                <li>
+                    <a href="#" class="show-users-modal" data-html="true" data-heading="{{ trans('common.likes') }}"  data-users="{{ implode(',', $liked_ids) }}" data-original-title="{{ implode('<br />', $liked_names) }}"><span class="count-circle"><i class="fa fa-thumbs-up"></i></span> {{ $post->users_liked()->count() }} {{ trans('common.likes') }}</a>
+                </li>
+            @endif
 
-            {{--@if($post->users_liked()->wherePivot('liked', 0)->count() > 0)--}}
+            @if($post->users_unliked()->count() > 0)
                 <?php
-                $unliked_ids = $post->users_liked->pluck('id')->toArray();
-                $unliked_names = $post->users_liked->pluck('name')->toArray();
+                $unliked_ids = $post->users_unliked->pluck('id')->toArray();
+                $unliked_names = $post->users_unliked->pluck('name')->toArray();
                 ?>
-                {{--<li>--}}
-                    {{--<a href="#" class="show-users-modal" data-html="true" data-heading="{{ trans('common.unlikes') }}"  data-users="{{ implode(',', $unliked_ids) }}" data-original-title="{{ implode('<br />', $unliked_names) }}"><span class="count-circle"><i class="fa fa-thumbs-down"></i></span> {{ $post->users_liked()->wherePivot('liked', 0)->count() }} {{ trans('common.unlikes') }}</a>--}}
-                {{--</li>--}}
-            {{--@endif--}}
+                <li>
+                    <a href="#" class="show-users-modal" data-html="true" data-heading="{{ trans('common.unlikes') }}"  data-users="{{ implode(',', $unliked_ids) }}" data-original-title="{{ implode('<br />', $unliked_names) }}"><span class="count-circle"><i class="fa fa-thumbs-down"></i></span> {{ $post->users_unliked()->count() }} {{ trans('common.unlikes') }}</a>
+                </li>
+            @endif
 
             @if($post->comments->count() > 0)
                 <li>
@@ -221,7 +224,6 @@
                     <a href="#" class="show-users-modal" data-html="true" data-heading="{{ trans('common.shares') }}"  data-users="{{ implode(',', $shared_ids) }}" data-original-title="{{ implode('<br />', $shared_names) }}"><span class="count-circle"><i class="fa fa-share"></i></span> {{ $post->shares->count() }} {{ trans('common.shares') }}</a>
                 </li>
             @endif
-
 
         </ul>
     </div>

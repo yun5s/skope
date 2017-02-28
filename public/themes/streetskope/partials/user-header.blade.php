@@ -35,30 +35,6 @@
 
 
 
-{{--<li class="dropdown largescreen-report"><a href="#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="top-list"> <i class="fa fa-ellipsis-h"></i></span></a>--}}
-{{--<ul class="dropdown-menu  report-dropdown">--}}
-{{--<li class="{{ Request::segment(2) == 'following' ? 'active' : '' }}">--}}
-{{--<a href="{{ url($timeline->username.'/following') }}" ><span class="top-list">{{ $following_count }} {{ trans('common.following') }}</span>--}}
-{{--</a>--}}
-{{--</li>--}}
-
-{{--<li class="{{ Request::segment(2) == 'followers' ? 'active' : '' }}">--}}
-{{--<a href="{{ url($timeline->username.'/followers') }}" ><span class="top-list">{{ $followers_count }}  {{ trans('common.followers') }}</span>--}}
-{{--</a>--}}
-{{--</li>--}}
-
-{{--@if($follow_confirm == "yes" && $timeline->id == Auth::user()->timeline_id)--}}
-{{--<li class="{{ Request::segment(2) == 'follow-requests' ? 'active' : '' }}">--}}
-{{--<a href="{{ url($timeline->username.'/follow-requests') }}" ><span class="top-list">{{count($followRequests)}} {{ trans('common.follow_requests') }}</span>--}}
-{{--</a>--}}
-{{--</li>--}}
-{{--@endif--}}
-
-{{--<li class="{{ Request::segment(2) == 'event-guests' ? 'active' : '' }}">--}}
-{{--<a href="{{ url($timeline->username.'/event-guests') }}" ><span class="top-list">{{ count($guest_events) }}  {{ trans('common.guest-event') }}</span>--}}
-{{--</a>--}}
-{{--</li>--}}
-
 {{--@if(Auth::user()->username != $timeline->username)--}}
 {{--@if(!$timeline->reports->contains(Auth::user()->id))--}}
 {{--<li>--}}
@@ -167,30 +143,40 @@
 
 	<div class="timeline-btn">
 		<ul class="list-inline pagelike-links">
-			<li class=""><a href="http://localhost:9090/bootstrapguru/posts"><span class="top-list">0 Posts</span></a></li>
-			<li class=""><a href="http://localhost:9090/bootstrapguru/liked-pages"><span class="top-list">0 Liked Pages</span></a></li>
-			<li class=""><a href="http://localhost:9090/bootstrapguru/joined-groups"><span class="top-list">0  Joined Groups</span></a></li>
-			<li class=" smallscreen-report"><a href="http://localhost:9090/bootstrapguru/following"><span class="top-list">0 Following</span></a></li>
-			<li class=" smallscreen-report"><a href="http://localhost:9090/bootstrapguru/followers"><span class="top-list">0  Followers</span></a></li>
-			<li class="dropdown largescreen-report"><a href="http://localhost:9090/bootstrapguru#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="top-list"> <i class="fa fa-ellipsis-h"></i></span></a>
+
+			@if($user_post == true)
+			<li class="{{ Request::segment(2) == 'posts' ? 'active' : '' }}"><a href="{{ url($timeline->username.'/posts') }}" ><span class="top-list">{{ count($timeline->posts) }} {{ trans('common.posts') }}</span></a></li>
+			@else
+			<li class="{{ Request::segment(2) == 'posts' ? 'active' : '' }}"><a href="#"><span class="top-list">{{ count($timeline->posts) }} {{ trans('common.posts') }}</span></a></li>
+			@endif
+			<li class="{{ Request::segment(2) == 'liked-pages' ? 'active' : '' }}"><a href="{{ url($timeline->username.'/liked-pages') }}" ><span class="top-list">{{ count($user->pageLikes) }} {{ trans('common.liked_pages') }}</span></a></li>
+			<li class="{{ Request::segment(2) == 'joined-groups' ? 'active' : '' }}"><a href="{{ url($timeline->username.'/joined-groups') }}" ><span class="top-list">{{ $joined_groups_count }}  {{ trans('common.joined_groups') }}</span></a></li>
+			<li class="{{ Request::segment(2) == 'following' ? 'active' : '' }} smallscreen-report"><a href="{{ url($timeline->username.'/following') }}" ><span class="top-list">{{ $following_count }} {{ trans('common.following') }}</span></a></li>
+			<li class="{{ Request::segment(2) == 'followers' ? 'active' : '' }} smallscreen-report"><a href="{{ url($timeline->username.'/followers') }}" ><span class="top-list">{{ $followers_count }}  {{ trans('common.followers') }}</span></a></li>
+			<li class="dropdown largescreen-report"><a href="#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="top-list"> <i class="fa fa-ellipsis-h"></i></span></a>
 				<ul class="dropdown-menu  report-dropdown">
-					<li class="">
-						<a href="http://localhost:9090/bootstrapguru/following"><span class="top-list">0 Following</span>
-						</a>
+					<li class="{{ Request::segment(2) == 'following' ? 'active' : '' }}">
+						<a href="{{ url($timeline->username.'/following') }}" ><span class="top-list">{{ $following_count }} {{ trans('common.following') }}</span></a>
 					</li>
-					<li class="">
-						<a href="http://localhost:9090/bootstrapguru/followers"><span class="top-list">0  Followers</span>
-						</a>
+
+					<li class="{{ Request::segment(2) == 'followers' ? 'active' : '' }}">
+						<a href="{{ url($timeline->username.'/followers') }}" ><span class="top-list">{{ $followers_count }}  {{ trans('common.followers') }}</span></a>
 					</li>
-					<li class="">
-						<a href="http://localhost:9090/bootstrapguru/event-guests"><span class="top-list">0  Guest Events</span>
-						</a>
+
+					@if($follow_confirm == "yes" && $timeline->id == Auth::user()->timeline_id)
+					<li class="{{ Request::segment(2) == 'follow-requests' ? 'active' : '' }}">
+						<a href="{{ url($timeline->username.'/follow-requests') }}" ><span class="top-list">{{count($followRequests)}} {{ trans('common.follow_requests') }}</span></a>
+					</li>
+					@endif
+
+					<li class="{{ Request::segment(2) == 'event-guests' ? 'active' : '' }}">
+						<a href="{{ url($timeline->username.'/event-guests') }}" ><span class="top-list">{{ count($guest_events) }}  {{ trans('common.guest-event') }}</span></a>
 					</li>
 				</ul>
 			</li>
 		</ul>
 		<div class="status-button">
-			<a href="http://localhost:9090/bootstrapguru#" class="btn btn-status">Status</a>
+			<a href="#" class="btn btn-status">{{ trans('common.status') }}</a>
 		</div>
 	</div> <!-- /timeline-list  -->
 </div>
@@ -218,6 +204,3 @@
 	<!-- Modal Caption (Image Text) -->
 	<div id="caption"></div>
 </div>
-
-
-
