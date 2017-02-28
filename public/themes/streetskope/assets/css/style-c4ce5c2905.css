@@ -17408,7 +17408,7 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
   border-radius: 4px;
 }
 .user-follow.socialite .media-body .media-heading {
-  max-width: 130px;
+  max-width: 100px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -25640,10 +25640,11 @@ html {
 }
 .btn-follow .btn {
   padding: 4px 15px;
+  font-size: 11px;
 }
 .media-body.socialte-timeline .text-muted {
   display: block;
-  font-size: 14px;
+  font-size: 12px;
   margin-top: -4px;
 }
 .timeline-cover-section {
@@ -26559,6 +26560,10 @@ select.form-control {
 .badge-verification {
   padding-left: 10px;
   padding-top: 5px;
+}
+.media > .media-left.badge-verification{
+  min-width: 63px;
+  font-size: 11px;
 }
 .badge-verification a {
   display: block;
@@ -28151,6 +28156,7 @@ a:focus {
 }
 .media-heading a {
   color: #354052;
+  font-size: 13px;
 }
 /*# sourceMappingURL=style.css.map */
 
