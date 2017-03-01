@@ -540,8 +540,12 @@ class TimelineController extends AppBaseController
     public function convertVideo($videoPath, $format = 'mp4')
     {
         $arrayPath = explode("/", $videoPath);
+        $arrayPath1 = explode("/", $videoPath);
+        $imageFilename = explode(".",$arrayPath1[count($arrayPath1)-1])[0].".jpg";
         $videoFileName = explode(".", $arrayPath[count($arrayPath) - 1])[0] . ".webm";
+        array_splice($arrayPath, -1, 1, $imageFilename);
         array_splice($arrayPath, -1, 1, $videoFileName);
+        $newImagePath = implode("/", $arrayPath1);
         $newVideoPath = implode("/", $arrayPath);
         $ffmpeg = FFMpeg::create([
                     'ffmpeg.binaries' => config('ffmpeg.ffmpeg'),
@@ -558,6 +562,15 @@ class TimelineController extends AppBaseController
         }
 
         $video->filters()
+            ->resize(new Dimension(556, 338))
+            ->synchronize();
+
+        $video->frame(TimeCode::fromSeconds(1))
+            ->save($newImagePath);
+
+
+
+        $video->filters()
                 ->resize(new Dimension(556, 338))
                 ->clip(TimeCode::fromSeconds(0), TimeCode::fromSeconds(10))
                 ->synchronize();
@@ -566,7 +579,7 @@ class TimelineController extends AppBaseController
 
         $video->save(new WebM(), $newVideoPath);
         File::delete($videoPath);
-        return $videoFileName;
+        return ['thumbnail' => $imageFilename, 'video' => $videoFileName];
     }
 
     public function changeCover(Request $request)
@@ -582,7 +595,8 @@ class TimelineController extends AppBaseController
             $photoName = date('Y-m-d-H-i-s') . '-' . $strippedName;
             $path = storage_path() . '/uploads/' . $timeline_type . 's/covers/';
             $change_avatar->move($path, $photoName);
-            $videoName = $this->convertVideo($path . $photoName);
+            $videoName = $this->convertVideo($path . $photoName)['video'];
+            $thumbnail = $this->convertVideo($path . $photoName)['thumbnail'];
 //            $media = [
 //                'title'  => $videoName,
 //                'type'   => 'video',
@@ -595,6 +609,7 @@ class TimelineController extends AppBaseController
                         'title' => $videoName,
                         'type' => 'image',
                         'source' => $videoName,
+                        'thumb_source' => $thumbnail,
             ]);
 
             $timeline = Timeline::where('id', $request->timeline_id)->first();
