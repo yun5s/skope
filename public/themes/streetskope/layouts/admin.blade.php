@@ -60,7 +60,8 @@
         <script>
             var pusherConfig = {
                 token: "{{ csrf_token() }}",
-                PUSHER_KEY: "{{ config('broadcasting.connections.pusher.key') }}"
+                PUSHER_KEY: "{{ config('broadcasting.connections.pusher.key') }}",
+                PUSHER_CLUSTER: "{{ config('broadcasting.connections.pusher.options.cluster') }}"
             };
        </script>
 

@@ -1,4 +1,4 @@
-<nav class="navbar socialite navbar-default no-bg">
+<nav class="navbar socialite navbar-default bg-turqoise">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">

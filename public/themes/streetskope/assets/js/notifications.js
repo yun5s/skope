@@ -35,13 +35,13 @@ var vue = new Vue({
             // pusher configuration
             this.pusher = new Pusher(pusherConfig.PUSHER_KEY, {
                 encrypted: true,
-                cluster: 'ap1',
+                cluster: pusherConfig.PUSHER_CLUSTER,
                 auth: {
                     headers: {
                         'X-CSRF-Token': pusherConfig.token
                     },
                     params: {
-                        username: "vijay"
+                        //username: "vijay"
                     }
                 }
             });
@@ -79,13 +79,13 @@ var vue = new Vue({
             // pusher configuration
             this.pusher = new Pusher(pusherConfig.PUSHER_KEY, {
                 encrypted: true,
-                cluster: 'ap1',
+                cluster: pusherConfig.PUSHER_CLUSTER,
                 auth: {
                     headers: {
                         'X-CSRF-Token': pusherConfig.token
                     },
                     params: {
-                        username: "vijay"
+                        //username: "vijay"
                     }
                 }
             });

@@ -1,7 +1,7 @@
 <!-- main-section -->
 <div class="container">
 	<div class="row">
-		<div class="col-md-10">
+		<div class="col-md-12">
 			{!! Theme::partial('user-header',compact('timeline','liked_pages','user','joined_groups','followRequests','following_count',
 			'followers_count','follow_confirm','user_post','joined_groups_count','guest_events')) !!}
 			
@@ -14,7 +14,8 @@
 					</div>
 					<div class="col-md-8">
 						@if($timeline->type == "user" && $timeline_post == true)
-							{!! Theme::partial('create-post',compact('timeline','user_post')) !!}						
+							 {{--!! Theme::partial('create-post',compact('timeline','user_post')) !!--}}
+								{!! Theme::partial('create-post',compact('timeline','user_post', 'timeline_post')) !!}
 						@endif
 						
 						<div class="timeline-posts">
