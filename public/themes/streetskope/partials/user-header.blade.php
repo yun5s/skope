@@ -100,7 +100,8 @@
 			</div>
 		@endif
 		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
-		<img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+		<!-- <img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}"> -->
+		<div class="prof" style="background-image: url('{{ $timeline->user->profile_pict }}');" title="{{ $timeline->name }}"></div>
 	</div>
 	<div class="col-xs-6 col-sm-3 col-md-3 last user-avatar">
 		@if($timeline->id == Auth::user()->timeline_id)
@@ -112,7 +113,8 @@
 			</div>
 		@endif
 		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
-		<img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+		<!-- <img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}"> -->
+		<div class="prof" style="background-image: url('{{ $timeline->user->avatar }}');" title="{{ $timeline->name }}"></div>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6 video">
 		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">

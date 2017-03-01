@@ -28299,6 +28299,15 @@ a:focus {
   padding-right: 7.5px;
   cursor: pointer;
 }
+.timeline-profile div[class*="col-"] .prof {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  height: 306px;
+  position: relative;
+  width: 100%;
+}
 .timeline-profile div[class*="col-"].first{
   padding-left: 0;
 }
@@ -28315,6 +28324,11 @@ a:focus {
   display: block;
 }
 .timeline-profile img{width: 100%;}
+.timeline-profile div.first[class*="col-"],
+.timeline-profile div.last[class*="col-"]{
+  overflow: hidden;
+  height: 306px;
+}
 .timeline-btn {
   background-color: #fff;
   /*height: 50px;*/
