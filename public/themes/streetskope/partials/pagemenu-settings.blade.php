@@ -2,9 +2,6 @@
 	<div class="panel-body nopadding">
 		<div class="mini-profile">
 			<div class="background">
-				<div class="widget-bg">
-					<img src=" @if($timeline->cover) {{ url('page/cover/'.$timeline->cover->source) }} @else {{ url('page/cover/default-cover-page.png') }} @endif" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
-				</div>
 				<div class="avatar-img">
 					<img src="@if($timeline->avatar) {{ url('page/avatar/'.$timeline->avatar->source) }} @else {{ url('page/avatar/default-page-avatar.png') }} @endif" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 				</div>

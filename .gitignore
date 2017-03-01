@@ -9,3 +9,5 @@ Homestead.yaml
 .env
 /storage/uploads
 /bootstrap/cache
+.DS_Store
+/nbproject

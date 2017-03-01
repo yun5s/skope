@@ -18,6 +18,7 @@
 			<li><a href="{{ url('/'.Auth::user()->username.'/settings/general') }}" class="btn menu-btn"><i class="fa fa-cog" aria-hidden="true"></i>{{ trans('common.settings') }}</a></li>
 		</ul>
 	</div>
+	<!-- 
 	<div class="menu-heading">
 		{{ trans('common.most_trending') }}
 	</div>
@@ -32,5 +33,6 @@
 				
 			@endif
 		</ul>
-	</div>
+	</div> 
+        -->
 </div><!-- /widget-events -->

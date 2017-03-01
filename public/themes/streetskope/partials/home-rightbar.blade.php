@@ -4,9 +4,6 @@
 		<div class="panel-body nopadding">
 			<div class="mini-profile socialite">
 				<div class="background">
-					<div class="widget-bg">
-						<img src=" @if(Auth::user()->cover) {{ url('user/cover/'.Auth::user()->cover) }} @else {{ url('user/cover/default-cover-user.png') }} @endif" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}">
-					</div>
 					<div class="avatar-img">
 						<img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}">
 					</div>
