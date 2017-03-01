@@ -36,7 +36,7 @@ return [
             'options' => [
                 //
                 "encrypted" => true,
-                "cluster" => 'ap1'
+                "cluster" => env('PUSHER_CLUSTER')
             ],
         ],
 

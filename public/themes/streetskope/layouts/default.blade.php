@@ -61,7 +61,8 @@
           @endif
             var pusherConfig = {
                 token: "{{ csrf_token() }}",
-                PUSHER_KEY: "{{ config('broadcasting.connections.pusher.key') }}"
+                PUSHER_KEY: "{{ config('broadcasting.connections.pusher.key') }}",
+                PUSHER_CLUSTER: "{{ config('broadcasting.connections.pusher.options.cluster') }}"
             };
        </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.min.js"></script>
