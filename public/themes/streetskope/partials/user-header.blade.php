@@ -99,9 +99,6 @@
 				</a>
 			</div>
 		@endif
-		<div class="profile-name">
-			<a href="#">{{ $timeline->name }}</a>
-		</div>
 		<img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
 		<img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
 	</div>
@@ -141,9 +138,29 @@
 		</a>
 	</div>
 
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btntim">
 	<div class="timeline-btn">
+		<div class="profile-name">
+			<a href="#">{{ $timeline->name }}</a>
+		</div>
+		<div class="btn-tools">
+			<a href="#" class="btn btn-default">Add to my network</a>
+			<a href="#" class="btn btn-default">Message</a>
+			<span class="dropdown">
+			  <a href="#" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+			    <i class="fa fa-cog"></i>
+			    <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+			    <li role="presentation" class="divider"></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+			  </ul>
+			</span><!-- /dropdown -->
+		</div><!-- /btn-tools -->
 		<ul class="list-inline pagelike-links">
-
 			@if($user_post == true)
 			<li class="{{ Request::segment(2) == 'posts' ? 'active' : '' }}"><a href="{{ url($timeline->username.'/posts') }}" ><span class="top-list">{{ count($timeline->posts) }} {{ trans('common.posts') }}</span></a></li>
 			@else
@@ -151,8 +168,8 @@
 			@endif
 			<li class="{{ Request::segment(2) == 'liked-pages' ? 'active' : '' }}"><a href="{{ url($timeline->username.'/liked-pages') }}" ><span class="top-list">{{ count($user->pageLikes) }} {{ trans('common.liked_pages') }}</span></a></li>
 			<li class="{{ Request::segment(2) == 'joined-groups' ? 'active' : '' }}"><a href="{{ url($timeline->username.'/joined-groups') }}" ><span class="top-list">{{ $joined_groups_count }}  {{ trans('common.joined_groups') }}</span></a></li>
-			<li class="{{ Request::segment(2) == 'following' ? 'active' : '' }} smallscreen-report"><a href="{{ url($timeline->username.'/following') }}" ><span class="top-list">{{ $following_count }} {{ trans('common.following') }}</span></a></li>
-			<li class="{{ Request::segment(2) == 'followers' ? 'active' : '' }} smallscreen-report"><a href="{{ url($timeline->username.'/followers') }}" ><span class="top-list">{{ $followers_count }}  {{ trans('common.followers') }}</span></a></li>
+			<!-- <li class="{{ Request::segment(2) == 'following' ? 'active' : '' }} smallscreen-report"><a href="{{ url($timeline->username.'/following') }}" ><span class="top-list">{{ $following_count }} {{ trans('common.following') }}</span></a></li>
+			<li class="{{ Request::segment(2) == 'followers' ? 'active' : '' }} smallscreen-report"><a href="{{ url($timeline->username.'/followers') }}" ><span class="top-list">{{ $followers_count }}  {{ trans('common.followers') }}</span></a></li> -->
 			<li class="dropdown largescreen-report"><a href="#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="top-list"> <i class="fa fa-ellipsis-h"></i></span></a>
 				<ul class="dropdown-menu  report-dropdown">
 					<li class="{{ Request::segment(2) == 'following' ? 'active' : '' }}">
@@ -175,10 +192,11 @@
 				</ul>
 			</li>
 		</ul>
-		<div class="status-button">
+		<!-- <div class="status-button">
 			<a href="#" class="btn btn-status">{{ trans('common.status') }}</a>
-		</div>
+		</div> -->
 	</div> <!-- /timeline-list  -->
+</div>
 </div>
 
 <div id="single-img-modal" class="modal">

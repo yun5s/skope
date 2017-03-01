@@ -2,7 +2,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-10">
+		<div class="col-md-12">
 
 			{!! Theme::partial('event-header',compact('timeline','event')) !!}
 			

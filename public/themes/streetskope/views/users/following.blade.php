@@ -2,7 +2,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-10">
+		<div class="col-md-12">
 			{!! Theme::partial('user-header',compact('timeline','user','followRequests','following_count',
 			'followers_count','follow_confirm','user_post','joined_groups_count','guest_events')) !!}				
 			
