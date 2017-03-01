@@ -822,6 +822,7 @@ class TimelineController extends AppBaseController
         $post = Post::findOrFail($request->post_id);
         $posted_user = $post->user;
 
+        $user = User::find(Auth::user()->id);
         //Like the post
         if (!$post->users_liked->contains(Auth::user()->id)) {
             if($post->users_unliked->contains(Auth::user()->id)){
@@ -841,7 +842,6 @@ class TimelineController extends AppBaseController
                 $status_message = 'successfully liked';
                 $liked = true;
             }
-            $user = User::find(Auth::user()->id);
             $user_settings = $user->getUserSettings($posted_user->id);
 
             if ($user_settings && $user_settings->email_like_post == 'yes') {
@@ -856,8 +856,9 @@ class TimelineController extends AppBaseController
             }
 
             $like_count = $post->users_liked()->count();
+            $unlike_count = $post->users_unliked()->count();
 
-            return response()->json(['status' => '200', 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count]);
+            return response()->json(['status' => '200', 'user' => $user , 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count, 'unlikecount' => $unlike_count]);
 
         }
         //Unlike the post
@@ -874,8 +875,9 @@ class TimelineController extends AppBaseController
                 Notification::create(['user_id' => $post->user->id, 'post_id' => $post->id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name.' '.$notify_message, 'type' => $notify_type]);
             }
             $like_count = $post->users_liked()->count();
+            $unlike_count = $post->users_unliked()->count();
 
-            return response()->json(['status' => '200', 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count]);
+            return response()->json(['status' => '200', 'user' => $user , 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count, 'unlikecount' => $unlike_count]);
         }
 
         if ($post) {
@@ -890,6 +892,8 @@ class TimelineController extends AppBaseController
     {
         $post = Post::findOrFail($request->post_id);
         $posted_user = $post->user;
+
+        $user = User::find(Auth::user()->id);
 
         //Like the post
         if (!$post->users_unliked->contains(Auth::user()->id)) {
@@ -908,7 +912,6 @@ class TimelineController extends AppBaseController
                 $status_message = 'successfully unliked';
             }
 
-            $user = User::find(Auth::user()->id);
             $user_settings = $user->getUserSettings($posted_user->id);
             if ($user_settings && $user_settings->email_like_post == 'yes') {
                 Mail::send('emails.postlikemail', ['user' => $user, 'posted_user' => $posted_user], function ($m) use ($posted_user, $user) {
@@ -918,8 +921,9 @@ class TimelineController extends AppBaseController
             }
 
             $unlike_count = $post->users_unliked()->count();
+            $like_count = $post->users_liked()->count();
 
-            return response()->json(['status' => '200', 'liked' => false, 'message' => $status_message, 'unlikecount' => $unlike_count]);
+            return response()->json(['status' => '200', 'user' => $user , 'post_id' => $post->id, 'liked' => false, 'message' => $status_message, 'unlikecount' => $unlike_count, 'likecount' => $like_count]);
         }
         //Unlike the post
         else {
@@ -932,8 +936,9 @@ class TimelineController extends AppBaseController
             $liked = true;
 
             $unlike_count = $post->users_unliked()->count();
+            $like_count = $post->users_liked()->count();
 
-            return response()->json(['status' => '200', 'liked' => $liked, 'message' => $status_message, 'unlikecount' => $unlike_count]);
+            return response()->json(['status' => '200', 'user' => $user , 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'unlikecount' => $unlike_count, 'likecount' => $like_count]);
         }
 
         if ($post) {

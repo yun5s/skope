@@ -315,6 +315,7 @@ $(function () {
         var likeIcon4 = 'fa-thumbs-o-down';
         $.post(SP_source() + 'ajax/like-post', {post_id: $(this).data('post-id')}, function(data) {
             if (data.status == 200) {
+                var likeHtml = '<li> <a href="#" class="show-users-modal" data-html="true" data-heading="Likes" data-users="'+data.user.id+'" data-original-title="'+data.user.name+'"><span class="count-circle"><i class="fa fa-thumbs-up"></i></span>'+data.likecount +' Likes</a> </li>';
                 if (data.liked == true) {
                     like_btn.find('.unlike-'+postId + ' i.'+likeIcon3).removeClass(likeIcon3);
                     like_btn.find('.unlike-'+postId + ' i').addClass(likeIcon4);
@@ -337,6 +338,12 @@ $(function () {
                     // $('.like2-'+postId).empty();
                     // $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
                 }
+                var actionsCount = $('#post'+data.post_id).find('.actions-count');
+                if(actionsCount.find('a[data-heading="Likes"]').length){
+
+                } else {
+                    actionsCount.prepend(likeHtml);
+                }
             }
         });
     });
@@ -351,6 +358,7 @@ $(function () {
         var likeIcon3 = 'fa-thumbs-up';
         var likeIcon4 = 'fa-thumbs-o-up';
         $.post(SP_source() + 'ajax/unlike-post', {post_id: $(this).data('post-id')}, function(data) {
+            var unlikeHtml = '<li> <a href="#" class="show-users-modal" data-html="true" data-heading="Likes" data-users="'+data.user.id+'" data-original-title="'+data.user.name+'"><span class="count-circle"><i class="fa fa-thumbs-down"></i></span>'+data.unlikecount +' Unlikes</a> </li>';
             if (data.liked == false) {
                 like_btn.find('.like-'+postId + ' i.'+likeIcon3).removeClass(likeIcon3);
                 like_btn.find('.like-'+postId + ' i').addClass(likeIcon4);
@@ -361,7 +369,7 @@ $(function () {
                 // like_btn.find('.unnotify').parent().removeClass('hidden');
                 // $('.footer-list').find('.like1-'+postId).parent().remove();
                 // $('.like2-'+postId).empty();
-                $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
+                // $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
 
             }else{
                 like_btn.find('.unlike-'+postId + ' i').removeClass(likeIcon1);
@@ -371,7 +379,13 @@ $(function () {
                 // like_btn.find('.unnotify').parent().addClass('hidden');
                 // $('.footer-list').find('.like1-'+postId).parent().remove();
                 // $('.like2-'+postId).empty();
-                $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
+                // $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
+            }
+            var actionsCount = $('#post'+data.post_id).find('.actions-count');
+            if(actionsCount.find('a[data-heading="Unlikes"]').length){
+
+            } else {
+                actionsCount.prepend(unlikeHtml);
             }
         });
     });
