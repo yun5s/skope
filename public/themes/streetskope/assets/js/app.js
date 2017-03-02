@@ -303,6 +303,37 @@ $(function () {
 
     });
 
+    var removeUserLiked = function (data) {
+        var actionsCount = $('#post'+data.post_id).find('.actions-count');
+        var viewLiker = actionsCount.find('a[data-heading="Likes"]');
+        viewLiker.contents().last()[0].textContent=data.likecount + ' Likes';
+        var dataIds = viewLiker.data('users').toString().split(',');
+        var indexId = dataIds.indexOf(data.user.id);
+        if(indexId > -1){
+            dataIds.splice(indexId, 1);
+            var dataName = viewLiker.data('original-title').split('<br />');
+            dataName.splice(indexName, 1);
+            dataName = dataName.join('<br />');
+            viewLiker.data('users', dataIds);
+            viewLiker.data('original-title', dataName);
+        }
+    };
+
+    var removeUserUnliked = function (data) {
+        var actionsCount = $('#post'+data.post_id).find('.actions-count');
+        var viewUnliker = actionsCount.find('a[data-heading="Dislikes"]');
+        viewUnliker.contents().last()[0].textContent=data.unlikecount + ' Dislikes';
+        var dataIds = viewUnliker.data('users').split(',');
+        var indexId = dataIds.indexOf(data.user.id);
+        if(indexId > -1){
+            dataIds.splice(indexId, 1);
+            dataIds = dataIds.join(',');
+            var dataName = viewUnliker.data('original-title').split('<br />');
+            dataName = dataName.join('<br />');
+            viewUnliker.data('users', dataIds);
+            viewUnliker.data('original-title', dataName);
+        }
+    };
 
     // Like/Unlike the post by user
     $(document).on('click','.like-post',function(e){
@@ -339,8 +370,19 @@ $(function () {
                     // $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
                 }
                 var actionsCount = $('#post'+data.post_id).find('.actions-count');
-                if(actionsCount.find('a[data-heading="Likes"]').length){
-
+                var viewLiker = actionsCount.find('a[data-heading="Likes"]');
+                var viewUnliker = actionsCount.find('a[data-heading="Dislikes"]');
+                if(data.unlikecount == 0){
+                    viewUnliker.parent('li').remove();
+                } else {
+                    removeUserUnliked(data);
+                }
+                if(viewLiker.length){
+                    if(data.likecount){
+                        removeUserLiked(data);
+                    } else {
+                        viewLiker.parent('li').remove();
+                    }
                 } else {
                     actionsCount.prepend(likeHtml);
                 }
@@ -358,7 +400,7 @@ $(function () {
         var likeIcon3 = 'fa-thumbs-up';
         var likeIcon4 = 'fa-thumbs-o-up';
         $.post(SP_source() + 'ajax/unlike-post', {post_id: $(this).data('post-id')}, function(data) {
-            var unlikeHtml = '<li> <a href="#" class="show-users-modal" data-html="true" data-heading="Likes" data-users="'+data.user.id+'" data-original-title="'+data.user.name+'"><span class="count-circle"><i class="fa fa-thumbs-down"></i></span>'+data.unlikecount +' Unlikes</a> </li>';
+            var unlikeHtml = '<li> <a href="#" class="show-users-modal" data-html="true" data-heading="Dislikes" data-users="'+data.user.id+'" data-original-title="'+data.user.name+'"><span class="count-circle"><i class="fa fa-thumbs-down"></i></span>'+data.unlikecount +' Dislikes</a> </li>';
             if (data.liked == false) {
                 like_btn.find('.like-'+postId + ' i.'+likeIcon3).removeClass(likeIcon3);
                 like_btn.find('.like-'+postId + ' i').addClass(likeIcon4);
@@ -382,10 +424,25 @@ $(function () {
                 // $('.footer-list').find('.like2-'+postId).removeClass('hidden').append('<a href="#" class=".show-likes">' + data.likecount + '<i class="fa fa-thumbs-up"></i></a>');
             }
             var actionsCount = $('#post'+data.post_id).find('.actions-count');
-            if(actionsCount.find('a[data-heading="Unlikes"]').length){
-
+            var viewLiker = actionsCount.find('a[data-heading="Likes"]');
+            var viewUnliker = actionsCount.find('a[data-heading="Dislikes"]');
+            if(data.likecount == 0){
+                viewLiker.parent('li').remove();
             } else {
-                actionsCount.prepend(unlikeHtml);
+                removeUserLiked(data);
+            }
+            if(viewUnliker.length){
+                if(data.unlikecount){
+                    removeUserUnliked(data);
+                } else {
+                    viewUnliker.parent('li').remove();
+                }
+            } else {
+                if(viewLiker.length){
+                    viewLiker.parent('li').after(unlikeHtml);
+                } else {
+                    actionsCount.prepend(unlikeHtml);
+                }
             }
         });
     });
