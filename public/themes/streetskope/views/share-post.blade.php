@@ -10,8 +10,10 @@
             <a target="_blank" href="{{ url($post->user->username) }}" class="user-name user">{{ $post->user->name }}</a>
             @if($post->users_tagged->count() > 0)
               {{ trans('common.with') }}
-              {{--*/ $post_tags = $post->users_tagged->pluck('name')->toArray() /*--}}
-              {{--*/ $post_tags_ids = $post->users_tagged->pluck('id')->toArray() /*--}}
+              @php
+              $post_tags = $post->users_tagged->pluck('name')->toArray();
+              $post_tags_ids = $post->users_tagged->pluck('id')->toArray();
+              @endphp
               @foreach($post->users_tagged as $key => $user)
                 @if($key==1)
                   {{ trans('common.and') }}

@@ -114,6 +114,10 @@
 
                         @if($post->users_tagged->count() > 0)
                             {{ trans('common.with') }}
+                            @php
+                            $post_tags = $post->users_tagged->pluck('name')->toArray();
+                            $post_tags_ids = $post->users_tagged->pluck('id')->toArray();
+                            @endphp
                             @foreach($post->users_tagged as $key => $user)
                                 @if($key==1)
                                     {{ trans('common.and') }}
