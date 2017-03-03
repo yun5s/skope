@@ -1,7 +1,7 @@
 @if(isset($post->shared_post_id))
     <?php
     $sharedOwner = $post;
-    $post = App\Post::findOrFail($post->shared_post_id)->with('comments')->first();
+    $post = App\Post::where('id', $post->shared_post_id)->firstOrFail();
     ?>
 @endif
 
