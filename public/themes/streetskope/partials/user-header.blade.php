@@ -145,23 +145,6 @@
 		<div class="profile-name">
 			<a href="#">{{ $timeline->name }}</a>
 		</div>
-		<div class="btn-tools">
-			<a href="#" class="btn btn-default">Add to my network</a>
-			<a href="#" class="btn btn-default">Message</a>
-			<span class="dropdown">
-			  <a href="#" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-			    <i class="fa fa-cog"></i>
-			    <span class="caret"></span>
-			  </a>
-			  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-			    <li role="presentation" class="divider"></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-			  </ul>
-			</span><!-- /dropdown -->
-		</div><!-- /btn-tools -->
 		<ul class="list-inline pagelike-links">
 			@if($user_post == true)
 			<li class="{{ Request::segment(2) == 'posts' ? 'active' : '' }}"><a href="{{ url($timeline->username.'/posts') }}" ><span class="top-list">{{ count($timeline->posts) }} {{ trans('common.posts') }}</span></a></li>
