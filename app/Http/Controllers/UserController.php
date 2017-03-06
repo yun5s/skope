@@ -29,6 +29,7 @@ use Carbon\Carbon;
 
 class UserController extends AppBaseController
 {
+
     /** @var UserRepository */
     private $userRepository;
 
@@ -51,7 +52,7 @@ class UserController extends AppBaseController
         $users = $this->userRepository->all();
 
         return view('users.index')
-            ->with('users', $users);
+                        ->with('users', $users);
     }
 
     /**
@@ -174,7 +175,7 @@ class UserController extends AppBaseController
     public function userGeneralSettings($username)
     {
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.general_settings').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.general_settings') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('users/settings/general', compact('username'))->render();
     }
@@ -190,7 +191,7 @@ class UserController extends AppBaseController
         $settings = DB::table('user_settings')->where('user_id', $timeline->user->id)->first();
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.privacy_settings').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.privacy_settings') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('users/settings/privacy', compact('settings'))->render();
     }
@@ -198,7 +199,7 @@ class UserController extends AppBaseController
     public function userPasswordSettings($username)
     {
         $timeline = Timeline::where('username', $username)
-        ->get()->toArray();
+                        ->get()->toArray();
 
         if ($timeline == null) {
             return Redirect::to('/');
@@ -214,7 +215,7 @@ class UserController extends AppBaseController
         $referrals = User::where('affiliate_id', Auth::user()->id)->where('id', '!=', Auth::user()->id)->paginate(Setting::get('items_page', 10));
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.affiliates').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.affiliates') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('users/affliates', compact('referrals'))->render();
     }
@@ -222,7 +223,7 @@ class UserController extends AppBaseController
     public function deactivate($username)
     {
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.deactivate_account').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.deactivate_account') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('users/deactivate')->render();
     }
@@ -242,7 +243,7 @@ class UserController extends AppBaseController
         $userSettings = $user->getUserSettings($user->id);
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.email_notifications').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.email_notifications') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('users/notifications', compact('userSettings'))->render();
     }
@@ -259,17 +260,17 @@ class UserController extends AppBaseController
         $input = $request->except('_token');
 
         $user_settings = [
-                            'email_follow'        => $input['email_follow'],
-                            'email_like_post'     => $input['email_like_post'],
-                            'email_post_share'    => $input['email_post_share'],
-                            'email_comment_post'  => $input['email_comment_post'],
-                            'email_like_comment'  => $input['email_like_comment'],
-                            'email_reply_comment' => $input['email_reply_comment'],
-                            'email_join_group'    => $input['email_join_group'],
-                            'email_like_page'     => $input['email_like_page'], ];
+            'email_follow' => $input['email_follow'],
+            'email_like_post' => $input['email_like_post'],
+            'email_post_share' => $input['email_post_share'],
+            'email_comment_post' => $input['email_comment_post'],
+            'email_like_comment' => $input['email_like_comment'],
+            'email_reply_comment' => $input['email_reply_comment'],
+            'email_join_group' => $input['email_join_group'],
+            'email_like_page' => $input['email_like_page'],];
 
         $privacy = DB::table('user_settings')->where('user_id', $user->id)
-                   ->update($user_settings);
+                ->update($user_settings);
 
         Flash::success(trans('messages.email_notifications_updated_success'));
 
@@ -283,15 +284,15 @@ class UserController extends AppBaseController
         $input = $request->except('_token');
 
         $user_settings = [
-                            'confirm_follow'        => $input['confirm_follow'],
-                            'comment_privacy'       => $input['comment_privacy'],
-                            'follow_privacy'        => $input['follow_privacy'],
-                            'post_privacy'          => $input['post_privacy'],
-                            'timeline_post_privacy' => $input['timeline_post_privacy'],
-                            'message_privacy'       => $input['message_privacy'], ];
+            'confirm_follow' => $input['confirm_follow'],
+            'comment_privacy' => $input['comment_privacy'],
+            'follow_privacy' => $input['follow_privacy'],
+            'post_privacy' => $input['post_privacy'],
+            'timeline_post_privacy' => $input['timeline_post_privacy'],
+            'message_privacy' => $input['message_privacy'],];
 
         $privacy = DB::table('user_settings')->where('user_id', $user->id)
-                   ->update($user_settings);
+                ->update($user_settings);
 
         Flash::success(trans('messages.privacy_settings_updated_success'));
 
@@ -308,9 +309,9 @@ class UserController extends AppBaseController
     protected function generalSettingsValidator(array $data)
     {
         return Validator::make($data, [
-            'username' => 'required|max:16|min:5|alpha_num|unique:timelines,username,'.Auth::user()->timeline->id,
-            'name'     => 'required',
-            'email'    => 'unique:users,email,'.Auth::id(),
+                    'username' => 'required|max:16|min:5|alpha_num|unique:timelines,username,' . Auth::user()->timeline->id,
+                    'name' => 'required',
+                    'email' => 'unique:users,email,' . Auth::id(),
         ]);
     }
 
@@ -327,16 +328,16 @@ class UserController extends AppBaseController
         $validator = $this->generalSettingsValidator($data);
         if ($validator->fails()) {
             return redirect()->back()
-            ->withInput($request->all())
-            ->withErrors($validator->errors());
+                            ->withInput($request->all())
+                            ->withErrors($validator->errors());
         }
         $user = User::find(Auth::user()->id);
         $timeline = Timeline::find($user->timeline_id);
         $timeline->update([
-                            'username' => $data['username'],
-                            'name'     => $data['name'],
-                            'about'    => $data['about'],
-                            ]);
+            'username' => $data['username'],
+            'name' => $data['name'],
+            'about' => $data['about'],
+        ]);
 
         $user_details = $request->except('username', 'name', 'about');
         $user_details['birthday'] = date('Y-m-d', strtotime($request->birthday));
@@ -357,8 +358,8 @@ class UserController extends AppBaseController
     protected function passwordValidator(array $data)
     {
         return Validator::make($data, [
-            'new_password'     => 'required|min:6',
-            'current_password' => 'required|min:6',
+                    'new_password' => 'required|min:6',
+                    'current_password' => 'required|min:6',
         ]);
     }
 
@@ -374,8 +375,8 @@ class UserController extends AppBaseController
 
         if ($validator->fails()) {
             return redirect()->back()
-            ->withInput($request->all())
-            ->withErrors($validator->errors());
+                            ->withInput($request->all())
+                            ->withErrors($validator->errors());
         }
 
         $user = User::findOrFail(Auth::user()->id);
@@ -406,7 +407,7 @@ class UserController extends AppBaseController
         $following = $user->following()->get();
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.messages').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.messages') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('users/messages', compact('following'))->render();
     }
@@ -421,9 +422,9 @@ class UserController extends AppBaseController
         $upcoming_events = $group->getUpcomingEvents($group->id);
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.add_members').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.add_members') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('users/addmembers', compact('timeline', 'group', 'group_members', 'group_events','ongoing_events','upcoming_events'))->render();
+        return $theme->scope('users/addmembers', compact('timeline', 'group', 'group_members', 'group_events', 'ongoing_events', 'upcoming_events'))->render();
     }
 
     public function pageMembersList($username)
@@ -431,13 +432,12 @@ class UserController extends AppBaseController
         $timeline = Timeline::where('username', $username)->with('page')->first();
         $page = $timeline->page;
         $page_members = $page->members();
-        if(!$page->is_admin(Auth::user()->id))
-        {
+        if (!$page->is_admin(Auth::user()->id)) {
             return redirect($username);
         }
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.add_members').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.add_members') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('users/addpagemembers', compact('timeline', 'page', 'page_members'))->render();
     }
@@ -453,8 +453,8 @@ class UserController extends AppBaseController
 
         foreach ($timelines as $key => $timeline) {
             $user = $timeline->user()->with(['groups' => function ($query) use ($group_id) {
-                $query->where('groups.id', $group_id);
-            }])->get();
+                            $query->where('groups.id', $group_id);
+                        }])->get();
 
             $users->add($user);
         }
@@ -473,8 +473,8 @@ class UserController extends AppBaseController
 
         foreach ($timelines as $key => $timeline) {
             $user = $timeline->user()->with(['pages' => function ($query) use ($page_id) {
-                $query->where('pages.id', $page_id);
-            }])->get();
+                            $query->where('pages.id', $page_id);
+                        }])->get();
 
             $users->add($user);
         }
@@ -490,10 +490,10 @@ class UserController extends AppBaseController
         $users = $timelines;
         foreach ($timelines as $key => $value) {
             if ($value->avatar != null) {
-                $users[$key]['image'] = url('user/avatar/'.$value->avatar->source);
+                $users[$key]['image'] = url('user/avatar/' . $value->avatar->source);
             } else {
                 $gender = isset($value->user) ? $value->user->gender : 'male';
-                $users[$key]['image'] = url('user/avatar/default-'.$gender.'-avatar.png');
+                $users[$key]['image'] = url('user/avatar/default-' . $gender . '-avatar.png');
             }
         }
 
@@ -528,7 +528,6 @@ class UserController extends AppBaseController
     // public function addingMembersPage(Request $request)
     // {
     //     $page = Page::findOrFail($request->group_id);
-
     //         if ($request->user_status == "Joined")
     //         {
     //             $page->users()->detach([$request->user_id]);
@@ -537,7 +536,6 @@ class UserController extends AppBaseController
     //         else
     //         {
     //             $chkUser = $page->chkPageUser($request->group_id,$request->user_id);
-
     //             if($chkUser)
     //             {
     //                 $page_user = $page->updateStatus($chkUser->id);
@@ -550,7 +548,6 @@ class UserController extends AppBaseController
     //               $page->users()->attach($request->user_id, array('page_id'=>$request->page_id,'role_id'=>$user_role->id,'status'=>'approved'));
     //               return response()->json(['status' => '200','added' => true,'message'=>'successfully added']);
     //             }
-
     //         }
     // }
 
@@ -580,7 +577,7 @@ class UserController extends AppBaseController
         $followers_count = $user->followers()->where('status', '=', 'approved')->get()->count();
         $follow_user_status = '';
         $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                                ->where('leader_id', '=', $user->id)->first();
+                        ->where('leader_id', '=', $user->id)->first();
 
         if ($follow_user_status) {
             $follow_user_status = $follow_user_status->status;
@@ -595,13 +592,13 @@ class UserController extends AppBaseController
         $user_post = $privacy_settings[1];
         $own_pages = $user->own_pages();
         $own_groups = $user->own_groups();
-        $user_events = $user->events()->whereDate('end_date', '>=' ,date('Y-m-d', strtotime(Carbon::now())))->get();
+        $user_events = $user->events()->whereDate('end_date', '>=', date('Y-m-d', strtotime(Carbon::now())))->get();
         $guest_events = $user->getEvents();
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.followers').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.followers') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('users/followers', compact('timeline', 'user', 'followers', 'followRequests', 'own_groups', 'own_pages', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count','user_events','guest_events'))->render();
+        return $theme->scope('users/followers', compact('timeline', 'user', 'followers', 'followRequests', 'own_groups', 'own_pages', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count', 'user_events', 'guest_events'))->render();
     }
 
     public function following($username)
@@ -615,7 +612,7 @@ class UserController extends AppBaseController
         $joined_groups_count = $user->groups()->where('role_id', '!=', 1)->where('status', '=', 'approved')->get()->count();
         $follow_user_status = '';
         $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                                ->where('leader_id', '=', $user->id)->first();
+                        ->where('leader_id', '=', $user->id)->first();
 
         if ($follow_user_status) {
             $follow_user_status = $follow_user_status->status;
@@ -630,20 +627,20 @@ class UserController extends AppBaseController
         $user_post = $privacy_settings[1];
         $own_pages = $user->own_pages();
         $own_groups = $user->own_groups();
-        $user_events = $user->events()->whereDate('end_date', '>=' ,date('Y-m-d', strtotime(Carbon::now())))->get(); 
-        $guest_events = $user->getEvents();       
+        $user_events = $user->events()->whereDate('end_date', '>=', date('Y-m-d', strtotime(Carbon::now())))->get();
+        $guest_events = $user->getEvents();
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.following').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.following') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('users/following', compact('timeline', 'user', 'following', 'followRequests', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count', 'own_pages', 'own_groups','user_events','guest_events'))->render();
+        return $theme->scope('users/following', compact('timeline', 'user', 'following', 'followRequests', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count', 'own_pages', 'own_groups', 'user_events', 'guest_events'))->render();
     }
 
     public function getGuestEvents($username)
     {
         $timeline = Timeline::where('username', $username)->with('user', 'user.pageLikes', 'user.groups')->first();
         $user = $timeline->user;
-        
+
         $following = $user->following()->where('status', '=', 'approved')->get();
         $followRequests = $user->followers()->where('status', '=', 'pending')->get();
         $following_count = $user->following()->where('status', '=', 'approved')->get()->count();
@@ -651,7 +648,7 @@ class UserController extends AppBaseController
         $joined_groups_count = $user->groups()->where('role_id', '!=', 1)->where('status', '=', 'approved')->get()->count();
         $follow_user_status = '';
         $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                                ->where('leader_id', '=', $user->id)->first();
+                        ->where('leader_id', '=', $user->id)->first();
 
         if ($follow_user_status) {
             $follow_user_status = $follow_user_status->status;
@@ -666,13 +663,13 @@ class UserController extends AppBaseController
         $user_post = $privacy_settings[1];
         $own_pages = $user->own_pages();
         $own_groups = $user->own_groups();
-        $user_events = $user->events()->whereDate('end_date', '>=' ,date('Y-m-d', strtotime(Carbon::now())))->get();
+        $user_events = $user->events()->whereDate('end_date', '>=', date('Y-m-d', strtotime(Carbon::now())))->get();
         $guest_events = $user->getEvents();
-        
-        $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.following').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
 
-        return $theme->scope('users/guestevents', compact('timeline', 'user', 'following', 'followRequests', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count', 'own_pages', 'own_groups','user_events','guest_events'))->render();
+        $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
+        $theme->setTitle(trans('common.following') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
+
+        return $theme->scope('users/guestevents', compact('timeline', 'user', 'following', 'followRequests', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count', 'own_pages', 'own_groups', 'user_events', 'guest_events'))->render();
     }
 
     public function likedPages($username)
@@ -686,7 +683,7 @@ class UserController extends AppBaseController
         $followRequests = $user->followers()->where('status', '=', 'pending')->get();
         $follow_user_status = '';
         $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                                ->where('leader_id', '=', $user->id)->first();
+                        ->where('leader_id', '=', $user->id)->first();
 
         if ($follow_user_status) {
             $follow_user_status = $follow_user_status->status;
@@ -701,13 +698,13 @@ class UserController extends AppBaseController
         $user_post = $privacy_settings[1];
         $own_pages = $user->own_pages();
         $own_groups = $user->own_groups();
-        $user_events = $user->events()->whereDate('end_date', '>=' ,date('Y-m-d', strtotime(Carbon::now())))->get();
+        $user_events = $user->events()->whereDate('end_date', '>=', date('Y-m-d', strtotime(Carbon::now())))->get();
         $guest_events = $user->getEvents();
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.liked_pages').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.liked_pages') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('users/liked-pages', compact('timeline', 'liked_pages', 'user', 'followRequests', 'own_pages', 'own_groups', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count','user_events','guest_events'))->render();
+        return $theme->scope('users/liked-pages', compact('timeline', 'liked_pages', 'user', 'followRequests', 'own_pages', 'own_groups', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count', 'user_events', 'guest_events'))->render();
     }
 
     public function joinedGroups($username)
@@ -722,7 +719,7 @@ class UserController extends AppBaseController
         $followRequests = $user->followers()->where('status', '=', 'pending')->get();
         $follow_user_status = '';
         $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                                ->where('leader_id', '=', $user->id)->first();
+                        ->where('leader_id', '=', $user->id)->first();
 
         if ($follow_user_status) {
             $follow_user_status = $follow_user_status->status;
@@ -737,13 +734,13 @@ class UserController extends AppBaseController
         $user_post = $privacy_settings[1];
         $own_pages = $user->own_pages();
         $own_groups = $user->own_groups();
-        $user_events = $user->events()->whereDate('end_date', '>=' ,date('Y-m-d', strtotime(Carbon::now())))->get();
+        $user_events = $user->events()->whereDate('end_date', '>=', date('Y-m-d', strtotime(Carbon::now())))->get();
         $guest_events = $user->getEvents();
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.joined_groups').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.joined_groups') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('users/joined-groups', compact('timeline', 'user', 'joined_groups', 'followRequests', 'own_groups', 'own_pages', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count','user_events','guest_events'))->render();
+        return $theme->scope('users/joined-groups', compact('timeline', 'user', 'joined_groups', 'followRequests', 'own_groups', 'own_pages', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count', 'user_events', 'guest_events'))->render();
     }
 
     public function followRequests($username)
@@ -756,7 +753,7 @@ class UserController extends AppBaseController
         $followers_count = $user->followers()->where('status', '=', 'approved')->get()->count();
         $follow_user_status = '';
         $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                                ->where('leader_id', '=', $user->id)->first();
+                        ->where('leader_id', '=', $user->id)->first();
 
         if ($follow_user_status) {
             $follow_user_status = $follow_user_status->status;
@@ -771,14 +768,13 @@ class UserController extends AppBaseController
         $user_post = $privacy_settings[1];
         $own_pages = $user->own_pages();
         $own_groups = $user->own_groups();
-        $user_events = $user->events()->whereDate('end_date', '>=' ,date('Y-m-d', strtotime(Carbon::now())))->get();
-        $guest_events = $user->getEvents();        
+        $user_events = $user->events()->whereDate('end_date', '>=', date('Y-m-d', strtotime(Carbon::now())))->get();
+        $guest_events = $user->getEvents();
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.follow_requests').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.follow_requests') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('users/follow-requests', compact('timeline', 'user', 'followRequests', 'own_groups', 'own_pages',
-            'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count','user_events','guest_events'))->render();
+        return $theme->scope('users/follow-requests', compact('timeline', 'user', 'followRequests', 'own_groups', 'own_pages', 'follow_user_status', 'following_count', 'followers_count', 'follow_confirm', 'user_post', 'joined_groups_count', 'user_events', 'guest_events'))->render();
     }
 
     public function acceptFollowRequest(Request $request)
@@ -792,7 +788,7 @@ class UserController extends AppBaseController
         }
 
         //Notify the user for accepting the follow request
-        Notification::create(['user_id' => $request->user_id, 'timeline_id' => $user->timeline_id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name.' accepted your follow request', 'type' => 'accept_follow_request', 'link' => Auth::user()->username.'/followers']);
+        Notification::create(['user_id' => $request->user_id, 'timeline_id' => $user->timeline_id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name . ' accepted your follow request', 'type' => 'accept_follow_request', 'link' => Auth::user()->username . '/followers']);
 
         return response()->json(['status' => '200', 'accepted' => true, 'message' => 'follow request successfully accepted']);
     }
@@ -809,7 +805,7 @@ class UserController extends AppBaseController
         }
 
         //Notify the user for rejecting the follow request
-        Notification::create(['user_id' => $request->user_id, 'timeline_id' => $user->timeline_id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name.' rejected your follow request', 'type' => 'reject_follow_request', 'link' => Auth::user()->username]);
+        Notification::create(['user_id' => $request->user_id, 'timeline_id' => $user->timeline_id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name . ' rejected your follow request', 'type' => 'reject_follow_request', 'link' => Auth::user()->username]);
 
         return response()->json(['status' => '200', 'rejected' => true, 'message' => 'follow request successfully accepted']);
     }
@@ -818,7 +814,9 @@ class UserController extends AppBaseController
     {
         $notifications = Notification::where('user_id', Auth::user()->id)->with('notified_from')->latest()->paginate(Setting::get('items_page', 10));
 
-        return response()->json(['status' => '200', 'notifications' => $notifications]);
+        $followRequests = Auth::user()->followers()->where('status', '=', 'pending')->get();
+
+        return response()->json(['status' => '200', 'notifications' => $notifications, 'followRequests' => $followRequests]);
     }
 
     public function getUnreadNotifications()
@@ -845,13 +843,12 @@ class UserController extends AppBaseController
         $event = $timeline->event;
         $event_guests = $event->users();
 
-        if(!$event->is_eventadmin(Auth::user()->id, $event->id))
-        {
+        if (!$event->is_eventadmin(Auth::user()->id, $event->id)) {
             return redirect($username);
-        }        
+        }
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.invitemembers').' | '.Setting::get('site_title').' | '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.invitemembers') . ' | ' . Setting::get('site_title') . ' | ' . Setting::get('site_tagline'));
 
         return $theme->scope('users/inviteguests', compact('timeline', 'event', 'event_guests'))->render();
     }
@@ -867,8 +864,8 @@ class UserController extends AppBaseController
 
         foreach ($timelines as $key => $timeline) {
             $user = $timeline->user()->with(['events' => function ($query) use ($event_id) {
-                $query->where('events.id', $event_id);
-            }])->get();
+                            $query->where('events.id', $event_id);
+                        }])->get();
 
             $users->add($user);
         }
@@ -890,5 +887,5 @@ class UserController extends AppBaseController
             return response()->json(['status' => '200', 'added' => true, 'message' => 'successfully added']);
         }
     }
-    
+
 }

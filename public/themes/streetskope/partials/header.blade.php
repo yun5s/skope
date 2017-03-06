@@ -70,6 +70,34 @@
                                             </div>
                                         </a>
                                     </li>
+                                    <li class="inbox-message" v-for="(key, followRequest) in followRequests">
+                                        <a href="{{ url(Auth::user()->username.'/follow-requests/') }}">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <img class="media-object img-icon" v-bind:src="followRequest.avatar" alt="images">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">
+                                                        <span class="notification-text"> @{{ followRequest.name }} request to connect </span>
+                                                        <span class="message-time">
+                                                            <span class="notification-type"><i class="fa fa-user"></i></span>
+                                                            <time class="timeago" datetime="@{{ followRequest.pivot.created_at }}+00:00" title="@{{ followRequest.pivot.created_at }}+00:00">
+                                                                @{{ followRequest.pivot.created_at }}+00:00
+                                                            </time>
+                                                        </span>
+                                                        <div class="pull-right">
+                                                            <a href="#" class="btn btn-to-follow accept-follow btn-success accept" @click.prevent="followAccept(followRequest.id, key)">
+                                                                <i class="fa fa-thumbs-up"></i> {{ trans('common.accept') }} 
+                                                            </a>
+                                                            <a href="#" class="btn btn-to-follow reject-follow btn-danger reject" @click.prevent="followReject(followRequest.id, key)">
+                                                                <i class="fa fa-thumbs-down"></i> {{ trans('common.decline') }}
+                                                            </a>
+                                                        </div>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
                                     <li v-if="notificationsLoading" class="dropdown-loading">
                                         <i class="fa fa-spin fa-spinner"></i>
                                     </li>

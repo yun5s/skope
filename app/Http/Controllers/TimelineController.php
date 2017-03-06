@@ -80,7 +80,7 @@ class TimelineController extends AppBaseController
         $timelines = $this->timelineRepository->all();
 
         return view('timelines.index')
-            ->with('timelines', $timelines);
+                        ->with('timelines', $timelines);
     }
 
     /**
@@ -157,7 +157,7 @@ class TimelineController extends AppBaseController
 
 
             $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                ->where('leader_id', '=', $user->id)->first();
+                            ->where('leader_id', '=', $user->id)->first();
 
             if ($follow_user_status) {
                 $follow_user_status = $follow_user_status->status;
@@ -235,10 +235,11 @@ class TimelineController extends AppBaseController
         // else show the normal feed
         else {
             $posts = Post::whereIn('user_id', function ($query) use ($id) {
-                $query->select('leader_id')
-                    ->from('followers')
-                    ->where('follower_id', $id);
-            })->orWhere('user_id', $id)->latest()->paginate(Setting::get('items_page'));
+                        $query->select('leader_id')
+                                ->from('followers')
+                                ->where('follower_id', $id)
+                                ->where('status', 'approved');
+                    })->orWhere('user_id', $id)->latest()->paginate(Setting::get('items_page'));
         }
 
 
@@ -269,7 +270,7 @@ class TimelineController extends AppBaseController
         $theme->setTitle($timeline->name . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('home', compact('timeline', 'posts', 'next_page_url', 'trending_tags', 'suggested_users', 'active_announcement', 'suggested_groups', 'suggested_pages', 'mode', 'user_post'))
-            ->render();
+                        ->render();
     }
 
     public function showGlobalFeed(Request $request)
@@ -324,7 +325,7 @@ class TimelineController extends AppBaseController
         $theme->setTitle($timeline->name . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('home', compact('timeline', 'posts', 'next_page_url', 'trending_tags', 'suggested_users', 'active_announcement', 'suggested_groups', 'suggested_pages', 'mode', 'user_post'))
-            ->render();
+                        ->render();
     }
 
     public function checkType($path)
@@ -337,19 +338,20 @@ class TimelineController extends AppBaseController
         }
     }
 
-    public function thumbVideo($videoPath, $path){
-        $arrayPath = explode("/",$videoPath);
-        $filename = explode(".",$arrayPath[count($arrayPath)-1])[0].".jpg";
-        $videoFileName = explode(".",$arrayPath[count($arrayPath)-1])[0].".webm";
-        array_splice($arrayPath, -1,1,$videoFileName);
+    public function thumbVideo($videoPath, $path)
+    {
+        $arrayPath = explode("/", $videoPath);
+        $filename = explode(".", $arrayPath[count($arrayPath) - 1])[0] . ".jpg";
+        $videoFileName = explode(".", $arrayPath[count($arrayPath) - 1])[0] . ".webm";
+        array_splice($arrayPath, -1, 1, $videoFileName);
         $newVideoPath = implode("/", $arrayPath);
         $ffmpeg = FFMpeg::create([
-            'ffmpeg.binaries' => config('ffmpeg.ffmpeg'),
-            'ffprobe.binaries' => config('ffmpeg.ffprobe')
+                    'ffmpeg.binaries' => config('ffmpeg.ffmpeg'),
+                    'ffprobe.binaries' => config('ffmpeg.ffprobe')
         ]);
         $condition = true;
-        while ($condition){
-            if(file_exists($videoPath)){
+        while ($condition) {
+            if (file_exists($videoPath)) {
                 $condition = false;
                 $video = $ffmpeg->open($videoPath);
             } else {
@@ -357,14 +359,14 @@ class TimelineController extends AppBaseController
             }
         };
         $video->filters()
-            ->resize(new Dimension(556, 338))
-            ->synchronize();
+                ->resize(new Dimension(556, 338))
+                ->synchronize();
         $video->frame(TimeCode::fromSeconds(1))
-            ->save($path.$filename);
+                ->save($path . $filename);
 
 
         $video->filters()
-            ->clip(TimeCode::fromSeconds(0), TimeCode::fromSeconds(10));
+                ->clip(TimeCode::fromSeconds(0), TimeCode::fromSeconds(10));
 
         $video->save(new WebM(), $newVideoPath);
         File::delete($videoPath);
@@ -446,9 +448,9 @@ class TimelineController extends AppBaseController
         $timeline = Timeline::where('id', $request->timeline_id)->first();
 
         if (
-            ($request->timeline_type == 'user' && $request->timeline_id == Auth::user()->timeline_id) ||
-            ($request->timeline_type == 'page' && $timeline->page->is_admin(Auth::user()->id) == true) ||
-            ($request->timeline_type == 'group' && $timeline->groups->is_admin(Auth::user()->id) == true)
+                ($request->timeline_type == 'user' && $request->timeline_id == Auth::user()->timeline_id) ||
+                ($request->timeline_type == 'page' && $timeline->page->is_admin(Auth::user()->id) == true) ||
+                ($request->timeline_type == 'group' && $timeline->groups->is_admin(Auth::user()->id) == true)
         ) {
             if ($request->hasFile('change_avatar')) {
                 $timeline_type = $request->timeline_type;
@@ -473,9 +475,9 @@ class TimelineController extends AppBaseController
                 $avatar->save(storage_path() . '/uploads/' . $timeline_type . 's/avatars/' . $photoName, 60);
 
                 $media = Media::create([
-                    'title' => $photoName,
-                    'type' => 'image',
-                    'source' => $photoName,
+                            'title' => $photoName,
+                            'type' => 'image',
+                            'source' => $photoName,
                 ]);
 
                 $timeline->avatar_id = $media->id;
@@ -497,9 +499,9 @@ class TimelineController extends AppBaseController
         $timeline = Timeline::where('id', $request->timeline_id)->first();
 
         if (
-            ($request->timeline_type == 'user' && $request->timeline_id == Auth::user()->timeline_id) ||
-            ($request->timeline_type == 'page' && $timeline->page->is_admin(Auth::user()->id) == true) ||
-            ($request->timeline_type == 'group' && $timeline->groups->is_admin(Auth::user()->id) == true)
+                ($request->timeline_type == 'user' && $request->timeline_id == Auth::user()->timeline_id) ||
+                ($request->timeline_type == 'page' && $timeline->page->is_admin(Auth::user()->id) == true) ||
+                ($request->timeline_type == 'group' && $timeline->groups->is_admin(Auth::user()->id) == true)
         ) {
             if ($request->hasFile('change_avatar')) {
                 $timeline_type = $request->timeline_type;
@@ -524,9 +526,9 @@ class TimelineController extends AppBaseController
                 $avatar->save(storage_path() . '/uploads/' . $timeline_type . 's/profiles/' . $photoName, 60);
 
                 $media = Media::create([
-                    'title' => $photoName,
-                    'type' => 'image',
-                    'source' => $photoName,
+                            'title' => $photoName,
+                            'type' => 'image',
+                            'source' => $photoName,
                 ]);
 
                 $timeline->profile_id = $media->id;
@@ -610,10 +612,10 @@ class TimelineController extends AppBaseController
 //            $avatar->save(storage_path().'/uploads/'.$timeline_type.'s/covers/'.$photoName, 60);
 //
             $media = Media::create([
-                'title' => $videoName,
-                'type' => 'image',
-                'source' => $videoName,
-                'thumb_source' => $thumbnail,
+                        'title' => $videoName,
+                        'type' => 'image',
+                        'source' => $videoName,
+                        'thumb_source' => $thumbnail,
             ]);
 
             $timeline = Timeline::where('id', $request->timeline_id)->first();
@@ -643,9 +645,9 @@ class TimelineController extends AppBaseController
                 $avatar->save(storage_path() . '/uploads/users/gallery/' . $photoName, 60);
 
                 $media = Media::create([
-                    'title' => $photoName,
-                    'type' => 'image',
-                    'source' => $photoName,
+                            'title' => $photoName,
+                            'type' => 'image',
+                            'source' => $photoName,
                 ]);
 
                 $post->images()->attach($media);
@@ -667,9 +669,9 @@ class TimelineController extends AppBaseController
             Flavy::thumbnail(storage_path() . '/uploads/users/gallery/' . $strippedName, storage_path() . '/uploads/users/gallery/' . $basename . '.jpg', 1); //returns array with file info
 
             $media = Media::create([
-                'title' => $basename,
-                'type' => 'video',
-                'source' => $strippedName,
+                        'title' => $basename,
+                        'type' => 'video',
+                        'source' => $strippedName,
             ]);
 
             $post->images()->attach($media);
@@ -770,10 +772,10 @@ class TimelineController extends AppBaseController
     public function postComment(Request $request)
     {
         $comment = Comment::create([
-            'post_id' => $request->post_id,
-            'description' => $request->description,
-            'user_id' => Auth::user()->id,
-            'parent_id' => $request->comment_id,
+                    'post_id' => $request->post_id,
+                    'description' => $request->description,
+                    'user_id' => Auth::user()->id,
+                    'parent_id' => $request->comment_id,
         ]);
 
         $post = Post::where('id', $request->post_id)->first();
@@ -825,7 +827,7 @@ class TimelineController extends AppBaseController
         $user = User::find(Auth::user()->id);
         //Like the post
         if (!$post->users_liked->contains(Auth::user()->id)) {
-            if($post->users_unliked->contains(Auth::user()->id)){
+            if ($post->users_unliked->contains(Auth::user()->id)) {
                 $post->users_unliked()->updateExistingPivot(Auth::user()->id, ['liked' => 1]);
                 //Notify the user for post unlike
                 $notify_message = 'liked your post';
@@ -852,14 +854,13 @@ class TimelineController extends AppBaseController
             }
 
             if ($post->user->id != Auth::user()->id) {
-                Notification::create(['user_id' => $post->user->id, 'post_id' => $post->id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name.' '.$notify_message, 'type' => $notify_type]);
+                Notification::create(['user_id' => $post->user->id, 'post_id' => $post->id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name . ' ' . $notify_message, 'type' => $notify_type]);
             }
 
             $like_count = $post->users_liked()->count();
             $unlike_count = $post->users_unliked()->count();
 
-            return response()->json(['status' => '200', 'user' => $user , 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count, 'unlikecount' => $unlike_count]);
-
+            return response()->json(['status' => '200', 'user' => $user, 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count, 'unlikecount' => $unlike_count]);
         }
         //Unlike the post
         else {
@@ -872,12 +873,12 @@ class TimelineController extends AppBaseController
             $liked = false;
 
             if ($post->user->id != Auth::user()->id) {
-                Notification::create(['user_id' => $post->user->id, 'post_id' => $post->id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name.' '.$notify_message, 'type' => $notify_type]);
+                Notification::create(['user_id' => $post->user->id, 'post_id' => $post->id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name . ' ' . $notify_message, 'type' => $notify_type]);
             }
             $like_count = $post->users_liked()->count();
             $unlike_count = $post->users_unliked()->count();
 
-            return response()->json(['status' => '200', 'user' => $user , 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count, 'unlikecount' => $unlike_count]);
+            return response()->json(['status' => '200', 'user' => $user, 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'likecount' => $like_count, 'unlikecount' => $unlike_count]);
         }
 
         if ($post) {
@@ -897,7 +898,7 @@ class TimelineController extends AppBaseController
 
         //Like the post
         if (!$post->users_unliked->contains(Auth::user()->id)) {
-            if($post->users_liked->contains(Auth::user()->id)){
+            if ($post->users_liked->contains(Auth::user()->id)) {
                 $post->users_liked()->updateExistingPivot(Auth::user()->id, ['liked' => 0]);
                 //Notify the user for post unlike
                 $notify_message = 'unlikede your post';
@@ -916,14 +917,14 @@ class TimelineController extends AppBaseController
             if ($user_settings && $user_settings->email_like_post == 'yes') {
                 Mail::send('emails.postlikemail', ['user' => $user, 'posted_user' => $posted_user], function ($m) use ($posted_user, $user) {
                     $m->from(Setting::get('noreply_email'), Setting::get('site_name'));
-                    $m->to($posted_user->email, $posted_user->name)->subject($user->name.' '.'unliked your post');
+                    $m->to($posted_user->email, $posted_user->name)->subject($user->name . ' ' . 'unliked your post');
                 });
             }
 
             $unlike_count = $post->users_unliked()->count();
             $like_count = $post->users_liked()->count();
 
-            return response()->json(['status' => '200', 'user' => $user , 'post_id' => $post->id, 'liked' => false, 'message' => $status_message, 'unlikecount' => $unlike_count, 'likecount' => $like_count]);
+            return response()->json(['status' => '200', 'user' => $user, 'post_id' => $post->id, 'liked' => false, 'message' => $status_message, 'unlikecount' => $unlike_count, 'likecount' => $like_count]);
         }
         //Unlike the post
         else {
@@ -938,7 +939,7 @@ class TimelineController extends AppBaseController
             $unlike_count = $post->users_unliked()->count();
             $like_count = $post->users_liked()->count();
 
-            return response()->json(['status' => '200', 'user' => $user , 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'unlikecount' => $unlike_count, 'likecount' => $like_count]);
+            return response()->json(['status' => '200', 'user' => $user, 'post_id' => $post->id, 'liked' => $liked, 'message' => $status_message, 'unlikecount' => $unlike_count, 'likecount' => $like_count]);
         }
 
         if ($post) {
@@ -1001,9 +1002,9 @@ class TimelineController extends AppBaseController
             // we need to insert the shared post into the timeline of the person who shared
             $input['user_id'] = Auth::user()->id;
             $post = Post::create(array(
-                'timeline_id' => Auth::user()->timeline->id,
-                'user_id' => Auth::user()->id,
-                'shared_post_id' => $request->post_id,
+                        'timeline_id' => Auth::user()->timeline->id,
+                        'user_id' => Auth::user()->id,
+                        'shared_post_id' => $request->post_id,
             ));
 
 
@@ -1199,9 +1200,11 @@ class TimelineController extends AppBaseController
     {
         $follow = User::where('timeline_id', '=', $request->timeline_id)->first();
 
-        if (!$follow->followers->contains(Auth::user()->id)) {
-            $follow->followers()->attach(Auth::user()->id, ['status' => 'approved']);
-
+        if (!$follow->following->contains(Auth::user()->id)) {
+            $follow->following()->attach(Auth::user()->id, ['status' => 'approved']);
+            if (!$follow->followers->contains(Auth::user()->id)) {
+                $follow->followers()->attach(Auth::user()->id, ['status' => 'pending']);
+            }
             $user = User::find(Auth::user()->id);
             $user_settings = $user->getUserSettings($follow->id);
 
@@ -1218,6 +1221,7 @@ class TimelineController extends AppBaseController
             return response()->json(['status' => '200', 'followed' => true, 'message' => 'successfully followed']);
         } else {
             $follow->followers()->detach([Auth::user()->id]);
+            $follow->following()->detach([Auth::user()->id]);
 
             //Notify the user for follow
             Notification::create(['user_id' => $follow->id, 'timeline_id' => $request->timeline_id, 'notified_by' => Auth::user()->id, 'description' => Auth::user()->name . ' is unfollowing you', 'type' => 'unfollow']);
@@ -1438,9 +1442,9 @@ class TimelineController extends AppBaseController
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:30|min:5',
-            'username' => 'required|max:26|min:5|alpha_num|unique:timelines',
-            'category' => 'required',
+                    'name' => 'required|max:30|min:5',
+                    'username' => 'required|max:26|min:5|alpha_num|unique:timelines',
+                    'category' => 'required',
         ]);
     }
 
@@ -1454,8 +1458,8 @@ class TimelineController extends AppBaseController
     protected function groupPageValidator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required',
-            'username' => 'required|max:16|min:5|alpha_num|unique:timelines',
+                    'name' => 'required',
+                    'username' => 'required|max:16|min:5|alpha_num|unique:timelines',
         ]);
     }
 
@@ -1469,7 +1473,7 @@ class TimelineController extends AppBaseController
     protected function groupPageSettingsValidator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required',
+                    'name' => 'required',
         ]);
     }
 
@@ -1479,23 +1483,23 @@ class TimelineController extends AppBaseController
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withInput($request->all())
-                ->withErrors($validator->errors());
+                            ->withInput($request->all())
+                            ->withErrors($validator->errors());
         }
 
         //Create timeline record for userpage
         $timeline = Timeline::create([
-            'username' => $request->username,
-            'name' => $request->name,
-            'about' => $request->about,
-            'type' => 'page',
+                    'username' => $request->username,
+                    'name' => $request->name,
+                    'about' => $request->about,
+                    'type' => 'page',
         ]);
 
         $page = Page::create([
-            'timeline_id' => $timeline->id,
-            'category_id' => $request->category,
-            'member_privacy' => Setting::get('page_member_privacy'),
-            'timeline_post_privacy' => Setting::get('page_timeline_post_privacy'),
+                    'timeline_id' => $timeline->id,
+                    'category_id' => $request->category,
+                    'member_privacy' => Setting::get('page_member_privacy'),
+                    'timeline_post_privacy' => Setting::get('page_timeline_post_privacy'),
         ]);
 
         $role = Role::where('name', '=', 'Admin')->first();
@@ -1534,7 +1538,7 @@ class TimelineController extends AppBaseController
             $followers_count = $user->followers()->where('status', '=', 'approved')->get()->count();
             $joined_groups_count = $user->groups()->where('role_id', '!=', $admin_role_id->id)->where('status', '=', 'approved')->get()->count();
             $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                ->where('leader_id', '=', $user->id)->first();
+                            ->where('leader_id', '=', $user->id)->first();
             $user_events = $user->events()->whereDate('end_date', '>=', date('Y-m-d', strtotime(Carbon::now())))->get();
             $guest_events = $user->getEvents();
 
@@ -1569,35 +1573,35 @@ class TimelineController extends AppBaseController
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withInput($request->all())
-                ->withErrors($validator->errors());
+                            ->withInput($request->all())
+                            ->withErrors($validator->errors());
         }
 
         //Create timeline record for userpage
         $timeline = Timeline::create([
-            'username' => $request->username,
-            'name' => $request->name,
-            'about' => $request->about,
-            'type' => 'group',
+                    'username' => $request->username,
+                    'name' => $request->name,
+                    'about' => $request->about,
+                    'type' => 'group',
         ]);
 
         if ($request->type == 'open') {
             $group = Group::create([
-                'timeline_id' => $timeline->id,
-                'type' => $request->type,
-                'active' => 1,
-                'member_privacy' => 'everyone',
-                'post_privacy' => 'members',
-                'event_privacy' => 'only_admins',
+                        'timeline_id' => $timeline->id,
+                        'type' => $request->type,
+                        'active' => 1,
+                        'member_privacy' => 'everyone',
+                        'post_privacy' => 'members',
+                        'event_privacy' => 'only_admins',
             ]);
         } else {
             $group = Group::create([
-                'timeline_id' => $timeline->id,
-                'type' => $request->type,
-                'active' => 1,
-                'member_privacy' => Setting::get('group_member_privacy'),
-                'post_privacy' => Setting::get('group_timeline_post_privacy'),
-                'event_privacy' => Setting::get('group_event_privacy'),
+                        'timeline_id' => $timeline->id,
+                        'type' => $request->type,
+                        'active' => 1,
+                        'member_privacy' => Setting::get('group_member_privacy'),
+                        'post_privacy' => Setting::get('group_timeline_post_privacy'),
+                        'event_privacy' => Setting::get('group_event_privacy'),
             ]);
         }
         $role = Role::where('name', '=', 'Admin')->first();
@@ -1649,8 +1653,8 @@ class TimelineController extends AppBaseController
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withInput($request->all())
-                ->withErrors($validator->errors());
+                            ->withInput($request->all())
+                            ->withErrors($validator->errors());
         }
         $timeline = Timeline::where('username', $request->username)->first();
         $timeline_values = $request->only('username', 'name', 'about');
@@ -2007,8 +2011,8 @@ class TimelineController extends AppBaseController
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withInput($request->all())
-                ->withErrors($validator->errors());
+                            ->withInput($request->all())
+                            ->withErrors($validator->errors());
         }
 
         $timeline = Timeline::where('username', $username)->first();
@@ -2131,7 +2135,7 @@ class TimelineController extends AppBaseController
         $theme->setTitle(trans('common.events') . ' | ' . Setting::get('site_title') . ' | ' . Setting::get('site_tagline'));
 
         return $theme->scope('home', compact('timeline', 'posts', 'next_page_url', 'trending_tags', 'suggested_users', 'suggested_groups', 'suggested_pages', 'mode', 'user_events', 'username'))
-            ->render();
+                        ->render();
     }
 
     public function addEvent($username, $group_id = null)
@@ -2156,11 +2160,11 @@ class TimelineController extends AppBaseController
     protected function validateEventPage(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:30|min:5',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'location' => 'required',
-            'type' => 'required',
+                    'name' => 'required|max:30|min:5',
+                    'start_date' => 'required',
+                    'end_date' => 'required',
+                    'location' => 'required',
+                    'type' => 'required',
         ]);
     }
 
@@ -2170,8 +2174,8 @@ class TimelineController extends AppBaseController
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withInput($request->all())
-                ->withErrors($validator->errors());
+                            ->withInput($request->all())
+                            ->withErrors($validator->errors());
         }
 
         $start_date = date('Y-m-d H:i', strtotime($request->start_date));
@@ -2180,21 +2184,21 @@ class TimelineController extends AppBaseController
         if ($start_date >= date('Y-m-d', strtotime(Carbon::now())) && $end_date >= $start_date) {
             $user_timeline = Timeline::where('username', $username)->first();
             $timeline = Timeline::create([
-                'username' => $user_timeline->gen_num(),
-                'name' => $request->name,
-                'about' => $request->about,
-                'type' => 'event',
+                        'username' => $user_timeline->gen_num(),
+                        'name' => $request->name,
+                        'about' => $request->about,
+                        'type' => 'event',
             ]);
 
             $event = Event::create([
-                'timeline_id' => $timeline->id,
-                'type' => $request->type,
-                'user_id' => Auth::user()->id,
-                'location' => $request->location,
-                'start_date' => date('Y-m-d H:i', strtotime($request->start_date)),
-                'end_date' => date('Y-m-d H:i', strtotime($request->end_date)),
-                'invite_privacy' => Setting::get('invite_privacy'),
-                'timeline_post_privacy' => Setting::get('event_timeline_post_privacy'),
+                        'timeline_id' => $timeline->id,
+                        'type' => $request->type,
+                        'user_id' => Auth::user()->id,
+                        'location' => $request->location,
+                        'start_date' => date('Y-m-d H:i', strtotime($request->start_date)),
+                        'end_date' => date('Y-m-d H:i', strtotime($request->end_date)),
+                        'invite_privacy' => Setting::get('invite_privacy'),
+                        'timeline_post_privacy' => Setting::get('event_timeline_post_privacy'),
             ]);
 
             if ($request->group_id) {
@@ -2263,8 +2267,8 @@ class TimelineController extends AppBaseController
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withInput($request->all())
-                ->withErrors($validator->errors());
+                            ->withInput($request->all())
+                            ->withErrors($validator->errors());
         }
 
         $start_date = date('Y-m-d H:i', strtotime($request->start_date));
