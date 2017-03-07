@@ -30,9 +30,11 @@
             <source src="@if($timeline->cover_id) {{ url('user/cover/video/'.$timeline->cover->source) }} @else {{ url('user/cover/video/default-video.mp4') }} @endif" type="video/webm">
             Your browser does not support the video tag.
         </video>
+        @if($timeline->id == Auth::user()->timeline_id)
         <a class="btn btn-camera-video change-cover" href="#">
             <i class="fa fa-play"></i><span class="change-cover-text">Change video</span>
         </a>
+        @endif
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btntim">
