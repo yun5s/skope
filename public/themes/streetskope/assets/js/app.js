@@ -1212,8 +1212,9 @@ $(function () {
         //     }
         // },
         success: function(responseText) {
-
+            alert('test ' + responseText);
             if (responseText.status == 200) {
+                console.log(responseText.avatar_url);
                 $('.user-avatar').find('img')
                     .attr('src', responseText.avatar_url)
                     .load(function() {
