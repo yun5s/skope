@@ -85,18 +85,19 @@
                                                                 @{{ followRequest.pivot.created_at }}+00:00
                                                             </time>
                                                         </span>
-                                                        <div class="pull-right">
-                                                            <a href="#" class="btn btn-to-follow accept-follow btn-success accept" @click.prevent="followAccept(followRequest.id, key)">
-                                                                <i class="fa fa-thumbs-up"></i> {{ trans('common.accept') }} 
-                                                            </a>
-                                                            <a href="#" class="btn btn-to-follow reject-follow btn-danger reject" @click.prevent="followReject(followRequest.id, key)">
-                                                                <i class="fa fa-thumbs-down"></i> {{ trans('common.decline') }}
-                                                            </a>
-                                                        </div>
                                                     </h4>
                                                 </div>
                                             </div>
                                         </a>
+                                        <div class="pull-right btn-req">
+                                            <a href="#" class="btn btn-to-follow accept-follow btn-success accept btn-xs" @click.prevent="followAccept(followRequest.id, key)">
+                                                <i class="fa fa-thumbs-up"></i> {{ trans('common.accept') }} 
+                                            </a>
+                                            <a href="#" class="btn btn-to-follow reject-follow btn-danger reject btn-xs" @click.prevent="followReject(followRequest.id, key)">
+                                                <i class="fa fa-thumbs-down"></i> {{ trans('common.decline') }}
+                                            </a>
+                                        </div>
+                                        <!-- /btn request -->
                                     </li>
                                     <li v-if="notificationsLoading" class="dropdown-loading">
                                         <i class="fa fa-spin fa-spinner"></i>
@@ -108,7 +109,7 @@
                                     <p>{{ trans('messages.no_notifications') }}</p>
                                 </div>
                                 @endif
-                                <div class="dropdown-menu-footer"><br>
+                                <div class="dropdown-menu-footer">
                                     <a href="{{ url('allnotifications') }}">{{ trans('common.see_all') }}</a>
                                 </div>
                             </div>

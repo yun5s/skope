@@ -1,4 +1,4 @@
-! normalize.css v3.0.2 | MIT License | git.io/normalize */
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize !*/
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -4167,7 +4167,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: none;
     width: auto;
     margin-top: 0;
-    background-color: transparent;
+    background-color: #fff;
     border: 0;
     box-shadow: none;
   }
@@ -24940,9 +24940,24 @@ html {
 .dropdown.message .dropdown-menu li.inbox-message.active {
   background-color: #FAFBFC;
 }
+.pull-right.btn-req {
+  bottom: 10px;
+  display: block;
+  position: absolute;
+  right: 10px;
+}
+.pull-right.btn-req .btn{font-size: 11px;}
 @media (max-width: 1325px) {
   .dropdown.message.notification {
     padding-right: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .pull-right.btn-req{
+    float: left !important;
+    position: relative;
+    bottom: 0;
+    right: 0;
   }
 }
 .dropdown.message.notification .dropdown-menu > ul li .media-left img {
@@ -28691,7 +28706,7 @@ ul.list-inline.pagelike-links .dropdown-menu > .active > a:focus{
 }
 
 .timeline-posts {
-  margin-top : 20px;
+  /*margin-top : 20px;*/
 }
 
 /*.user-avatar img:hover ~ .chang-user-avatar  {*/

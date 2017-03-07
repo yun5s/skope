@@ -2329,7 +2329,8 @@ class TimelineController extends AppBaseController
             return redirect('/');
         }
 
-        $theme = Theme::uses('default')->layout('default');
+        /*$theme = Theme::uses('default')->layout('default');*/
+        $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
         $theme->setTitle(trans('common.notifications') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('timeline/single-post', compact('notifications', 'suggested_users', 'trending_tags', 'suggested_groups', 'suggested_pages', 'mode'))->render();
