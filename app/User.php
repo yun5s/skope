@@ -35,6 +35,7 @@ class User extends Authenticatable
     protected $appends = [
         'name',
         'avatar',
+        'profile_pict',
         'cover',
         'about',
     ];
