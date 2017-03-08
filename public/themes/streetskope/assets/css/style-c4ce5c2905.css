@@ -19875,6 +19875,10 @@ placeholder .darksharing-modal .modal-body .sharing-details .control-group .sele
 .invoice-panel .panel-heading {
     border-color: #E6EAEE;
 }
+.timeline-posts{
+  margin-top: 20px;
+}
+.ignore-suggested.close{margin-left: 5px;}
 .teamlead-info {
     float: left;
     padding-left: 20px;

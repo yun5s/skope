@@ -17,7 +17,9 @@ function trendingTags()
 
 function suggestedUsers()
 {
-    $suggested_users = App\User::whereNotIn('id', Auth::user()->following()->get()->lists('id'))->where('id', '!=', Auth::user()->id)->get();
+    $suggested_users = App\User::whereNotIn('id', Auth::user()->following()->get()->lists('id'))
+            ->whereNotIn('id', Auth::user()->ignoreSuggested()->get()->lists('id'))
+            ->where('id', '!=', Auth::user()->id)->get();
 
     if (count($suggested_users) > 0) {
         if (count($suggested_users) > (int) Setting::get('min_items_page', 3)) {

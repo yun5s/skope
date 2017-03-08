@@ -88,30 +88,23 @@
                 </ul>
             </div>
             <div class="user-avatar">
-                <a href="{{ url($post->user->username) }}"><img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" title="{{ $post->user->name }}"></a>
+                <a href="{{ url($post->user->username) }}"><img src="{{ $post->user->profile_pict }}" alt="{{ $post->user->name }}" title="{{ $post->user->name }}"></a>
             </div>
             <div class="user-post-details">
                 <ul class="list-unstyled no-margin">
                     <li>
-
                         @if(isset($sharedOwner))
                             <a href="{{ url($sharedOwner->user->username) }}" title="{{ '@'.$sharedOwner->user->username }}" data-toggle="tooltip" data-placement="top" class="user-name user">
                                 {{ $sharedOwner->user->name }}
                             </a>
                             shared
                         @endif
-
-
-
                         <a href="{{ url($post->user->username) }}" title="{{ '@'.$post->user->username }}" data-toggle="tooltip" data-placement="top" class="user-name user">
                             {{ $post->user->name }}
                         </a>
-
                         @if(isset($sharedOwner))
                             's post
                         @endif
-
-
                         @if($post->users_tagged->count() > 0)
                             {{ trans('common.with') }}
                             @php
@@ -130,7 +123,6 @@
                                 @endif
                                 <a href="{{ url($user->username) }}" class="user"> {{ array_shift($post_tags) }} </a>
                             @endforeach
-
                         @endif
                     </li>
                     <li>
@@ -139,7 +131,6 @@
                                 {{ $sharedOwner->created_at }}+00:00
                             </time>
                         @else
-
                             <time class="post-time timeago" datetime="{{ $post->created_at }}+00:00" title="{{ $post->created_at }}+00:00">
                                 {{ $post->created_at }}+00:00
                             </time>
@@ -151,7 +142,8 @@
                             <a target="_blank" href="{{ url('/get-location/'.$post->location) }}">
                                 <i class="fa fa-map-marker"></i> {{ $post->location }}
                             </a>
-                        </span></li>
+                        </span>
+                    </li>
                     @endif
                 </ul>
             </div>
@@ -188,7 +180,6 @@
             </div>
         @endif
         <ul class="actions-count list-inline">
-
             @if($post->users_liked()->count() > 0)
                 <?php
                 $liked_ids = $post->users_liked->pluck('id')->toArray();
@@ -285,7 +276,7 @@
                 <div class="to-comment">  <!-- to-comment -->
                     @if($display_comment == "only_follow" || $display_comment == "everyone" || $user_setting == "everyone" || $post->user_id == Auth::user()->id)
                         <div class="commenter-avatar">
-                            <a href="#"><img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}"></a>
+                            <a href="#"><img src="{{ Auth::user()->profile_pict }}" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}"></a>
                         </div>
                         <div class="comment-textfield">
                             <form action="#" class="comment-form">
