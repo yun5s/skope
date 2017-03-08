@@ -243,12 +243,9 @@
 		</span></li>
 		@endif
 
-		@if($user->age != null )
-				<li><i class="fa fa-thumb-tack"></i> <span>{{ $user->age.' '.trans('common.age_in') }} </span></li>
-		@endif
 
 		@if($user->location != null)
-				<li><i class="fa fa-thumb-tack"></i> <span>{{ trans('common.age_in').' '.$user->location}} </span></li>
+				<li><i class="fa fa-thumb-tack"></i> <span>{{ trans('common.location').' '.$user->location}} </span></li>
 		@endif
 
 		@if($user->occupation != null)

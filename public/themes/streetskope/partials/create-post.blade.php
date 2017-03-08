@@ -16,7 +16,12 @@
         <div class="panel-body">
             <textarea name="description" class="form-control createpost-form comment" cols="30" rows="3" id="createPost" cols="30" rows="2" placeholder="{{ trans('messages.post-placeholder') }}"></textarea>
 
+        </div><!-- panel-body -->
+    </div>
 
+    <div class="panel-footer">
+        <div class="arrow-up"></div>
+        <div class="atribut">
             <div class="user-tags-added" style="display:none">
                 &nbsp; -- {{ trans('common.with') }}
                 <div class="user-tag-names">
@@ -76,30 +81,26 @@
             <input type="file"   class="post-images-upload hidden" multiple="multiple"  accept="image/jpeg,image/png,image/gif" name="post_images_upload[]" id="post_images_upload[]">
             <input type="file" class="post-video-upload hidden"  accept="video/mp4" name="post_video_upload" >
             <div id="post-image-holder"></div>
-        </div><!-- panel-body -->
-
-        <div class="panel-footer">
-            <ul class="list-inline left-list">
-                <li><a href="#" id="addUserTags"><i class="fa fa-user-plus"></i></a></li>
-                <li><a href="#" id="imageUpload"><i class="fa fa-camera-retro"></i></a></li>
-                <li><a href="#" id="selfVideoUpload"><i class="fa fa-film"></i></a></li>
-                <li><a href="#" id="musicUpload"><i class="fa fa-music"></i></a></li>
-                <li><a href="#" id="videoUpload"><i class="fa fa-youtube"></i></a></li>
-                <li><a href="#" id="locationUpload"><i class="fa fa-map-marker"></i></a></li>
-                <li><a href="#" id="emoticons"><i class="fa fa-smile-o"></i></a></li>
-            </ul>
-            <ul class="list-inline right-list">
-                @if($user_post == 'group' && Auth::user()->is_groupAdmin(Auth::user()->id, $timeline->groups->id) || $user_post == 'group' && $timeline->groups->event_privacy == 'members' && Auth::user()->is_groupMember(Auth::user()->id, $timeline->groups->id))
-                    <li><a href="{!! url($username.'/groupevent/'.$timeline->groups->id) !!}" class="btn btn-default">{{ trans('common.create_event') }}</a></li>
-                @endif
-
-                <li><button type="submit" class="btn btn-submit btn-success">{{ trans('common.post') }}</button></li>
-            </ul>
-
-            <div class="clearfix"></div>
         </div>
-    </div>
+        <ul class="list-inline left-list">
+            <li><a href="#" id="addUserTags"><i class="fa fa-user-plus"></i></a></li>
+            <li><a href="#" id="imageUpload"><i class="fa fa-camera-retro"></i></a></li>
+            <li><a href="#" id="selfVideoUpload"><i class="fa fa-film"></i></a></li>
+            <li><a href="#" id="musicUpload"><i class="fa fa-music"></i></a></li>
+            <li><a href="#" id="videoUpload"><i class="fa fa-youtube"></i></a></li>
+            <li><a href="#" id="locationUpload"><i class="fa fa-map-marker"></i></a></li>
+            <li><a href="#" id="emoticons"><i class="fa fa-smile-o"></i></a></li>
+        </ul>
+        <ul class="list-inline right-list">
+            @if($user_post == 'group' && Auth::user()->is_groupAdmin(Auth::user()->id, $timeline->groups->id) || $user_post == 'group' && $timeline->groups->event_privacy == 'members' && Auth::user()->is_groupMember(Auth::user()->id, $timeline->groups->id))
+                <li><a href="{!! url($username.'/groupevent/'.$timeline->groups->id) !!}" class="btn btn-default">{{ trans('common.create_event') }}</a></li>
+            @endif
 
+            <li><button type="submit" class="btn btn-submit btn-success">{{ trans('common.post') }}</button></li>
+        </ul>
+
+        <div class="clearfix"></div>
+    </div>
 </form>
 
 

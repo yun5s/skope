@@ -114,8 +114,10 @@
   
             @if($post->users_tagged->count() > 0)
               {{ trans('common.with') }}
-              {{--*/ $post_tags = $post->users_tagged->pluck('name')->toArray() /*--}}
-              {{--*/ $post_tags_ids = $post->users_tagged->pluck('id')->toArray() /*--}}
+                @php
+                $post_tags = $post->users_tagged->pluck('name')->toArray();
+                $post_tags_ids = $post->users_tagged->pluck('id')->toArray();
+                @endphp
               @foreach($post->users_tagged as $key => $user)
                 @if($key==1)
                   {{ trans('common.and') }}
@@ -158,7 +160,7 @@
     <div class="panel-body">
       <div class="text-wrapper">
         <p>{{ $post->description }}</p>
-        <div class="post-image-holder  @if(count($post->images()->get()) == 1) single-image @endif">
+        <div class="post-image-holder {{ (count($post->images()->get()) == 1) ? 'single-image':'' }}">
           @foreach($post->images()->get() as $postImage)
           @if($postImage->type=='image')
             <a href="{{ url('user/gallery/'.$postImage->source) }}" data-lightbox="imageGallery.{{ $post->id }}" ><img src="{{ url('user/gallery/'.$postImage->source) }}"  title="{{ $post->user->name }}" alt="{{ $post->user->name }}"></a>

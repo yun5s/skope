@@ -2,7 +2,7 @@
   <div class="panel-heading no-bg">
     <div class="post-author">
       <div class="user-avatar">
-        <a target="_blank" href="{{ url($post->user->username) }}"><img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" title="{{ $post->user->name }}"></a>
+        <a target="_blank" href="{{ url($post->user->username) }}"><img src="{{ $post->user->profile_pict }}" alt="{{ $post->user->name }}" title="{{ $post->user->name }}"></a>
       </div>
       <div class="user-post-details">
         <ul class="list-unstyled no-margin">
@@ -10,8 +10,10 @@
             <a target="_blank" href="{{ url($post->user->username) }}" class="user-name user">{{ $post->user->name }}</a>
             @if($post->users_tagged->count() > 0)
               {{ trans('common.with') }}
-              {{--*/ $post_tags = $post->users_tagged->pluck('name')->toArray() /*--}}
-              {{--*/ $post_tags_ids = $post->users_tagged->pluck('id')->toArray() /*--}}
+              @php
+              $post_tags = $post->users_tagged->pluck('name')->toArray();
+              $post_tags_ids = $post->users_tagged->pluck('id')->toArray();
+              @endphp
               @foreach($post->users_tagged as $key => $user)
                 @if($key==1)
                   {{ trans('common.and') }}
@@ -45,7 +47,7 @@
     <div class="panel-body">
       <div class="text-wrapper">
         <p>{{ $post->description }}</p>
-        <div class="post-image-holder  @if(count($post->images()->get()) == 1) single-image @endif">
+        <div class="post-image-holder{{(count($post->images()->get()) == 1) ? 'single-image' : ''}}">
           @foreach($post->images()->get() as $postImage)
           <a target="_blank" href="{{ url('/post/'.$post->id) }}"><img src="{{ url('user/gallery/'.$postImage->source) }}"  title="{{ $post->user->name }}" alt="{{ $post->user->name }}"></a>
           @endforeach

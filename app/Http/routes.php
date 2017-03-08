@@ -4,10 +4,10 @@ use Cmgmyr\Messenger\Models\Message;
 use Intervention\Image\Facades\Image;
 
 /*
-|--------------------------------------------------------------------------
-| API routes
-|--------------------------------------------------------------------------
-*/
+  |--------------------------------------------------------------------------
+  | API routes
+  |--------------------------------------------------------------------------
+ */
 
 Route::get('/contact', 'PageController@contact');
 Route::post('/contact', 'PageController@saveContact');
@@ -22,24 +22,21 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'cors'], 'namespace' =
 
 Route::post('pusher/auth', function (Illuminate\Http\Request $request, Pusher $pusher) {
     return $pusher->presence_auth(
-        $request->input('channel_name'),
-        $request->input('socket_id'),
-        uniqid(),
-        ['username' => $request->input('username')]
+                    $request->input('channel_name'), $request->input('socket_id'), uniqid(), ['username' => $request->input('username')]
     );
 });
 
 
 /*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Application Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the routes for an application.
+  | It's a breeze. Simply tell Laravel the URIs it should respond to
+  | and give it the controller to call when that URI is requested.
+  |
+ */
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
@@ -93,10 +90,10 @@ Route::get('/post/{post_id}', 'TimelineController@singlePost');
 Route::get('allnotifications', 'TimelineController@allNotifications');
 
 /*
-|--------------------------------------------------------------------------
-| Admin routes
-|--------------------------------------------------------------------------
-*/
+  |--------------------------------------------------------------------------
+  | Admin routes
+  |--------------------------------------------------------------------------
+ */
 
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role:admin']], function () {
@@ -182,20 +179,20 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role:admin']], fun
 
 
 /*
-|--------------------------------------------------------------------------
-| Messages routes
-|--------------------------------------------------------------------------
-*/
+  |--------------------------------------------------------------------------
+  | Messages routes
+  |--------------------------------------------------------------------------
+ */
 
 Route::get('messages/{username?}', 'MessageController@index');
 
 
 
 /*
-|--------------------------------------------------------------------------
-| User routes
-|--------------------------------------------------------------------------
-*/
+  |--------------------------------------------------------------------------
+  | User routes
+  |--------------------------------------------------------------------------
+ */
 
 Route::group(['prefix' => '/{username}', 'middleware' => 'auth'], function ($username) {
     Route::get('/', 'TimelineController@showTimeline');
@@ -269,10 +266,10 @@ Route::group(['prefix' => '/{username}/settings', 'middleware' => ['auth', 'edit
 });
 
 /*
-|--------------------------------------------------------------------------
-| User dashboard routes
-|--------------------------------------------------------------------------
-*/
+  |--------------------------------------------------------------------------
+  | User dashboard routes
+  |--------------------------------------------------------------------------
+ */
 
 Route::group(['prefix' => '/{username}/page-settings', 'middleware' => ['auth', 'editpage']], function ($username) {
     Route::get('/general', 'TimelineController@generalPageSettings');
@@ -290,21 +287,21 @@ Route::group(['prefix' => '/{username}/group-settings', 'middleware' => ['auth',
     Route::get('/join-requests/{group_id}', 'TimelineController@getJoinRequests');
 });
 
-Route::group(['prefix' => '/{username}/event-settings', 'middleware' => ['auth','editevent']], function ($username) {
+Route::group(['prefix' => '/{username}/event-settings', 'middleware' => ['auth', 'editevent']], function ($username) {
     Route::get('/general', 'TimelineController@generalEventSettings');
     Route::post('/general', 'TimelineController@updateUserEventSettings');
 });
 
 /*
-|--------------------------------------------------------------------------
-| Ajax Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for ajax.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Ajax Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the routes for ajax.
+  | It's a breeze. Simply tell Laravel the URIs it should respond to
+  | and give it the controller to call when that URI is requested.
+  |
+ */
 
 Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
     Route::post('create-post', 'TimelineController@createPost');
@@ -313,6 +310,7 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
     Route::post('like-post', 'TimelineController@likePost');
     Route::post('unlike-post', 'TimelineController@unlikePost');
     Route::post('follow-post', 'TimelineController@follow');
+    Route::post('ignore-suggested', 'TimelineController@ignoreSuggested');
     Route::post('notify-user', 'TimelineController@getNotifications');
     Route::post('post-comment', 'TimelineController@postComment');
     Route::post('page-like', 'TimelineController@pageLike');
@@ -374,10 +372,10 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
 
 
 /*
-|--------------------------------------------------------------------------
-| Image routes
-|--------------------------------------------------------------------------
-*/
+  |--------------------------------------------------------------------------
+  | Image routes
+  |--------------------------------------------------------------------------
+ */
 
 //Route::get('user/avatar/{filename}/{type}', function ($filename,$type) {
 //    $path = '/uploads/users/avatars/';
@@ -406,16 +404,16 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
 //});
 
 Route::get('user/avatar/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/users/avatars/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/users/avatars/' . $filename)->response();
 });
 
 Route::get('user/profile/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/users/profiles/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/users/profiles/' . $filename)->response();
 });
 
 Route::get('user/cover/{type}/{filename}', function ($type, $filename) {
-    if($type == 'image'){
-        return Image::make(storage_path().'/uploads/users/covers/'.$filename)->response();
+    if ($type == 'image') {
+        return Image::make(storage_path() . '/uploads/users/covers/' . $filename)->response();
     } else {
         $fileContents = Storage::disk('uploads')->get("users/covers/{$filename}");
         $response = Response::make($fileContents, 200);
@@ -436,36 +434,37 @@ Route::get('user/gallery/video/{filename}', function ($filename) {
 });
 
 Route::get('user/gallery/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/users/gallery/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/users/gallery/' . $filename)->response();
 });
 
 
 Route::get('page/avatar/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/pages/avatars/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/pages/avatars/' . $filename)->response();
 });
 
 Route::get('page/cover/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/pages/covers/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/pages/covers/' . $filename)->response();
 });
 
 Route::get('group/avatar/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/groups/avatars/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/groups/avatars/' . $filename)->response();
 });
 
 Route::get('group/cover/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/groups/covers/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/groups/covers/' . $filename)->response();
 });
 
 Route::get('setting/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/settings/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/settings/' . $filename)->response();
 });
 
 Route::get('event/cover/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/events/covers/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/events/covers/' . $filename)->response();
 });
 
 Route::get('event/avatar/{filename}', function ($filename) {
-    return Image::make(storage_path().'/uploads/events/avatars/'.$filename)->response();
+    return Image::make(storage_path() . '/uploads/events/avatars/' . $filename)->response();
 });
 
 Route::get('/page/{pagename}', 'PageController@page');
+Route::get('/p/construction', 'PageController@construction');

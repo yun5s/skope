@@ -1,7 +1,7 @@
 @if(isset($post->shared_post_id))
     <?php
     $sharedOwner = $post;
-    $post = App\Post::findOrFail($post->shared_post_id)->with('comments')->first();
+    $post = App\Post::where('id', $post->shared_post_id)->firstOrFail();
     ?>
 @endif
 
@@ -88,32 +88,29 @@
                 </ul>
             </div>
             <div class="user-avatar">
-                <a href="{{ url($post->user->username) }}"><img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" title="{{ $post->user->name }}"></a>
+                <a href="{{ url($post->user->username) }}"><img src="{{ $post->user->profile_pict }}" alt="{{ $post->user->name }}" title="{{ $post->user->name }}"></a>
             </div>
             <div class="user-post-details">
                 <ul class="list-unstyled no-margin">
                     <li>
-
                         @if(isset($sharedOwner))
                             <a href="{{ url($sharedOwner->user->username) }}" title="{{ '@'.$sharedOwner->user->username }}" data-toggle="tooltip" data-placement="top" class="user-name user">
                                 {{ $sharedOwner->user->name }}
                             </a>
                             shared
                         @endif
-
-
-
                         <a href="{{ url($post->user->username) }}" title="{{ '@'.$post->user->username }}" data-toggle="tooltip" data-placement="top" class="user-name user">
                             {{ $post->user->name }}
                         </a>
-
                         @if(isset($sharedOwner))
                             's post
                         @endif
-
-
                         @if($post->users_tagged->count() > 0)
                             {{ trans('common.with') }}
+                            @php
+                            $post_tags = $post->users_tagged->pluck('name')->toArray();
+                            $post_tags_ids = $post->users_tagged->pluck('id')->toArray();
+                            @endphp
                             @foreach($post->users_tagged as $key => $user)
                                 @if($key==1)
                                     {{ trans('common.and') }}
@@ -126,7 +123,6 @@
                                 @endif
                                 <a href="{{ url($user->username) }}" class="user"> {{ array_shift($post_tags) }} </a>
                             @endforeach
-
                         @endif
                     </li>
                     <li>
@@ -135,7 +131,6 @@
                                 {{ $sharedOwner->created_at }}+00:00
                             </time>
                         @else
-
                             <time class="post-time timeago" datetime="{{ $post->created_at }}+00:00" title="{{ $post->created_at }}+00:00">
                                 {{ $post->created_at }}+00:00
                             </time>
@@ -144,10 +139,11 @@
 
                         @if($post->location != NULL && !isset($sharedOwner))
                             {{ trans('common.at') }} <span class="post-place">
-              <a target="_blank" href="{{ url('/get-location/'.$post->location) }}">
-                <i class="fa fa-map-marker"></i> {{ $post->location }}
-              </a>
-              </span></li>
+                            <a target="_blank" href="{{ url('/get-location/'.$post->location) }}">
+                                <i class="fa fa-map-marker"></i> {{ $post->location }}
+                            </a>
+                        </span>
+                    </li>
                     @endif
                 </ul>
             </div>
@@ -156,12 +152,7 @@
     <div class="panel-body">
         <div class="text-wrapper">
             <p>{{ $post->description }}</p>
-            @if(count($post->images()->get()) == 1)
-            <div class="post-image-holder single-image">
-                @else
-            <div class="post-image-holder">
-
-                @endif
+            <div class="post-image-holder {{ (count($post->images()->get()) == 1) ? 'single-image':'' }}">
                 @foreach($post->images()->get() as $postImage)
                     @if($postImage->type=='image')
                         <a href="{{ url('user/gallery/'.$postImage->source) }}" data-lightbox="imageGallery.{{ $post->id }}" ><img src="{{ url('user/gallery/'.$postImage->source) }}"  title="{{ $post->user->name }}" alt="{{ $post->user->name }}"></a>
@@ -189,7 +180,6 @@
             </div>
         @endif
         <ul class="actions-count list-inline">
-
             @if($post->users_liked()->count() > 0)
                 <?php
                 $liked_ids = $post->users_liked->pluck('id')->toArray();
@@ -219,7 +209,8 @@
             @if($post->shares->count() > 0)
                 <?php
                 $shared_ids = $post->shares->pluck('id')->toArray();
-                $shared_names = $post->shares->pluck('name')->toArray(); ?>
+                $shared_names = $post->shares->pluck('name')->toArray();
+                ?>
                 <li>
                     <a href="#" class="show-users-modal" data-html="true" data-heading="{{ trans('common.shares') }}"  data-users="{{ implode(',', $shared_ids) }}" data-original-title="{{ implode('<br />', $shared_names) }}"><span class="count-circle"><i class="fa fa-share"></i></span> {{ $post->shares->count() }} {{ trans('common.shares') }}</a>
                 </li>
@@ -229,45 +220,41 @@
     </div>
 
     <?php
-    $display_comment ="";
-    $user_follower = $post->chkUserFollower(Auth::user()->id,$post->user_id);
+    $display_comment = "";
+    $user_follower = $post->chkUserFollower(Auth::user()->id, $post->user_id);
     $user_setting = $post->chkUserSettings($post->user_id);
 
-    if($user_follower != NULL)
-    {
-        if($user_follower == "only_follow") {
+    if ($user_follower != NULL) {
+        if ($user_follower == "only_follow") {
             $display_comment = "only_follow";
-        }elseif ($user_follower == "everyone") {
+        } elseif ($user_follower == "everyone") {
             $display_comment = "everyone";
         }
-    }
-    else{
-        if($user_setting){
-            if($user_setting == "everyone"){
+    } else {
+        if ($user_setting) {
+            if ($user_setting == "everyone") {
                 $display_comment = "everyone";
             }
         }
     }
-
     ?>
 
     <div class="panel-footer socialite">
         <ul class="list-inline footer-list">
             @if($post->users_liked->contains(Auth::user()->id))
-                @if($post->users_liked()->wherePivot('user_id', Auth::user()->id)->wherePivot('liked', 1)->first())
-                    <li><a href="#" class="like-post like-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-up"></i>{{ trans('common.like') }}</a></li>
+                <li><a href="#" class="like-post like-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-up"></i>{{ trans('common.like') }}</a></li>
 
-                    <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
+                <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
+            @elseif($post->users_unliked->contains(Auth::user()->id))
+                <li><a href="#" class="like-post like-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-up"></i>{{ trans('common.like') }}</a></li>
 
+                <li><a href="#" class="unlike-post unlike-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
                 @else
-                    <li><a href="#" class="like-post like-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-up"></i>{{ trans('common.like') }}</a></li>
-
-                    <li><a href="#" class="unlike-post unlike-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
-                @endif
-            @else
                 <li><a href="#" class="like-post like-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-up"></i>{{ trans('common.like') }}</a></li>
                 <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
+
             @endif
+
             <li><a href="#" class="show-comments"><i class="fa fa-comment-o"></i>{{ trans('common.comment') }}</a></li>
 
             @if(Auth::user()->id != $post->user_id)
@@ -289,7 +276,7 @@
                 <div class="to-comment">  <!-- to-comment -->
                     @if($display_comment == "only_follow" || $display_comment == "everyone" || $user_setting == "everyone" || $post->user_id == Auth::user()->id)
                         <div class="commenter-avatar">
-                            <a href="#"><img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}"></a>
+                            <a href="#"><img src="{{ Auth::user()->profile_pict }}" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}"></a>
                         </div>
                         <div class="comment-textfield">
                             <form action="#" class="comment-form">
@@ -335,7 +322,7 @@
                 </div>
                 <textarea class="form-control" rows="3">
           <iframe src="{{ url('/share-post/'.$post->id) }}" width="600px" height="420px" frameborder="0"></iframe>
-          </textarea>
+                </textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.close') }}</button>
@@ -345,7 +332,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    function share(){
+    function share() {
         FB.ui(
             {
                 method: 'feed',
@@ -354,11 +341,11 @@
                 picture: 'image url',
                 description: 'descrition'
             },
-            function(response) {
+            function (response) {
                 if (response) {
-                    alert ('success');
+                    alert('success');
                 } else {
-                    alert ('Failed');
+                    alert('Failed');
                 }
             }
         );

@@ -22,7 +22,7 @@
 										<div class="connect-link side-left">
 											
 											<a href="{{ url($user_event->timeline->username) }}">
-												<img src=" @if(Auth::user()->timeline->avatar) {{ url('user/avatar/'.Auth::user()->timeline->avatar->source) }} @else {{ url('group/avatar/default-group-avatar.png') }} @endif" alt="{{ $user_event->timeline->name }}" title="{{ $user_event->timeline->name }}">{{ $user_event->timeline->name }}
+												<img src=" @if(Auth::user()->timeline->profile_pict) {{ url('user/avatar/'.Auth::user()->timeline->avatar->source) }} @else {{ url('group/avatar/default-group-avatar.png') }} @endif" alt="{{ $user_event->timeline->name }}" title="{{ $user_event->timeline->name }}">{{ $user_event->timeline->name }}
 											</a>
 											<span class="label label-default">{{ $user_event->type }}</span>
 										</div>

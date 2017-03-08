@@ -23,7 +23,7 @@
 								<div class="holder">
 									<div class="follower">
 										<a href="{{ url($follower->username) }}">											
-										<img src="{{ $follower->avatar }}" alt="{{ $follower->name }}" class="img-icon img-30" title="{{ $follower->name }}">
+										<img src="{{ $follower->profile_pict }}" alt="{{ $follower->name }}" class="img-icon img-30" title="{{ $follower->name }}">
 										</a>
 										<a href="{{ url($follower->username) }}">
 											<span>{{ $follower->username }}</span>

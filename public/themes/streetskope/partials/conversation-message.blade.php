@@ -2,7 +2,7 @@
 	<div class="media post-list">
 		<div class="media-left">
 			<a href="#">
-				<img src="{{ $message->sender->avatar }}" alt="images"  class="img-radius img-46">
+				<img src="{{ $message->sender->profile_pict }}" alt="images"  class="img-radius img-46">
 	   		</a>
 	  	</div>
   		<div class="media-body ">
