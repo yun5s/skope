@@ -54,7 +54,7 @@
                                         <a href="{{ url(Auth::user()->username.'/notification/') }}/@{{ notification.id }}">
                                             <div class="media">
                                                 <div class="media-left">
-                                                    <img class="media-object img-icon" v-bind:src="notification.notified_from.avatar" alt="images">
+                                                    <img class="media-object img-icon" v-bind:src="notification.notified_from.profile_pict" alt="images">
                                                 </div>
                                                 <div class="media-body">
                                                     <h4 class="media-heading">
@@ -74,7 +74,7 @@
                                         <a href="{{ url(Auth::user()->username.'/follow-requests/') }}">
                                             <div class="media">
                                                 <div class="media-left">
-                                                    <img class="media-object img-icon" v-bind:src="followRequest.avatar" alt="images">
+                                                    <img class="media-object img-icon" v-bind:src="followRequest.profile_pict" alt="images">
                                                 </div>
                                                 <div class="media-body">
                                                     <h4 class="media-heading">
@@ -135,7 +135,7 @@
                                         <a href="#" onclick="chatBoxes.sendMessage(@{{ conversation.user.id }})">
                                             <div class="media">
                                                 <div class="media-left">
-                                                    <img class="media-object img-icon" v-bind:src="conversation.user.avatar" alt="images">
+                                                    <img class="media-object img-icon" v-bind:src="conversation.user.profile_pict" alt="images">
                                                 </div>
                                                 <div class="media-body">
                                                     <h4 class="media-heading">

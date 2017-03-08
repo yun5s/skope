@@ -17,7 +17,7 @@
               @foreach($notifications as $notification)              
                   <tr>                                     
                     <td><a href="{{ url('/'.$notification->notified_from->timeline->username) }}">
-                        <img src="{{ $notification->notified_from->avatar }}" alt="{{$notification->notified_from->username}}" title="{{$notification->notified_from->name}}"></a><a href="{{ url($notification->notified_from->username) }}"></a>
+                        <img src="{{ $notification->notified_from->profile_pict }}" alt="{{$notification->notified_from->username}}" title="{{$notification->notified_from->name}}"></a><a href="{{ url($notification->notified_from->username) }}"></a>
                     </td>
                     <td>{{ str_limit($notification->description,50) }}</td>                
                     <td><a href="#" data-notification-id="{{ $notification->id }}" class="notification-delete"><span class="trash-icon bg-danger"><i class="fa fa-trash" aria-hidden="true"></i></span></a></td>

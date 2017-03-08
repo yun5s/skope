@@ -27,7 +27,7 @@
                                 <div class="holder">
                                     <div class="follower pull-left">
                                         <a href="{{ url($followRequest->username) }}">
-                                            <img src="{{ $followRequest->avatar }}" alt="{{ $followRequest->name }}" class="img-icon img-30" title="{{ $followRequest->name }}">
+                                            <img src="{{ $followRequest->profile_pict }}" alt="{{ $followRequest->name }}" class="img-icon img-30" title="{{ $followRequest->name }}">
                                         </a>
                                         <a href="{{ url($followRequest->username) }}">
                                             <span>{{ $followRequest->username }}</span>

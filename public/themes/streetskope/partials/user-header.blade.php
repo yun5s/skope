@@ -21,7 +21,7 @@
         </div>
         @endif
         <img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
-        <img src="{{ $timeline->user->avatar }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
+        <img src="{{ $timeline->user->profile_pict }}" alt="{{ $timeline->name }}" title="{{ $timeline->name }}">
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 video">
         <img class="loading hidden" src="{{asset('themes/streetskope/assets/images/loading1.gif')}}">
