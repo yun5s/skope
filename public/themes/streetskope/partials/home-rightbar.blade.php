@@ -70,6 +70,7 @@
             <!-- widget holder starts here -->
             <div class="user-follow socialite">
                 <!-- Each user is represented with media block -->
+                
                 @if($suggested_users != "")
 
                 @foreach($suggested_users as $suggested_user)
@@ -95,6 +96,7 @@
                         <div class="btn-follow hidden">
                             <a href="#" class="btn btn-success follow-user unfollow" data-timeline-id="{{ $suggested_user->timeline->id }}"><i class="fa fa-check"></i> {{ trans('common.following') }}</a>
                         </div>
+                        <a href="#" class="ignore-suggested close" data-dismiss="media" aria-label="close" data-timeline-id="{{ $suggested_user->timeline->id }}">&times;</a>
                     </div>
                 </div>
                 @endforeach

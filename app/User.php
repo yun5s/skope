@@ -11,11 +11,12 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
-    use SoftDeletes, EntrustUserTrait {
+
+    use SoftDeletes,
+        EntrustUserTrait {
 
         SoftDeletes::restore insteadof EntrustUserTrait;
         EntrustUserTrait::restore insteadof SoftDeletes;
-
     }
     use Messagable;
 
@@ -26,19 +27,17 @@ class User extends Authenticatable
      */
     protected $dates = ['deleted_at'];
 
-
-      /**
-       * The attributes that are mass assignable.
-       *
-       * @var array
-       */
-      protected $appends = [
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $appends = [
         'name',
         'avatar',
         'cover',
         'about',
     ];
-
 
     /**
      * The attributes that are mass assignable.
@@ -46,8 +45,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'timeline_id', 'email', 'verification_code', 'email_verified', 'remember_token', 'password', 'birthday', 'city', 'gender', 'last_logged', 'timezone', 'affiliate_id', 'language', 'country', 'active', 'verified', 'facebook_link', 'twitter_link', 'dribbble_link', 'instagram_link', 'youtube_link', 'linkedin_link', 'designation', 'hobbies', 'interests','custom_option1', 'custom_option2', 'custom_option3', 'custom_option4'
-        ,'age','location', 'occupation', 'aspiration', 'role_model', 'my_network', 'add_to_work', 'supported_charity'
+        'timeline_id', 'email', 'verification_code', 'email_verified', 'remember_token', 'password', 'birthday', 'city', 'gender', 'last_logged', 'timezone', 'affiliate_id', 'language', 'country', 'active', 'verified', 'facebook_link', 'twitter_link', 'dribbble_link', 'instagram_link', 'youtube_link', 'linkedin_link', 'designation', 'hobbies', 'interests', 'custom_option1', 'custom_option2', 'custom_option3', 'custom_option4'
+        , 'age', 'location', 'occupation', 'aspiration', 'role_model', 'my_network', 'add_to_work', 'supported_charity'
     ];
 
     /**
@@ -106,12 +105,12 @@ class User extends Authenticatable
 
     public function getAvatarAttribute($value)
     {
-        return $this->timeline->avatar ? url('user/avatar/'.$this->timeline->avatar->source) : url('user/avatar/profile1.png');
+        return $this->timeline->avatar ? url('user/avatar/' . $this->timeline->avatar->source) : url('user/avatar/profile1.png');
     }
 
     public function getProfilePictAttribute($value)
     {
-        return $this->timeline->profile ? url('user/profile/'.$this->timeline->profile->source) : url('user/avatar/profile1.png');
+        return $this->timeline->profile ? url('user/profile/' . $this->timeline->profile->source) : url('user/avatar/profile1.png');
     }
 
 //    public function getAvatarVideoAttribute($value)
@@ -159,7 +158,7 @@ class User extends Authenticatable
      */
     public function getPictureAttribute($value)
     {
-        return $this->timeline->avatar ? url('user/avatar/'.$this->timeline->avatar->source) : url('group/avatar/default-group-avatar.png');
+        return $this->timeline->avatar ? url('user/avatar/' . $this->timeline->avatar->source) : url('group/avatar/default-group-avatar.png');
     }
 
     public function toArray()
@@ -187,6 +186,11 @@ class User extends Authenticatable
     public function followers()
     {
         return $this->belongsToMany('App\User', 'followers', 'leader_id', 'follower_id')->withPivot('status')->withTimestamps();
+    }
+
+    public function ignoreSuggested()
+    {
+        return $this->belongsToMany('App\User', 'ignore_suggested', 'user_id', 'suggest_id')->withTimestamps();
     }
 
     public function following()
@@ -247,9 +251,9 @@ class User extends Authenticatable
     public function get_group($id)
     {
         $group_page = $this->groups()->where('groups.id', $id)->first();
-        
+
         $result = $group_page ? $group_page->pivot->status : false;
-         
+
         return $result;
     }
 
@@ -355,38 +359,38 @@ class User extends Authenticatable
         }
 
         //start $this if block is for timeline post privacy settings
-           if ($loginId != $others_id) {
-               if ($timeline_post_privacy != null && $timeline_post_privacy == 'only_follow') {
-                   $isFollower = $this->chkMyFollower($others_id, $loginId);
-                   if ($isFollower) {
-                       $timeline_post = true;
-                   }
-               } elseif ($timeline_post_privacy != null && $timeline_post_privacy == 'everyone') {
-                   $timeline_post = true;
-               } elseif ($timeline_post_privacy != null && $timeline_post_privacy == 'nobody') {
-                   $timeline_post = false;
-               }
+        if ($loginId != $others_id) {
+            if ($timeline_post_privacy != null && $timeline_post_privacy == 'only_follow') {
+                $isFollower = $this->chkMyFollower($others_id, $loginId);
+                if ($isFollower) {
+                    $timeline_post = true;
+                }
+            } elseif ($timeline_post_privacy != null && $timeline_post_privacy == 'everyone') {
+                $timeline_post = true;
+            } elseif ($timeline_post_privacy != null && $timeline_post_privacy == 'nobody') {
+                $timeline_post = false;
+            }
 
-                //start $this if block is for user post privacy settings
-                if ($user_post_privacy != null && $user_post_privacy == 'only_follow') {
-                    $isFollower = $this->chkMyFollower($others_id, $loginId);
-                    if ($isFollower) {
-                        $user_post = 'user';
-                    }
-                } elseif ($user_post_privacy != null && $user_post_privacy == 'everyone') {
+            //start $this if block is for user post privacy settings
+            if ($user_post_privacy != null && $user_post_privacy == 'only_follow') {
+                $isFollower = $this->chkMyFollower($others_id, $loginId);
+                if ($isFollower) {
                     $user_post = 'user';
                 }
-           } else {
-               $timeline_post = true;
-               $user_post = 'user';
-           }
-           //End
-        $result = $timeline_post.'-'.$user_post;
+            } elseif ($user_post_privacy != null && $user_post_privacy == 'everyone') {
+                $user_post = 'user';
+            }
+        } else {
+            $timeline_post = true;
+            $user_post = 'user';
+        }
+        //End
+        $result = $timeline_post . '-' . $user_post;
 
         return $result;
     }
 
-   public function events()
+    public function events()
     {
         return $this->belongsToMany('App\Event', 'event_user', 'user_id', 'event_id');
     }
@@ -396,28 +400,26 @@ class User extends Authenticatable
         return $this->events()->where('events.id', $id)->first();
     }
 
-    public function is_eventadmin($user_id,$event_id)
-    {      
-       $chk_isadmin = Event::where('id', $event_id)->where('user_id', $user_id)->first();
+    public function is_eventadmin($user_id, $event_id)
+    {
+        $chk_isadmin = Event::where('id', $event_id)->where('user_id', $user_id)->first();
 
         $result = $chk_isadmin ? true : false;
-        
+
         return $result;
     }
 
     public function getEvents()
     {
         $result = array();
-        $guestevents =  $this->events()->get();
-        if($guestevents)
-        {
-            foreach ($guestevents as $guestevent) 
-            {
-                if(!$this->is_eventadmin(Auth::user()->id,$guestevent->id)) {
+        $guestevents = $this->events()->get();
+        if ($guestevents) {
+            foreach ($guestevents as $guestevent) {
+                if (!$this->is_eventadmin(Auth::user()->id, $guestevent->id)) {
                     array_push($result, $guestevent);
                 }
-            } 
-        }               
+            }
+        }
         return $result;
     }
 
@@ -436,11 +438,11 @@ class User extends Authenticatable
     {
         $admin_role_id = Role::where('name', 'admin')->first();
 
-        $groupMember = $this->groups()->where('group_id', $group_id)->where('user_id', $user_id)->where('role_id', '!=' ,$admin_role_id->id)->where('status', 'approved')->first();
+        $groupMember = $this->groups()->where('group_id', $group_id)->where('user_id', $user_id)->where('role_id', '!=', $admin_role_id->id)->where('status', 'approved')->first();
 
         $result = $groupMember ? true : false;
 
         return $result;
     }
-    
+
 }

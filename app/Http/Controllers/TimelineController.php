@@ -1230,6 +1230,16 @@ class TimelineController extends AppBaseController
         }
     }
 
+    public function ignoreSuggested(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!$user->ignoreSuggested->contains($request->timeline_id)) {
+            $user->ignoreSuggested()->attach($request->timeline_id);
+        }
+        return response()->json(['status' => '200', 'message' => 'successfully ignore suggested']);
+    }
+
     public function joiningGroup(Request $request)
     {
         $user_role_id = Role::where('name', '=', 'user')->first();
@@ -2329,7 +2339,7 @@ class TimelineController extends AppBaseController
             return redirect('/');
         }
 
-        /*$theme = Theme::uses('default')->layout('default');*/
+        /* $theme = Theme::uses('default')->layout('default'); */
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
         $theme->setTitle(trans('common.notifications') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
