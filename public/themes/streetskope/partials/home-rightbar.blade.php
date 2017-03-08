@@ -5,7 +5,7 @@
             <div class="mini-profile socialite">
                 <div class="background">
                     <div class="avatar-img">
-                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}">
+                        <img src="{{ Auth::user()->profile_pict }}" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}">
                     </div>
                 </div>
                 <div class="avatar-profile">
@@ -78,7 +78,7 @@
                 <div class="media">
                     <div class="media-left badge-verification">
                         <a href="{{ url($suggested_user->username) }}">
-                            <img src="{{ $suggested_user->avatar }}" class="img-icon" alt="{{ $suggested_user->name }}" title="{{ $suggested_user->name }}">
+                            <img src="{{ $suggested_user->profile_pict }}" class="img-icon" alt="{{ $suggested_user->name }}" title="{{ $suggested_user->name }}">
                             @if($suggested_user->verified)
                             <span class="verified-badge bg-success verified-medium">
                                 <i class="fa fa-check"></i>

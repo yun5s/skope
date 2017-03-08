@@ -8,7 +8,7 @@
             <div class="media">
                     <div class="media-left">
                         <a href="{{ url($user->username) }}">
-                            <img src="{{ $user->avatar }}" class="img-icon" alt="{{ $user->name }}" title="{{ $user->name }}">
+                            <img src="{{ $user->profile_pict }}" class="img-icon" alt="{{ $user->name }}" title="{{ $user->name }}">
                         </a>
                     </div>
                     <div class="media-body socialte-timeline follow-links">

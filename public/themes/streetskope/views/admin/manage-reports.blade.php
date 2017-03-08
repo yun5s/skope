@@ -33,7 +33,7 @@
                 @foreach($post_reports as $post_report)
                     <tr>                       
                         <td>
-                            <a href="{{ url($user->find($post_report->reporter_id)->username) }}"><img src="{{ $user->find($post_report->reporter_id)->avatar }}" alt="{{ $user->find($post_report->reporter_id)->name }}" title="{{ $user->find($post_report->reporter_id)->name }}"></a>
+                            <a href="{{ url($user->find($post_report->reporter_id)->username) }}"><img src="{{ $user->find($post_report->reporter_id)->profile_pict }}" alt="{{ $user->find($post_report->reporter_id)->name }}" title="{{ $user->find($post_report->reporter_id)->name }}"></a>
 
                             <div class="app-details">
                                 <div class="app-name">
@@ -90,7 +90,7 @@
                     @foreach($user_reports as $user_report)
                     <tr>
                         <td>
-                           <a href="{{ url($user->find($user_report->reporter_id)->username) }}"><img src="{{ $user->find($user_report->reporter_id)->avatar }}" alt="{{ $user->find($user_report->reporter_id)->name }}" title="{{ $user->find($user_report->reporter_id)->name }}"></a>
+                           <a href="{{ url($user->find($user_report->reporter_id)->username) }}"><img src="{{ $user->find($user_report->reporter_id)->profile_pict }}" alt="{{ $user->find($user_report->reporter_id)->name }}" title="{{ $user->find($user_report->reporter_id)->name }}"></a>
                             
                             <div class="app-details">
                                 <div class="app-name">
@@ -104,7 +104,7 @@
                         <td>
                            <a href="{{ url($timeline->find($user_report->timeline_id)->username) }}">
 
-                                <img src="{{ $timeline->find($user_report->timeline_id)->user->avatar }}" alt="{{ $timeline->find($user_report->timeline_id)->name }}" title="{{ $timeline->find($user_report->timeline_id)->name }}">
+                                <img src="{{ $timeline->find($user_report->timeline_id)->user->profile_pict }}" alt="{{ $timeline->find($user_report->timeline_id)->name }}" title="{{ $timeline->find($user_report->timeline_id)->name }}">
                             </a>
                             
                             <div class="app-details">
@@ -153,7 +153,7 @@
                     @foreach($page_reports as $page_report)
                      <tr>
                         <td>
-                           <a href="{{ url($user->find($page_report->reporter_id)->username) }}"><img src="{{ $user->find($page_report->reporter_id)->avatar }}" alt="{{ $user->find($page_report->reporter_id)->name }}" title="{{ $user->find($page_report->reporter_id)->name }}"></a>
+                           <a href="{{ url($user->find($page_report->reporter_id)->username) }}"><img src="{{ $user->find($page_report->reporter_id)->profile_pict }}" alt="{{ $user->find($page_report->reporter_id)->name }}" title="{{ $user->find($page_report->reporter_id)->name }}"></a>
                             
                             <div class="app-details">
                                 <div class="app-name">
@@ -167,7 +167,7 @@
                         <td>
                            <a href="{{ url($timeline->find($page_report->timeline_id)->username) }}">
 
-                                <img src="{{ $timeline->find($page_report->timeline_id)->avatar ? url('page/avatar'.$timeline->find($page_report->timeline_id)->avatar) : url('page/avatar/default-page-avatar.png') }}" alt="{{ $timeline->find($page_report->timeline_id)->name }}" title="{{ $timeline->find($page_report->timeline_id)->name }}">
+                                <img src="{{ $timeline->find($page_report->timeline_id)->profile_pict ? url('page/avatar'.$timeline->find($page_report->timeline_id)->profile_pict) : url('page/avatar/default-page-avatar.png') }}" alt="{{ $timeline->find($page_report->timeline_id)->name }}" title="{{ $timeline->find($page_report->timeline_id)->name }}">
                             </a>
                             
                             <div class="app-details">
@@ -214,7 +214,7 @@
                     @foreach($group_reports as $group_report)
                     <tr>
                         <td>
-                           <a href="{{ url($user->find($group_report->reporter_id)->username) }}"><img src="{{ $user->find($group_report->reporter_id)->avatar }}" alt="{{ $user->find($group_report->reporter_id)->name }}" title="{{ $user->find($group_report->reporter_id)->name }}"></a>
+                           <a href="{{ url($user->find($group_report->reporter_id)->username) }}"><img src="{{ $user->find($group_report->reporter_id)->profile_pict }}" alt="{{ $user->find($group_report->reporter_id)->name }}" title="{{ $user->find($group_report->reporter_id)->name }}"></a>
                             
                             <div class="app-details">
                                 <div class="app-name">
@@ -228,7 +228,7 @@
                         <td>
                            <a href="{{ url($timeline->find($group_report->timeline_id)->username) }}">
 
-                                <img src="{{ $timeline->find($group_report->timeline_id)->avatar ? url('group/avatar'.$timeline->find($group_report->timeline_id)->avatar) : url('group/avatar/default-group-avatar.png') }}" alt="{{ $timeline->find($group_report->timeline_id)->name }}" title="{{ $timeline->find($group_report->timeline_id)->name }}">
+                                <img src="{{ $timeline->find($group_report->timeline_id)->profile_pict ? url('group/avatar'.$timeline->find($group_report->timeline_id)->profile_pict) : url('group/avatar/default-group-avatar.png') }}" alt="{{ $timeline->find($group_report->timeline_id)->name }}" title="{{ $timeline->find($group_report->timeline_id)->name }}">
                             </a>
                             
                             <div class="app-details">

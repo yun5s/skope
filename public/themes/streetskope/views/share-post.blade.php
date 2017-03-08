@@ -2,7 +2,7 @@
   <div class="panel-heading no-bg">
     <div class="post-author">
       <div class="user-avatar">
-        <a target="_blank" href="{{ url($post->user->username) }}"><img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" title="{{ $post->user->name }}"></a>
+        <a target="_blank" href="{{ url($post->user->username) }}"><img src="{{ $post->user->profile_pict }}" alt="{{ $post->user->name }}" title="{{ $post->user->name }}"></a>
       </div>
       <div class="user-post-details">
         <ul class="list-unstyled no-margin">
