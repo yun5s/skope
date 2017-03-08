@@ -173,6 +173,7 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Vijaytupakula\Transvel\TransvelServiceProvider::class,
         RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
+        Folour\Flavy\Provider\FlavyServiceProvider::class,
     ],
 
     /*
@@ -228,6 +229,7 @@ return [
         // 'LaravelPusher' => Vinkla\Pusher\Facades\Pusher::class,
         // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
          'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+         'Flavy' => Folour\Flavy\FlavyFacade::class,
 
     ],
 
