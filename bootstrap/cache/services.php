@@ -41,6 +41,7 @@
     37 => 'Cviebrock\\EloquentSluggable\\ServiceProvider',
     38 => 'Vijaytupakula\\Transvel\\TransvelServiceProvider',
     39 => 'RachidLaasri\\LaravelInstaller\\Providers\\LaravelInstallerServiceProvider',
+    40 => 'Folour\\Flavy\\Provider\\FlavyServiceProvider',
   ),
   'eager' => 
   array (
@@ -70,6 +71,7 @@
     23 => 'Cviebrock\\EloquentSluggable\\ServiceProvider',
     24 => 'Vijaytupakula\\Transvel\\TransvelServiceProvider',
     25 => 'RachidLaasri\\LaravelInstaller\\Providers\\LaravelInstallerServiceProvider',
+    26 => 'Folour\\Flavy\\Provider\\FlavyServiceProvider',
   ),
   'deferred' => 
   array (
