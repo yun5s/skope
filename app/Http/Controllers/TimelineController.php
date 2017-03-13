@@ -22,7 +22,7 @@ use App\User;
 use Carbon\Carbon;
 use DB;
 use Flash;
-use Flavy;
+use Folour\Flavy\Flavy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -666,7 +666,11 @@ class TimelineController extends AppBaseController
 
             $basename = $timestamp . basename($request->file('post_video_upload')->getClientOriginalName(), '.' . $request->file('post_video_upload')->getClientOriginalExtension());
 
-            Flavy::thumbnail(storage_path() . '/uploads/users/gallery/' . $strippedName, storage_path() . '/uploads/users/gallery/' . $basename . '.jpg', 1); //returns array with file info
+            $flavy = new Flavy([
+                'ffmpeg' => config('ffmpeg.ffmpeg'),
+                'ffprobe' => config('ffmpeg.ffprobe')
+            ]);
+            $flavy->thumbnail(storage_path() . '/uploads/users/gallery/' . $strippedName, storage_path() . '/uploads/users/gallery/' . $basename . '.jpg', 1); //returns array with file info
 
             $media = Media::create([
                         'title' => $basename,

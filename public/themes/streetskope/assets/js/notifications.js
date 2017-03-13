@@ -31,14 +31,14 @@ var vue = new Vue({
     methods: {
         followAccept: function (id, index) {
             console.log('accept' + id);
-            
+
             this.$http.post(base_url + 'ajax/follow-accept', {user_id: id}).then(function (response) {
                 this.followRequests.splice(index, 1);
             });
         },
         followReject: function (id, index) {
             console.log('reject' + id);
-            
+
             this.$http.post(base_url + 'ajax/follow-reject', {user_id: id}).then(function (response) {
                 this.followRequests.splice(index, 1);
             });
@@ -248,7 +248,9 @@ var vue = new Vue({
                 layout: 'bottomLeft',
                 type: 'success',
                 theme: 'relax',
-                timeout: 1,
+                timeout: 5000,
+                dismissQueue: true,
+                maxVisible: 5,
                 animation: {
                     open: 'animated fadeIn', // Animate.css class names
                     close: 'animated fadeOut', // Animate.css class names
