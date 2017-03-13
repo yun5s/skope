@@ -244,29 +244,26 @@
             @if($post->users_liked->contains(Auth::user()->id))
                 <li><a href="#" class="like-post like-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-up"></i>{{ trans('common.like') }}</a></li>
 
-                <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
+                <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i>{{ trans('common.unlike') }}</a></li>
             @elseif($post->users_unliked->contains(Auth::user()->id))
                 <li><a href="#" class="like-post like-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-up"></i>{{ trans('common.like') }}</a></li>
 
-                <li><a href="#" class="unlike-post unlike-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
+                <li><a href="#" class="unlike-post unlike-{{ $post->id }} active" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-down"></i></i>{{ trans('common.unlike') }}</a></li>
                 @else
                 <li><a href="#" class="like-post like-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-up"></i>{{ trans('common.like') }}</a></li>
-                <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i><!-- {{ trans('common.unlike') }} --> Dislike</a></li>
+                <li><a href="#" class="unlike-post unlike-{{ $post->id }}" data-post-id="{{ $post->id }}"><i class="fa fa-thumbs-o-down"></i></i>{{ trans('common.unlike') }}</a></li>
 
             @endif
 
             <li><a href="#" class="show-comments"><i class="fa fa-comment-o"></i>{{ trans('common.comment') }}</a></li>
 
-            @if(Auth::user()->id != $post->user_id)
-                @if(!$post->users_shared->contains(Auth::user()->id))
-                    <li><a href="#" class="share-post share" data-post-id="{{ $post->id }}"><i class="fa fa-share-square-o"></i>{{ trans('common.share') }}</a></li>
-                    <li class="hidden"><a href="#" class="share-post shared" data-post-id="{{ $post->id }}"><i class="fa fa fa-share-square-o"></i>{{ trans('common.unshare') }}</a></li>
-                @else
-                    <li class="hidden"><a href="#" class="share-post share" data-post-id="{{ $post->id }}"><i class="fa fa-share-square-o"></i>{{ trans('common.share') }}</a></li>
-                    <li><a href="#" class="share-post shared" data-post-id="{{ $post->id }}"><i class="fa fa fa-share-square-o"></i>{{ trans('common.unshare') }}</a></li>
-                @endif
+            @if(!$post->users_shared->contains(Auth::user()->id))
+                <li><a href="#" class="share-post share" data-post-id="{{ $post->id }}"><i class="fa fa-share-square-o"></i>{{ trans('common.share') }}</a></li>
+                <li class="hidden"><a href="#" class="share-post shared" data-post-id="{{ $post->id }}"><i class="fa fa fa-share-square-o"></i>{{ trans('common.unshare') }}</a></li>
+            @else
+                <li class="hidden"><a href="#" class="share-post share" data-post-id="{{ $post->id }}"><i class="fa fa-share-square-o"></i>{{ trans('common.share') }}</a></li>
+                <li><a href="#" class="share-post shared" data-post-id="{{ $post->id }}"><i class="fa fa fa-share-square-o"></i>{{ trans('common.unshare') }}</a></li>
             @endif
-
         </ul>
     </div>
 

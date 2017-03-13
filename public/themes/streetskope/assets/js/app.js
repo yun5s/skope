@@ -1905,12 +1905,15 @@ $(function () {
 
     function notify(message, type, layout)
     {
+        console.log('Notif');
         var n = noty({
             text: message,
             layout: 'bottomLeft',
             type: type ? type : 'success',
             theme: 'relax',
-            timeout: 1,
+            timeout: 5000,
+            dismissQueue: true,
+            maxVisible: 5,
             animation: {
                 open: 'animated fadeIn', // Animate.css class names
                 close: 'animated fadeOut', // Animate.css class names
@@ -1919,7 +1922,6 @@ $(function () {
             }
         });
     }
-    ;
 
     function readURL(input, imageId) {
 
@@ -1928,7 +1930,7 @@ $(function () {
 
             reader.onload = function (e) {
                 $(imageId).attr('src', e.target.result);
-            }
+            };
 
             reader.readAsDataURL(input.files[0]);
         }

@@ -1,35 +1,37 @@
 var chatBoxes = new Vue({
-  el: '#chatBoxes',
-  data: {
+    el: '#chatBoxes',
+    data: {
         chatBoxes: [],
-        messageBody : '',
-        conversations : []
+        messageBody: '',
+        conversations: []
     },
-    created : function() {
+    created: function () {
         this.subscribeToPrivateMessageChannel(current_username);
         this.getConversations();
 
-        $('.chat-conversation-list').bind('scroll',this.chk_scroll);
-        $('.following-group').bind('scroll',this.chk_scroll_bottom);
+        $('.chat-conversation-list').bind('scroll', this.chk_scroll);
+        $('.following-group').bind('scroll', this.chk_scroll_bottom);
     },
-    methods : {
-        notify: function(message,type,layout)
+    methods: {
+        notify: function (message, type, layout)
         {
             var n = noty({
-               text: message,
-               layout: 'bottomLeft',
-               type : 'success',
-               theme : 'relax',
-               timeout:1,
-               animation: {
-                   open: 'animated fadeIn', // Animate.css class names
-                   close: 'animated fadeOut', // Animate.css class names
-                   easing: 'swing', // unavailable - no need
-                   speed: 500 // unavailable - no need
-               }
-           });
+                text: message,
+                layout: 'bottomLeft',
+                type: 'success',
+                theme: 'relax',
+                timeout: 5000,
+                dismissQueue: true,
+                maxVisible: 5,
+                animation: {
+                    open: 'animated fadeIn', // Animate.css class names
+                    close: 'animated fadeOut', // Animate.css class names
+                    easing: 'swing', // unavailable - no need
+                    speed: 500 // unavailable - no need
+                }
+            });
         },
-        timeago : function(){
+        timeago: function () {
 
 
             jQuery.timeago.settings.strings.suffixAgo = "";
@@ -49,11 +51,11 @@ var chatBoxes = new Vue({
             jQuery("time.microtime").timeago();
 
         },
-        autoScroll : function(element)
+        autoScroll: function (element)
         {
-            $(element).animate({scrollTop: $(element)[0].scrollHeight + 600 }, 2000);
+            $(element).animate({scrollTop: $(element)[0].scrollHeight + 600}, 2000);
         },
-        subscribeToPrivateMessageChannel: function(receiverUsername)
+        subscribeToPrivateMessageChannel: function (receiverUsername)
         {
 
             var vm = this;
@@ -72,20 +74,19 @@ var chatBoxes = new Vue({
             });
 
             this.MessageChannel = this.pusher.subscribe(receiverUsername + '-message-created');
-            this.MessageChannel.bind('App\\Events\\MessagePublished', function(data) {
-                indexes = $.map(vm.chatBoxes, function(thread, key) {
-                    if(thread.id == data.message.thread_id) {
+            this.MessageChannel.bind('App\\Events\\MessagePublished', function (data) {
+                indexes = $.map(vm.chatBoxes, function (thread, key) {
+                    if (thread.id == data.message.thread_id) {
                         return key;
                     }
                 });
 
-                if(indexes[0] >= 0)
+                if (indexes[0] >= 0)
                 {
                     data.message.user = data.sender;
                     vm.chatBoxes[indexes[0]].conversationMessages.data.push(data.message);
                     vm.autoScroll('.chat-conversation');
-                }
-                else
+                } else
                 {
                     conversation = [];
                     conversation.id = data.message.thread_id;
@@ -94,69 +95,68 @@ var chatBoxes = new Vue({
                 }
             });
         },
-        getConversations : function()
+        getConversations: function ()
         {
-            this.$http.post(base_url + 'ajax/get-messages').then( function(response) {
+            this.$http.post(base_url + 'ajax/get-messages').then(function (response) {
                 this.conversations = JSON.parse(response.body).data;
             });
         },
-        showConversation : function(conversation)
+        showConversation: function (conversation)
         {
-            if(conversation)
+            if (conversation)
             {
-                if(conversation.id != this.currentConversation.id)
+                if (conversation.id != this.currentConversation.id)
                 {
                     conversation.unread = false;
-                    this.$http.post(base_url + 'ajax/get-conversation/' + conversation.id).then( function(response) {
+                    this.$http.post(base_url + 'ajax/get-conversation/' + conversation.id).then(function (response) {
                         this.currentConversation = JSON.parse(response.body).data;
                         this.currentConversation.user = conversation.user;
                         vm = this;
-                        setTimeout(function(){
+                        setTimeout(function () {
                             // vm.autoScroll('.coversations-thread');
                             vm.timeago();
-                        },100)
-                    });    
-                }    
+                        }, 100)
+                    });
+                }
             }
-            
+
         },
-        postMessage : function(conversation)
+        postMessage: function (conversation)
         {
-            if(conversation.newMessage != '')
+            if (conversation.newMessage != '')
             {
-                this.$http.post(base_url + 'ajax/post-message/' + conversation.id,{message: conversation.newMessage}).then( function(response) {
-                    if(response.status)
+                this.$http.post(base_url + 'ajax/post-message/' + conversation.id, {message: conversation.newMessage}).then(function (response) {
+                    if (response.status)
                     {
                         conversation.conversationMessages.data.push(JSON.parse(response.body).data);
 
-                        conversation.newMessage="";
+                        conversation.newMessage = "";
                         vm = this;
-                        setTimeout(function(){
+                        setTimeout(function () {
                             vm.autoScroll('.chat-conversation');
-                        },100)
+                        }, 100)
 
                     }
-                });       
+                });
             }
-            
+
         },
-        showChatBox : function(conversation)
+        showChatBox: function (conversation)
         {
-            indexes = $.map(this.chatBoxes, function(thread, key) {
-                if(thread.id == conversation.id) {
+            indexes = $.map(this.chatBoxes, function (thread, key) {
+                if (thread.id == conversation.id) {
                     return key;
                 }
             });
 
-            
 
-            if(indexes[0] >= 0)
+
+            if (indexes[0] >= 0)
             {
                 console.log('prevented second opening of chat box');
-            }
-            else{
-                this.$http.post(base_url + 'ajax/get-conversation/' + conversation.id).then( function(response) {
-                    if(response.status)
+            } else {
+                this.$http.post(base_url + 'ajax/get-conversation/' + conversation.id).then(function (response) {
+                    if (response.status)
                     {
                         var chatBox = JSON.parse(response.body).data;
                         chatBox.newMessage = "";
@@ -164,108 +164,107 @@ var chatBoxes = new Vue({
                         chatBox.minimised = false;
                         this.chatBoxes.push(chatBox);
                         vm = this;
-                        setTimeout(function(){
+                        setTimeout(function () {
                             vm.autoScroll('.chat-conversation');
-                        },100)
+                        }, 100)
 
                     }
-                });       
+                });
             }
         },
-        sendMessage: function(userid)
+        sendMessage: function (userid)
         {
 
-            indexes = $.map(this.conversations.data, function(thread, key) {
-                if(thread.user)
+            indexes = $.map(this.conversations.data, function (thread, key) {
+                if (thread.user)
                 {
-                    if(thread.user.id == userid) {
+                    if (thread.user.id == userid) {
                         return key;
-                    }    
+                    }
                 }
-                
+
             });
 
-            if(indexes[0] >= 0)
+            if (indexes[0] >= 0)
             {
                 this.showChatBox(this.conversations.data[indexes[0]]);
-            }
-            else
+            } else
             {
-                this.$http.post(base_url + 'ajax/get-private-conversation/' + userid).then( function(response) {
-                    if(response.status)
+                this.$http.post(base_url + 'ajax/get-private-conversation/' + userid).then(function (response) {
+                    if (response.status)
                     {
                         this.showChatBox(response.data.data);
                     }
-                });       
+                });
             }
 
         },
-        chk_scroll : function(e)
+        chk_scroll: function (e)
         {
             var elem = $(e.currentTarget);
-            
-            if (elem.scrollTop() == 0) 
+
+            if (elem.scrollTop() == 0)
             {
                 this.getMoreConversationMessages();
             }
         },
-        getMoreConversationMessages : function()
+        getMoreConversationMessages: function ()
         {
-            if(this.currentConversation.conversationMessages.data.length < this.currentConversation.conversationMessages.total)
+            if (this.currentConversation.conversationMessages.data.length < this.currentConversation.conversationMessages.total)
             {
-                this.$http.post(this.currentConversation.conversationMessages.next_page_url).then( function(response) {
+                this.$http.post(this.currentConversation.conversationMessages.next_page_url).then(function (response) {
                     var latestConversations = JSON.parse(response.body).data;
 
-                    
-                    this.currentConversation.conversationMessages.last_page =  latestConversations.conversationMessages.last_page;
-                    this.currentConversation.conversationMessages.next_page_url =  latestConversations.conversationMessages.next_page_url;
-                    this.currentConversation.conversationMessages.per_page =  latestConversations.conversationMessages.per_page;
-                    this.currentConversation.conversationMessages.prev_page_url =  latestConversations.conversationMessages.prev_page_url;
+
+                    this.currentConversation.conversationMessages.last_page = latestConversations.conversationMessages.last_page;
+                    this.currentConversation.conversationMessages.next_page_url = latestConversations.conversationMessages.next_page_url;
+                    this.currentConversation.conversationMessages.per_page = latestConversations.conversationMessages.per_page;
+                    this.currentConversation.conversationMessages.prev_page_url = latestConversations.conversationMessages.prev_page_url;
 
                     var vm = this;
-                    $.each(latestConversations.conversationMessages.data, function(i, latestConversation) {
+                    $.each(latestConversations.conversationMessages.data, function (i, latestConversation) {
                         vm.currentConversation.conversationMessages.data.unshift(latestConversation);
                     });
 
-                    setTimeout(function(){
+                    setTimeout(function () {
                         vm.timeago();
-                    },10);
-                });                      
+                    }, 10);
+                });
             }
         },
-        chk_scroll_bottom : function(e)
+        chk_scroll_bottom: function (e)
         {
             var elem = $(e.currentTarget);
 
-            if (elem[0].scrollHeight - elem.scrollTop() == elem.outerHeight()) 
+            if (elem[0].scrollHeight - elem.scrollTop() == elem.outerHeight())
             {
-                    this.getMoreConversations();    
+                this.getMoreConversations();
             }
         },
-        getMoreConversations : function()
+        getMoreConversations: function ()
         {
-            if(this.conversations.data.length < this.conversations.total)
+            if (this.conversations.data.length < this.conversations.total)
             {
-                this.$http.post(this.conversations.next_page_url).then( function(response) {
+                this.$http.post(this.conversations.next_page_url).then(function (response) {
                     var latestConversations = JSON.parse(response.body).data;
 
-                    
-                    this.conversations.last_page =  latestConversations.last_page;
-                    this.conversations.next_page_url =  latestConversations.next_page_url;
-                    this.conversations.per_page =  latestConversations.per_page;
-                    this.conversations.prev_page_url =  latestConversations.prev_page_url;
-                    
+
+                    this.conversations.last_page = latestConversations.last_page;
+                    this.conversations.next_page_url = latestConversations.next_page_url;
+                    this.conversations.per_page = latestConversations.per_page;
+                    this.conversations.prev_page_url = latestConversations.prev_page_url;
+
 
                     var vm = this;
-                    $.each(latestConversations.data, function(i, latestConversation) {
+                    $.each(latestConversations.data, function (i, latestConversation) {
                         vm.conversations.data.unshift(latestConversation);
                     });
 
-                    setTimeout(function(){
+                    setTimeout(function () {
                         vm.timeago();
-                    },10);
-                });                      
+                    }, 10);
+                });
             }
         }
-    }    
+    }
 });
