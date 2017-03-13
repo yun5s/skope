@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.0.9
+
+ - Added support for PHP 7.1 and dropped support for PHP 5.5 and below
+ - Added `composer test` script
+ - Addes support for custom DocParser->setImports() #360
+
+## 2.0.8
+
+ - Dynamic Definitions / partial support #301
+ - By default only scan *.php files #350
+ - Removed silence operator @, improves compatiblity custom errorhandlers #331 
+ - Additional datetime classes & interfaces #338
+ - Fixed case of UNDEFINED constants namespaces, improves hhvm compatibility #319 
+ - Misc improvements to the docs
 
 ## 2.0.7
 
@@ -40,7 +54,7 @@
 
 ## 2.0.1
 
- - Minimal support for traits (no inheritance)  
+ - Minimal support for traits (no inheritance)
 
 ## 2.0.0
 

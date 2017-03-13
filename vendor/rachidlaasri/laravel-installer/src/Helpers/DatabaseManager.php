@@ -3,7 +3,10 @@
 namespace RachidLaasri\LaravelInstaller\Helpers;
 
 use Exception;
+use Illuminate\Database\SQLiteConnection;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseManager
 {
@@ -15,6 +18,7 @@ class DatabaseManager
      */
     public function migrateAndSeed()
     {
+        $this->sqlite();
         return $this->migrate();
     }
 
@@ -26,7 +30,7 @@ class DatabaseManager
     private function migrate()
     {
         try{
-            Artisan::call('migrate');
+            Artisan::call('migrate', ["--force"=> true ]);
         }
         catch(Exception $e){
             return $this->response($e->getMessage());
@@ -65,5 +69,19 @@ class DatabaseManager
             'status' => $status,
             'message' => $message
         );
+    }
+    
+        /**
+     * check database type. If SQLite, then create the database file.
+     */
+    private function sqlite()
+    {
+        if(DB::connection() instanceof SQLiteConnection) {
+            $database = DB::connection()->getDatabaseName();
+            if(!file_exists($database)) {
+                touch($database);
+                DB::reconnect(Config::get('database.default'));
+            }
+        }
     }
 }

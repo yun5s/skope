@@ -20,8 +20,6 @@ return array(
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
-    'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
-    'Cron' => array($vendorDir . '/mtdowling/cron-expression/src'),
     'Cmgmyr\\Messenger\\' => array($vendorDir . '/cmgmyr/messenger/src'),
     'Alchemy' => array($vendorDir . '/alchemy/binary-driver/src'),
     'Alaouy\\Youtube\\' => array($vendorDir . '/alaouy/youtube/src'),
