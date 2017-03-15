@@ -38,7 +38,7 @@
                                                     <img v-bind:src="conversation.user.profile_pict" alt="images"  class="img-radius img-46">
                                                 </div>
                                                 <div class="media-body">
-                                                   
+
                                                     <h4 class="media-heading">
                                                         @{{ conversation.user.name }}
                                                     </h4>
@@ -50,19 +50,17 @@
                                         </a>
                                     </li>
                                 </ul>
-
-                                
                             </div>
 
                             <div class="col-md-8 col-sm-8 col-xs-8 message-col-8">
                                 <div class="coversation-tree">
                                     <div class="conversation">
                                         <div class="left-side">
-                                            
+
                                             @{{ currentConversation.user.name }}
 
-                                             <span class="chat-status hidden"></span>
-                                            
+                                            <span class="chat-status hidden"></span>
+
                                         </div>
                                         <div class="right-side">
                                         </div>
@@ -72,36 +70,35 @@
                                         <div class="clearfix"></div>
                                     </div>
 
-                                        <ul class="list-unstyled coversations-thread "> 
+                                    <ul class="list-unstyled coversations-thread "> 
 
-                                                <li class="message-conversation" v-for="message in currentConversation.conversationMessages.data">
-                                                <div class="media post-list">
-                                                    <div class="media-left">
-                                                        <a href="#">
-                                                            <img v-bind:src="message.user.profile_pict" class="img-radius img-40" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body ">
-                                                        <h4 class="media-heading"><a href="#">@{{ message.user.name }}</a><span class="text-muted">
-                                                            <time class="microtime" datetime="@{{ message.created_at }}+00.00" title="@{{ message.created_at }}+00.00">
-                                                                        @{{ message.created_at }}+00.00
-                                                                    </time>
-                                                        </span></h4>
-                                                         <p class="post-text">
-                                                            @{{ message.body }}
-                                                        </p>
-                                                    </div>
+                                        <li class="message-conversation" v-for="message in currentConversation.conversationMessages.data">
+                                            <div class="media post-list">
+                                                <div class="media-left">
+                                                    <a href="#">
+                                                        <img v-bind:src="message.user.profile_pict" class="img-radius img-40" alt="">
+                                                    </a>
                                                 </div>
-                                            </li>
-                                        </ul>
+                                                <div class="media-body ">
+                                                    <h4 class="media-heading"><a href="#">@{{ message.user.name }}</a><span class="text-muted">
+                                                            <time class="microtime" datetime="@{{ message.created_at }}+00.00" title="@{{ message.created_at }}+00.00">
+                                                                @{{ message.created_at }}+00.00
+                                                            </time>
+                                                        </span></h4>
+                                                    <p class="post-text">
+                                                        @{{ message.body }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
 
                                 <div class="input-group new-message">
-                                    
-                                        <input class="form-control post-message" autocomplete="off" name="message" v-on:keyup.enter="postNewConversation()" v-model="messageBody" v-if="newConversation">
-                                        <input class="form-control post-message" autocomplete="off" name="message" v-on:keyup.enter="postMessage(currentConversation)" v-model="messageBody" v-else>
-                                        <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="button" v-on:click="postMessage(currentConversation)"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                    <input class="form-control post-message" autocomplete="off" name="message" v-model="messageBody">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" v-on:click="postNewConversation()"v-on:keyup.enter="postNewConversation()" v-if="newConversation"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                        <button class="btn btn-primary" type="button" v-on:click="postMessage(currentConversation)"v-on:keyup.enter="postMessage(currentConversation)" v-else><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                     </span>
                                 </div><!-- /input-group -->
                             </div>
