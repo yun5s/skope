@@ -342,6 +342,7 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
     Route::post('follow-user-confirm', 'TimelineController@userFollowRequest');
     Route::post('post-message/{id}', 'MessageController@update');
     Route::post('create-message', 'MessageController@store');
+    Route::post('delete-thread/{id}', 'MessageController@deleteThread');
     Route::post('page-report', 'TimelineController@pageReport');
     Route::post('get-notifications', 'UserController@getNotifications');
     Route::post('get-unread-notifications', 'UserController@getUnreadNotifications');

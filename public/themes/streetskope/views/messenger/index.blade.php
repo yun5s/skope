@@ -31,14 +31,14 @@
                                     </span>
                                 </div><!-- /input-group -->    
                                 <ul class="list-unstyled coversations-list scrollable" @wait-for="getConversations" data-type="threads">
-                                    <li class="message-holder" v-bind:class="[ conversation.unread ? 'unseen-message' : '', (conversation.id==currentConversation.id) ? 'active' : '',  ]" v-for="conversation in conversations.data">
+                                    <li class="message-holder" v-bind:class="[ conversation.unread ? 'unseen-message' : '', (conversation.id==currentConversation.id) ? 'active' : '',  ]" v-for="(key, conversation) in conversations.data">
                                         <a href="#" class="show-conversation" @click.prevent="showConversation(conversation)">
                                             <div class="media post-list">
                                                 <div class="media-left">
                                                     <img v-bind:src="conversation.user.profile_pict" alt="images"  class="img-radius img-46">
                                                 </div>
                                                 <div class="media-body">
-
+                                                    <i class="fa fa-remove pull-right"  @click.prevent="deleteThread(conversation.id, key)"></i>
                                                     <h4 class="media-heading">
                                                         @{{ conversation.user.name }}
                                                     </h4>
@@ -70,8 +70,7 @@
                                         <div class="clearfix"></div>
                                     </div>
 
-                                    <ul class="list-unstyled coversations-thread "> 
-
+                                    <ul class="list-unstyled coversations-thread" v-if="currentConversation.conversationMessages">
                                         <li class="message-conversation" v-for="message in currentConversation.conversationMessages.data">
                                             <div class="media post-list">
                                                 <div class="media-left">
@@ -92,6 +91,8 @@
                                             </div>
                                         </li>
                                     </ul>
+                                    
+                                    <ul class="list-unstyled coversations-thread" v-else></ul>
                                 </div>
 
                                 <div class="input-group new-message">
