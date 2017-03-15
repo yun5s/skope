@@ -18,6 +18,17 @@ var vue = new Vue({
         $('.coversations-list').bind('scroll', this.chk_scroll);
     },
     methods: {
+        deleteThread: function (id, index) {
+            console.log('delete thread' + id);
+
+            this.$http.post(base_url + 'ajax/delete-thread/' + id).then(function (response) {
+                this.conversations.data.splice(index, 1);
+
+                this.currentConversation = {
+                    user: []
+                };
+            });
+        },
         notify: function (message, type, layout)
         {
             var n = noty({
@@ -142,7 +153,7 @@ var vue = new Vue({
             messageBody = this.messageBody;
             this.messageBody = '';
             this.$http.post(base_url + 'ajax/post-message/' + conversation.id, {message: messageBody}).then(function (response) {
-                if (response.status)
+                if (response.status && typeof currentConversation.conversationMessages.data != 'undefined')
                 {
                     this.currentConversation.conversationMessages.data.push(JSON.parse(response.body).data);
                     vm = this;
@@ -215,26 +226,28 @@ var vue = new Vue({
         },
         getMoreConversationMessages: function ()
         {
-            if (this.currentConversation.conversationMessages.data.length < this.currentConversation.conversationMessages.total)
-            {
-                this.$http.post(this.currentConversation.conversationMessages.next_page_url).then(function (response) {
-                    var latestConversations = JSON.parse(response.body).data;
+            if (typeof currentConversation.conversationMessages.data != 'undefined') {
+                if (this.currentConversation.conversationMessages.data.length < this.currentConversation.conversationMessages.total)
+                {
+                    this.$http.post(this.currentConversation.conversationMessages.next_page_url).then(function (response) {
+                        var latestConversations = JSON.parse(response.body).data;
 
 
-                    this.currentConversation.conversationMessages.last_page = latestConversations.conversationMessages.last_page;
-                    this.currentConversation.conversationMessages.next_page_url = latestConversations.conversationMessages.next_page_url;
-                    this.currentConversation.conversationMessages.per_page = latestConversations.conversationMessages.per_page;
-                    this.currentConversation.conversationMessages.prev_page_url = latestConversations.conversationMessages.prev_page_url;
+                        this.currentConversation.conversationMessages.last_page = latestConversations.conversationMessages.last_page;
+                        this.currentConversation.conversationMessages.next_page_url = latestConversations.conversationMessages.next_page_url;
+                        this.currentConversation.conversationMessages.per_page = latestConversations.conversationMessages.per_page;
+                        this.currentConversation.conversationMessages.prev_page_url = latestConversations.conversationMessages.prev_page_url;
 
-                    var vm = this;
-                    $.each(latestConversations.conversationMessages.data, function (i, latestConversation) {
-                        vm.currentConversation.conversationMessages.data.unshift(latestConversation);
+                        var vm = this;
+                        $.each(latestConversations.conversationMessages.data, function (i, latestConversation) {
+                            vm.currentConversation.conversationMessages.data.unshift(latestConversation);
+                        });
+
+                        setTimeout(function () {
+                            vm.timeago();
+                        }, 10);
                     });
-
-                    setTimeout(function () {
-                        vm.timeago();
-                    }, 10);
-                });
+                }
             }
         },
         getMoreConversations: function ()

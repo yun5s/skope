@@ -21,6 +21,7 @@ use Validator;
 
 class MessageController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -43,7 +44,7 @@ class MessageController extends Controller
         }
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.messages').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.messages') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('messenger.index', compact('trending_tags'))->render();
     }
@@ -60,7 +61,7 @@ class MessageController extends Controller
         try {
             $thread = Thread::findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            Session::flash('error_message', 'The thread with ID: '.$id.' was not found.');
+            Session::flash('error_message', 'The thread with ID: ' . $id . ' was not found.');
 
             return redirect('messages');
         }
@@ -75,10 +76,7 @@ class MessageController extends Controller
         $thread->conversationMessages = $thread->messages()->orderBy('created_at', 'DESC')->latest()->with('user')->paginate(10);
 
         // $thread->conversationMessages->sortBy('created_at', 'desc');
-
         // dd($thread->conversationMessages->toArray());
-
-
 //         SELECT * FROM (
 //     SELECT * FROM messages WHERE thread_id=1 LIMIT 5
 // ) sub
@@ -102,7 +100,7 @@ class MessageController extends Controller
         $users = User::where('id', '!=', Auth::id())->get();
 
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-        $theme->setTitle(trans('common.create_message').' '.Setting::get('title_seperator').' '.Setting::get('site_title').' '.Setting::get('title_seperator').' '.Setting::get('site_tagline'));
+        $theme->setTitle(trans('common.create_message') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
         return $theme->scope('messenger.create', compact('users'))->render();
     }
@@ -117,8 +115,8 @@ class MessageController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'recipients' => 'required',
-            'message'    => 'required',
+                    'recipients' => 'required',
+                    'message' => 'required',
         ]);
 
 
@@ -129,26 +127,26 @@ class MessageController extends Controller
         $recipients = explode(',', $input['recipients']);
         $recipients[1] = (string) Auth::id();
         $thread = Thread::whereHas('participants', function ($query) use ($recipients) {
-            $query->whereIn('user_id', $recipients)
-                ->groupBy('thread_id')
-                ->havingRaw('COUNT(thread_id)='.count($recipients));
-        })->first();
+                    $query->whereIn('user_id', $recipients)
+                            ->groupBy('thread_id')
+                            ->havingRaw('COUNT(thread_id)=' . count($recipients));
+                })->first();
 
 
         if (!$thread) {
             $thread = Thread::create(
-                [
-                    'subject' => isset($input['subject']) ? $input['subject'] : '',
-                ]
+                            [
+                                'subject' => isset($input['subject']) ? $input['subject'] : '',
+                            ]
             );
 
-              // Sender
+            // Sender
             Participant::create(
-                [
-                    'thread_id' => $thread->id,
-                    'user_id'   => Auth::user()->id,
-                    'last_read' => new Carbon(),
-                ]
+                    [
+                        'thread_id' => $thread->id,
+                        'user_id' => Auth::user()->id,
+                        'last_read' => new Carbon(),
+                    ]
             );
 
             // Recipients
@@ -159,9 +157,9 @@ class MessageController extends Controller
         }
 
         $message = new Message([
-                'user_id'   => Auth::user()->id,
-                'body'      => $input['message'],
-            ]);
+            'user_id' => Auth::user()->id,
+            'body' => $input['message'],
+        ]);
 
         $thread->messages()->save($message);
 
@@ -200,11 +198,11 @@ class MessageController extends Controller
 
         // Message
         $message = Message::create(
-            [
-                'thread_id' => $thread->id,
-                'user_id'   => Auth::id(),
-                'body'      => Input::get('message'),
-            ]
+                        [
+                            'thread_id' => $thread->id,
+                            'user_id' => Auth::id(),
+                            'body' => Input::get('message'),
+                        ]
         );
 
         $message->user = $message->user;
@@ -223,10 +221,10 @@ class MessageController extends Controller
 
         // Add replier as a participant
         $participant = Participant::firstOrCreate(
-            [
-                'thread_id' => $thread->id,
-                'user_id'   => Auth::user()->id,
-            ]
+                        [
+                            'thread_id' => $thread->id,
+                            'user_id' => Auth::user()->id,
+                        ]
         );
         $participant->last_read = new Carbon();
         $participant->save();
@@ -247,8 +245,8 @@ class MessageController extends Controller
     {
         $currentUserId = Auth::user()->id;
 
-            // All threads that user is participating in
-            $threads = Thread::forUser($currentUserId)->latest('updated_at')->paginate(30);
+        // All threads that user is participating in
+        $threads = Thread::forUser($currentUserId)->latest('updated_at')->paginate(30);
 
         foreach ($threads as $key => $thread) {
             $thread->unread = $thread->isUnread($currentUserId);
@@ -264,8 +262,8 @@ class MessageController extends Controller
                 }
             }
         }
-            // dd($threads);
-            return response()->json(['status' => '200', 'data' => $threads]);
+        // dd($threads);
+        return response()->json(['status' => '200', 'data' => $threads]);
     }
 
     public function getMessage($id)
@@ -287,6 +285,16 @@ class MessageController extends Controller
         return response()->json(['status' => '200', 'data' => $thread]);
     }
 
+    public function deleteThread($id)
+    {
+        $thread = Thread::findOrFail($id);
+        $thread->messages()->delete();
+        $thread->participants()->delete();
+        $thread->delete();
+
+        return response()->json(['status' => '200', 'data' => 'Thread Deleted']);
+    }
+
     public function getUnreadMessages()
     {
         return response()->json(['status' => '200', 'unread_conversations' => Auth::user()->newThreadsCount()]);
@@ -298,27 +306,27 @@ class MessageController extends Controller
         $recipients[1] = (string) Auth::id();
 
         $thread = Thread::whereHas('participants', function ($query) use ($recipients) {
-            $query->whereIn('user_id', $recipients)
-                ->groupBy('thread_id')
-                ->havingRaw('COUNT(thread_id)='.count($recipients));
-        })->first();
+                    $query->whereIn('user_id', $recipients)
+                            ->groupBy('thread_id')
+                            ->havingRaw('COUNT(thread_id)=' . count($recipients));
+                })->first();
 
         $messages = [];
 
         if (!$thread) {
             $thread = Thread::create(
-                [
-                    'subject' => isset($input['subject']) ? $input['subject'] : '',
-                ]
+                            [
+                                'subject' => isset($input['subject']) ? $input['subject'] : '',
+                            ]
             );
 
-              // Sender
+            // Sender
             Participant::create(
-                [
-                    'thread_id' => $thread->id,
-                    'user_id'   => Auth::user()->id,
-                    'last_read' => new Carbon(),
-                ]
+                    [
+                        'thread_id' => $thread->id,
+                        'user_id' => Auth::user()->id,
+                        'last_read' => new Carbon(),
+                    ]
             );
 
             // Recipients
@@ -329,7 +337,6 @@ class MessageController extends Controller
         //         'user_id'   => Auth::user()->id,
         //         'body'      => "you are now chatting with ",
         // ]);
-
         // $thread->messages()->save($message);
 
         $thread = Thread::findOrFail($thread->id);
@@ -352,4 +359,5 @@ class MessageController extends Controller
 
         return response()->json(['status' => '200', 'data' => $thread]);
     }
+
 }
