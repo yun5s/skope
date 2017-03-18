@@ -287,13 +287,26 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
      *
      * @param $id
      * @param $relation
-     * @param array $attributes
-     * @return $this
+     * @param $attributes
+     * @param bool $detaching
+     * @return mixed
      */
-    public function sync($relation, $attributes)
+    public function sync($id, $relation, $attributes, $detaching = true)
     {
-        $this->model = $this->model->with($relation)->getRelation($relation)->sync($attributes);
-        return $this;
+        return $this->find($id)->{$relation}()->sync($attributes, $detaching);
+    }
+
+    /**
+     * SyncWithoutDetaching
+     *
+     * @param $id
+     * @param $relation
+     * @param $attributes
+     * @return mixed
+     */
+    public function syncWithoutDetaching($id, $relation, $attributes)
+    {
+        return $this->sync($id, $relation, $attributes, false);
     }
 
     /**
@@ -444,6 +457,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     public function findWhereIn($field, array $values, $columns = ['*'])
     {
         $this->applyCriteria();
+        $this->applyScope();
         $model = $this->model->whereIn($field, $values)->get($columns);
         $this->resetModel();
 
@@ -462,6 +476,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     public function findWhereNotIn($field, array $values, $columns = ['*'])
     {
         $this->applyCriteria();
+        $this->applyScope();
         $model = $this->model->whereNotIn($field, $values)->get($columns);
         $this->resetModel();
 
@@ -650,6 +665,18 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     }
 
     /**
+     * Add subselect queries to count the relations.
+     *
+     * @param  mixed $relations
+     * @return $this
+     */
+    public function withCount($relations)
+    {
+        $this->model = $this->model->withCount($relations);
+        return $this;
+    }
+
+    /**
      * Load relation with closure
      *
      * @param string $relation
@@ -657,7 +684,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
      *
      * @return $this
      */
-    function whereHas($relation, $closure)
+    public function whereHas($relation, $closure)
     {
         $this->model = $this->model->whereHas($relation, $closure);
 

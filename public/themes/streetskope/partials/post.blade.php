@@ -1,10 +1,11 @@
 @if(isset($post->shared_post_id))
     <?php
     $sharedOwner = $post;
-    $post = App\Post::where('id', $post->shared_post_id)->firstOrFail();
-    ?>
+    $post = App\Post::where('id', $post->shared_post_id)->first();
+//var_dump($post);    
+?>
 @endif
-
+@if ($post !=null)
 <div class="panel panel-default panel-post animated" id="post{{ $post->id }}">
     <div class="panel-heading no-bg">
         <div class="post-author">
@@ -350,3 +351,4 @@
 
 
 </script>
+@endif

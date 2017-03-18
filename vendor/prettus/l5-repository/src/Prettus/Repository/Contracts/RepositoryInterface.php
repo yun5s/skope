@@ -33,10 +33,21 @@ interface RepositoryInterface
      *
      * @param $id
      * @param $relation
-     * @param array $attributes
-     * @return $this
+     * @param $attributes
+     * @param bool $detaching
+     * @return mixed
      */
-    public function sync($relation, $attributes);
+    public function sync($id, $relation, $attributes, $detaching = true);
+
+    /**
+     * SyncWithoutDetaching
+     *
+     * @param $id
+     * @param $relation
+     * @param $attributes
+     * @return mixed
+     */
+     public function syncWithoutDetaching($id, $relation, $attributes);
 
     /**
      * Retrieve all data of repository
@@ -178,6 +189,24 @@ interface RepositoryInterface
      * @return $this
      */
     public function with($relations);
+    
+    /**
+     * Load relation with closure
+     *
+     * @param string $relation
+     * @param closure $closure
+     *
+     * @return $this
+     */
+    public function whereHas($relation, $closure);
+    
+    /**
+     * Add subselect queries to count the relations.
+     *
+     * @param  mixed $relations
+     * @return $this
+     */
+    public function withCount($relations);
 
     /**
      * Set hidden fields
