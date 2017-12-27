@@ -1,4 +1,4 @@
-<!-- main-section -->
+<!-- main-section11 -->
 <!-- <div class="main-content"> -->
 <div class="container">
 	<div class="row">
@@ -92,19 +92,21 @@
 							<hr>
 
 							<div class="row">
-								<div class="col-md-6">
-									<fieldset class="form-group">
-										{{ Form::label('age', trans('common.age')) }}
-										{{ Form::number('age', Auth::user()->age, ['class' => 'form-control', 'placeholder' => trans('common.age')]) }}
-									</fieldset>
-								</div>
+
 								<div class="col-md-6">
 									<fieldset class="form-group">
 										{{ Form::label('location', trans('common.location')) }}
 										{{ Form::text('location', Auth::user()->designation, ['class' => 'form-control', 'placeholder' => trans('common.location')]) }}
 									</fieldset>
 								</div>
+								<div class="col-md-6">
+								<fieldset class="form-group">
+										{{ Form::label('my_network', trans('common.my_network')) }}
+										{{ Form::text('my_network', Auth::user()->my_network, ['class' => 'form-control', 'placeholder' => trans('common.my_network')]) }}
+								</fieldset>
+								</div>
 							</div>
+
 							<div class="row">
 								<div class="col-md-6">
 									<fieldset class="form-group">
@@ -119,25 +121,12 @@
 									</fieldset>
 								</div>
 							</div>
+
 							<div class="row">
 								<div class="col-md-6">
 									<fieldset class="form-group">
 										{{ Form::label('role_model', trans('common.role_model')) }}
 										{{ Form::text('role_model', Auth::user()->role_model, ['class' => 'form-control', 'placeholder' => trans('common.role_model')]) }}
-									</fieldset>
-								</div>
-								<div class="col-md-6">
-									<fieldset class="form-group">
-										{{ Form::label('my_network', trans('common.my_network')) }}
-										{{ Form::text('my_network', Auth::user()->my_network, ['class' => 'form-control', 'placeholder' => trans('common.my_network')]) }}
-									</fieldset>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<fieldset class="form-group">
-										{{ Form::label('add_to_work', trans('common.add_to_work')) }}
-										{{ Form::text('add_to_work', Auth::user()->add_to_network, ['class' => 'form-control', 'placeholder' => trans('common.add_to_work')]) }}
 									</fieldset>
 								</div>
 								<div class="col-md-6">
@@ -267,29 +256,6 @@
 										<div class="input-group facebook-input-group twitter-input-group">
 											<div class="input-group-addon twitter-btn"><i class="fa fa-twitter"></i></div>
 											{{ Form::text('twitter_link', Auth::user()->twitter_link, array('class' => 'form-control', 'placeholder' => trans('admin.twitter_link'))) }}
-										</div>
-
-									</fieldset>
-								</div>
-								<div class="col-md-6">
-									<fieldset class="form-group">
-										{{ Form::label('instagram_link', trans('admin.instagram_link')) }}
-										<div class="input-group facebook-input-group instagram-input-group">
-											<div class="input-group-addon instagram-btn"><i class="fa fa-instagram"></i></div>
-											{{ Form::text('instagram_link', Auth::user()->instagram_link, array('class' => 'form-control', 'placeholder' => trans('admin.instagram_link'))) }}
-										</div>
-
-									</fieldset>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-6">
-									<fieldset class="form-group">
-										{{ Form::label('dribbble_link', trans('admin.dribbble_link')) }}
-										<div class="input-group facebook-input-group dribbble-input-group">
-											<div class="input-group-addon dribbble-btn"><i class="fa fa-dribbble"></i></div>
-											{{ Form::text('dribbble_link', Auth::user()->dribbble_link, array('class' => 'form-control', 'placeholder' => trans('admin.dribbble_link'))) }}
 										</div>
 
 									</fieldset>

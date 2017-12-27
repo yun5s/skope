@@ -31,7 +31,7 @@
                         {{ Form::label('password', trans('auth.password')) }}
                         {{ Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder'=> trans('auth.password')]) }}
                     </fieldset>
-                    {{ Form::button( trans('auth.signin_to_dashboard') , ['type' => 'submit','class' => 'btn btn-success btn-submit']) }}
+                    {{ Form::button( trans('Sign in to StreetSkope') , ['type' => 'submit','class' => 'btn btn-success btn-submit']) }}
                 </form>
             </div>  
             @if((env('GOOGLE_CLIENT_ID') != NULL && env('GOOGLE_CLIENT_SECRET') != NULL) ||

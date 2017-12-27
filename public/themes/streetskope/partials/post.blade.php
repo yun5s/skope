@@ -164,7 +164,7 @@
             <div class="post-v-holder">
                 @foreach($post->images()->get() as $postImage)
                     @if($postImage->type=='video')
-                        <video width="100%" preload="none" height="auto" poster="{{ url('user/gallery/video/'.$postImage->title) }}.jpg" controls class="video-video-playe">
+                        <video width="100%" preload="yes" height="auto" poster="{{ url('user/gallery/video/'.$postImage->title) }}.jpg" controls class="video-video-playe">
                             <source src="{{ url('user/gallery/video/'.$postImage->source) }}" type="video/mp4">
                             <!-- Captions are optional -->
                         </video>

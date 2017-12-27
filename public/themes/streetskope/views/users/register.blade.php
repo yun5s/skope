@@ -14,37 +14,6 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <fieldset class="form-group{{ $errors->has('affiliate') ? ' has-error' : '' }}">
-                                {{ Form::label('affiliate', trans('auth.affiliate_code')) }}<i class="optional">(optional)</i>
-                                @if(isset($_GET['affiliate']))
-                                    {{ Form::text('affiliate', $_GET['affiliate'], ['class' => 'form-control', 'id' => 'affiliate', 'disabled' =>'disabled']) }}
-                                    {{ Form::hidden('affiliate', $_GET['affiliate']) }}
-                                @else
-                                    {{ Form::text('affiliate', NULL, ['class' => 'form-control', 'id' => 'affiliate', 'placeholder'=> trans('auth.affiliate_code')]) }}
-                                @endif
-
-                                @if ($errors->has('affiliate'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('affiliate') }}</strong>
-                                    </span>
-                                @endif
-                            </fieldset>
-                        </div>
-                        <div class="col-md-6">
-                            <fieldset class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                {{ Form::label('email', trans('auth.email_address')) }} 
-                                {{ Form::text('email', NULL, ['class' => 'form-control', 'id' => 'email', 'placeholder'=> trans('auth.welcome_to')]) }}
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </fieldset>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
                             <fieldset class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 {{ Form::label('name', trans('auth.name')) }} 
                                 {{ Form::text('name', NULL, ['class' => 'form-control', 'id' => 'name', 'placeholder'=> trans('auth.name')]) }}
@@ -59,6 +28,37 @@
                             <fieldset class="form-group">
                                 {{ Form::label('gender', trans('common.gender')) }} 
                                 {{ Form::select('gender', array('female' => 'Female', 'male' => 'Male', 'other' => 'None'), null, ['placeholder' => trans('auth.select_gender'), 'class' => 'form-control']) }}
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <fieldset class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                {{ Form::label('email', trans('auth.email_address')) }} 
+                                {{ Form::text('email', NULL, ['class' => 'form-control', 'id' => 'email', 'placeholder'=> trans('auth.welcome_to')]) }}
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset class="form-group{{ $errors->has('affiliate') ? ' has-error' : '' }}">
+                                {{ Form::label('affiliate', trans('auth.affiliate_code')) }}<i class="optional">(optional)</i>
+                                @if(isset($_GET['affiliate']))
+                                    {{ Form::text('affiliate', $_GET['affiliate'], ['class' => 'form-control', 'id' => 'affiliate', 'disabled' =>'disabled']) }}
+                                    {{ Form::hidden('affiliate', $_GET['affiliate']) }}
+                                @else
+                                    {{ Form::text('affiliate', NULL, ['class' => 'form-control', 'id' => 'affiliate', 'placeholder'=> trans('auth.affiliate_code')]) }}
+                                @endif
+
+                                @if ($errors->has('affiliate'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('affiliate') }}</strong>
+                                    </span>
+                                @endif
                             </fieldset>
                         </div>
                     </div>
