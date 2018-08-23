@@ -22,7 +22,7 @@
 <ul class="ticker">
 <li><span>Lastest Update &raquo;</span> Page</li>
 <li><span>Lastest Update &raquo;</span> Is</li>
-<li><span>Lastest Update &raquo;</span> Under</li>
+<li><span>Lastest Update &raquo;</span> Undering</li>
 <li><span>Lastest Update &raquo;</span> Construction</li>
 
 </ul>
